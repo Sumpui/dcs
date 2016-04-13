@@ -38,7 +38,16 @@
 /*========================================
 =            Stylus functions            =
 ========================================*/
+@font-face {
+  font-family: crimsontext;
+  src: local('Ҧѽ');
+  src: url("./fonts/crimsontext/crimsontext.ttf");
+  src: url("./fonts/crimsontext/crimsontext.woff");
+  font-style: normal;
+  font-weight: 400;
+}
 /*=====  End for Stylus functions  ======*/
+/* Including fonts */
 /*=====================================
 =            Control panel            =
 =====================================*/
@@ -62,8 +71,8 @@
 }
 .plane-title {
   text-align: center;
-  font-family: Arial;
   font-size: 1.5em;
+  font-family: crimsontext, georgia, tahoma;
 }
 .toddler {
   height: 20px;

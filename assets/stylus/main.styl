@@ -50,6 +50,30 @@ clearfix()
 =            Stylus functions            =
 ========================================*/
 
+// Include fonts
+//  @param family - the font and the way where it is situated
+//  @param style - the font style
+//  @param weight - the weight of font
+infont(family, style, weight)
+  @font-face
+    font-family family
+    src local('Ҧѽ')
+    src url('./fonts/' + family + '/' + family + '.ttf')
+    src url('./fonts/' + family + '/' + family + '.woff')
+    font-style style
+    font-weight weight
+
+infont(crimsontext, normal, 400)
+
+// Set font-back
+cbfont(ff1, ff2 = null, ff3 = null)
+  if (ff3)
+    font-family ff1, ff2, ff3
+  else if (ff2)
+    font-family ff1, ff2
+  else if (ff1)
+    font-family ff1
+
 // Clear all styles
 nostyle()
   background none
@@ -101,7 +125,9 @@ alvert(d, p)
 
 /*=====  End for Stylus functions  ======*/
 
-
+/* Including fonts */
+maintext()
+  cbfont(crimsontext, georgia, tahoma)
 
 /*=====================================
 =            Control panel            =
@@ -125,8 +151,9 @@ alvert(d, p)
 
 .plane-title
     text-align center
-    font-family Arial
+    // font-family Arial
     font-size 1.5em
+    maintext()
 
 .toddler
   height 20px
@@ -150,11 +177,7 @@ alvert(d, p)
     transform translateX(0)
     z-index 4
 
-
 /*=====  End for Control panel  ======*/
-
-
-
 
 #footing
   position relative
