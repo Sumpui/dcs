@@ -1,0 +1,123 @@
+*
+  padding 0
+  margin 0
+  box-sizing border-box
+  transition all .3s
+
+// Image wrapper class to hide block over
+.iw
+  overflow hidden
+
+img
+  display block
+  margin 0 auto
+  max-width 100%
+// /* Grid styles */
+// #container
+//   height auto
+//   width 100%
+//   margin 0 auto
+
+/* Clear both function */
+clearfix(h)
+  &::after
+    display block
+    content ''
+    height h
+    clear both
+
+/* Function set grid-styles */
+build-grid(m, h, w, b)
+  /* All attrs started on span will have left floating */
+  [class*="span"]
+    float left
+    display inline
+    margin-right m
+
+  .row
+    margin-bottom b
+    clearfix(0)
+
+  for i in col-count
+    .span-{i}
+      // height h
+      width w+((w + m)*(i - 1))
+
+  for i in col-count
+    .offset-{i}
+      margin-left w+((w + m)*(i - 1))%
+
+/*
+  Grid common parameters
+*/
+
+// Max screen width
+screen = 1920
+
+// Common columns count
+col-count = 1..20
+
+// Rows height (or baseline)
+base = 16px
+
+// Screen width
+con-width = 2560 1920 1600 1440 1280 1080 960 800 640 480 320
+
+pow(x, ext)
+  // starting count from 0 to extent - 1
+  ext = ext - 1
+  // save extent
+  t = x
+  // cycle counting x extent
+  for i in 0..ext
+    if i == 0
+      x = x
+    else
+      x = x * t
+  // x comes back
+  return x
+
+ah = 128
+
+for scr-width, i in con-width
+  @media screen and (max-width: (scr-width)px)
+    // High screen width between 2560px and 1600px
+    if scr-width <= 2560 && scr-width >= 1600
+      col-offset = (pow(2, 5) - 8*i)
+    // screen width between 1280px and 480px including both 
+    else if scr-width <= 1440 && scr-width >= 480
+      col-offset = (pow(2, 4) - (2 * (i - 3)))
+    // less than 320px
+    else
+      col-offset = 4
+    // Width in pixels
+
+    new-width = (scr-width - (scr-width*10/100));
+    col-width = scr-width/ 20 - col-offset
+
+    j = i + 1
+    ah[j] = col-width + col-offset
+
+    // .open-air
+    //   width (col-width)px
+    //   margin (col-offset)px
+
+    // new-height = ah[j]/ah[i] * row-height
+
+    new-height = 160px
+
+    // transform to percents
+    per-col-width = col-width/scr-width*100%
+    per-col-offset = col-offset/scr-width*100%
+
+    /* Grid styles */
+    #container
+      height auto
+      width 90%
+      margin 0 auto
+
+    build-grid(per-col-offset, new-height, per-col-width, base)
+
+
+.some-class
+  padding ah

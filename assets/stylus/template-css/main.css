@@ -1,0 +1,104 @@
+/*==============================
+=            Colors            =
+==============================*/
+/* Toddler */
+/*=====  End of Colors  ======*/
+/*==
+  Additional-control
+==*/
+#container {
+  position: relative;
+}
+#container:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+/*==
+  Workspace blocks
+==*/
+#dynamic-map,
+#static-map,
+#controls,
+#polygon {
+  position: absolute;
+  height: 540px;
+  left: 0;
+}
+#dynamic-map {
+  z-index: 2;
+}
+#static-map {
+  z-index: 1;
+}
+#polygon {
+  display: block;
+  z-index: 1;
+}
+/*========================================
+=            Stylus functions            =
+========================================*/
+/*=====  End for Stylus functions  ======*/
+/*=====================================
+=            Control panel            =
+=====================================*/
+#controls {
+  background: #fff;
+  opacity: 0.4;
+  z-index: 1;
+}
+.fix-map {
+  display: block;
+  height: 54px;
+  background: none;
+  border: none;
+  box-shadow: 1px 5px 50px 2px #000;
+  background: #fff;
+}
+#control-additional {
+  background: #ededed;
+  height: 234px;
+  padding: 18px;
+}
+.plane-title {
+  text-align: center;
+  font-family: Arial;
+  font-size: 1.5em;
+}
+.toddler {
+  height: 20px;
+  position: relative;
+}
+.toddler:after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  top: 50%;
+  margin-top: -1px;
+  border-radius: 18px;
+  background: #dbd7d2;
+}
+.toddler:before {
+  cursor: pointer;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: 50%;
+  margin-top: -10px;
+  display: block;
+  content: '';
+  background: #fff;
+  box-shadow: 0px 0px 5px 0px rgba(47,47,47,0.1);
+  border: 1px solid #dcdcdc;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  transform: translateX(0);
+  z-index: 4;
+}
+/*=====  End for Control panel  ======*/
+#footing {
+  position: relative;
+  height: 540px;
+}

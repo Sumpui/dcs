@@ -1,0 +1,4 @@
+# Пример комментария
+/assets/todo/**/*.todo
+/assets/todo/**/*.task
+/node_modules/**/**

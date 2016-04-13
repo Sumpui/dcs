@@ -1,0 +1,161 @@
+/*==============================
+=            Colors            =
+==============================*/
+
+scale-gray = #ededed
+
+/* Toddler */
+gainsboro = #dcdcdc
+forestwolve = #dbd7d2
+shad = rgba(47, 47, 47, .1)
+/*=====  End of Colors  ======*/
+
+/*==
+  Additional-control
+==*/
+
+
+baseline = 18px
+
+clearfix()
+  &:after
+    display block
+    content ''
+    clear both
+
+#container
+  position relative
+  clearfix()
+
+/*==
+  Workspace blocks
+==*/
+
+#dynamic-map, #static-map, #controls, #polygon
+  position absolute
+  height baseline*30
+  left 0
+
+#dynamic-map
+  z-index 2
+
+#static-map
+  z-index 1
+
+#polygon
+  display block
+  z-index 1
+
+/*========================================
+=            Stylus functions            =
+========================================*/
+
+// Clear all styles
+nostyle()
+  background none
+  border none
+
+// Add shadow to element (inset or not - depends on your choice).
+//  @param type - inset or out
+//  @param x, y - coordinates to add shadow
+//  @param br, sr - blur radius and spread radius
+//  @param rgba - color
+shd(type, x, y, br, sr, rgba)
+  if type
+    box-shadow type x y br sr rgba
+  else
+    box-shadow x y br sr rgba
+
+// Set element dimensions
+size(d)
+  if d[0] && d[1]
+    width d[0]
+    height d[1]
+  else if !d[1]
+    height d[0]
+    width d[0]
+
+// Align vertically elements.
+//  @param d takes an array (20px 30px). Where 20px is width amd 30px is height.
+//  @param p takes position value is necessary to align. First element in array
+alvert(d, p)
+  position absolute
+  size(d)
+  // left: value [or] right: value
+  if p[0]
+    {p[0]} 50%
+    if d[1] && d[0]
+      // margin-left: value [or] margin-right: value
+      margin-{p[0]} -(d[1]/2)
+      // if width is the same as height
+    else
+      margin-{p[0]} -(d[0]/2)
+  // top: value [or] bottom: value
+  if p[1]
+    {p[1]} 50%
+    // margin-top: value [or] margin-right: value
+    if d[1]
+      margin-{p[1]} -(d[1]/2)
+    else
+      margin-{p[1]} -(d[0]/2)
+
+/*=====  End for Stylus functions  ======*/
+
+
+
+/*=====================================
+=            Control panel            =
+=====================================*/
+#controls
+  background white
+  opacity .4
+  z-index 1
+
+.fix-map 
+  display block
+  height baseline*3
+  nostyle()
+  shd(0, 1px, 5px, 50px, 2px, rgba(0, 0, 0, 1))
+  background white
+
+#control-additional
+  background scale-gray
+  height baseline*13
+  padding baseline
+
+.plane-title
+    text-align center
+    font-family Arial
+    font-size 1.5em
+
+.toddler
+  height 20px
+  position relative
+  &:after
+    display block
+    content ''
+    alvert(100% 2px, top)
+    border-radius baseline
+    background forestwolve
+  &:before
+    cursor pointer
+    alvert(20px, top)
+    display block
+    content ''
+    background white
+    shd(0, 0px, 0px, 5px, 0px, shad)
+    border 1px solid gainsboro
+    border-radius 50%
+    transition transform .3s
+    transform translateX(0)
+    z-index 4
+
+
+/*=====  End for Control panel  ======*/
+
+
+
+
+#footing
+  position relative
+  height baseline*30
