@@ -31,29 +31,57 @@
   }(0));
 
   /**
+   *
+   * Features scrolling line
+   *
+   */
+  var segment = defSegment(line);
+
+  /**
    * Track mouse event
    * @param  {[type]} e event
    * @return {boolean}   returns true of false 
    */
   tod.onmousedown = function (e) {
+    /**
+     *
+     * Segments amount on the line
+     *
+     */
+    segment.amount = 15;
+    segment.each = segment.width/segment.amount;
+
+    segment.coords = new Array(14);
+    segment.coords[14] = segment.end;
 
     moveAt(e);
 
-    /**
-     *
-     * Features scrolling line
-     *
-     */
-    line = defSegment(line);
+    for (var i = segment.amount - 2; i > 0; i--) {
+      segment.coords[i] = segment.coords[i + 1] - segment.each;
+    }
 
-    // var startX = tod.;
+    segment.coords = segment.coords.map(function(x){
+      return Math.floor(x);
+    })
 
-    log(coords);
+    log(segment.coords);
+
+    function toPercents (l){
+      return 100/l.amount;
+    }
 
     function moveAt (e) {
+      log(tod.offsetX)
+      tod.style.left = e.clientX - tod.offsetWidth/2 + 'px';
+      // for (var i = segment.coords.amount; i < 0; i++){
+      //   if (e.clientX === segment.coords[i]){
+      //     tod.style.left = toPercents(segment)*i + '%';
+      //   }
+      // }
     }
 
     document.onmousemove = function (e) {
+      moveAt(e);
       s = step();
     }
 
@@ -61,12 +89,10 @@
       document.onmousemove = null;
       tod.onmouseup = null;
     }
+  }
 
-    // function moveAt (e) {
-    //   tod.style.left = e
-    // }
-
-
+  tod.ondragstart = function () {
+    return false;
   }
 
 }());
