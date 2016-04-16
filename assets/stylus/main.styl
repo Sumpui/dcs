@@ -155,27 +155,31 @@ maintext()
     font-size 1.5em
     maintext()
 
-.toddler
-  height 20px
+.toddler-slider
+  height baseline*2
   position relative
-  &:after
-    display block
-    content ''
-    alvert(100% 2px, top)
-    border-radius baseline
-    background forestwolve
-  &:before
-    cursor pointer
-    alvert(20px, top)
-    display block
-    content ''
-    background white
-    shd(0, 0px, 0px, 5px, 0px, shad)
-    border 1px solid gainsboro
-    border-radius 50%
-    transition transform .3s
-    transform translateX(0)
-    z-index 4
+  z-index 0
+
+.toddler-line
+  display block
+  alvert(100% 2px, top)
+  border-radius baseline
+  background forestwolve
+  z-index 1
+
+.toddler
+  cursor pointer
+  alvert(20px, top)
+  display block
+  content ''
+  background white
+  shd(0, 0px, 0px, 5px, 0px, shad)
+  // border 1px solid gainsboro
+  border 1px solid black
+  border-radius 50%
+  transition transform .3s
+  transform translateX(0)
+  z-index 5000
 
 /*=====  End for Control panel  ======*/
 

@@ -56,5 +56,3 @@ function css(o, p){
     css(container, {marginTop: m + 'px'});
   }
 }());
-
-log(screen.availWidth);
