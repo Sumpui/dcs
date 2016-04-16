@@ -71,13 +71,8 @@
     }
 
     function moveAt (e) {
-      log(tod.offsetX)
-      tod.style.left = e.clientX - tod.offsetWidth/2 + 'px';
-      // for (var i = segment.coords.amount; i < 0; i++){
-      //   if (e.clientX === segment.coords[i]){
-      //     tod.style.left = toPercents(segment)*i + '%';
-      //   }
-      // }
+      log(e.clientX - segment.start)
+      tod.style.left = e.clientX - segment.start + 'px';
     }
 
     document.onmousemove = function (e) {
