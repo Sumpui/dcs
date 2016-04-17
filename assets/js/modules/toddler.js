@@ -1,5 +1,10 @@
 (function () {
 
+  /**
+   *
+   * Define main toddle-slider elements
+   *
+   */
   var tod = get('.toddler')[0],
      line = get('.toddler-line')[0],
    slider = get('.amount-slider')[0],
@@ -16,6 +21,11 @@
     return {start: coords.left, end: coords.right, width: coords.right - coords.left};
   }
 
+  /**
+   * Change text in the element
+   * @param  {string} t new string to change the old one
+   * @return {object}   returns an object
+   */
   function replaceTxt (t) {
     /**
      *
@@ -45,6 +55,21 @@
   Object.prototype.replaceText = replaceTxt;
 
   /**
+   * A shortcut to get text in the element
+   * @return {string} return string value of the element
+   */
+  function getTxt() {
+    var mes = 'Apply this method to object.'
+    if (typeof this !== 'object') throw new TypeError(mes);
+    return this.childNodes[0].nodeValue;
+  }
+
+  /**
+   * Set new method to the property of Object.prototype
+   */
+  Object.prototype.getText = getTxt;
+
+  /**
    * Toddler counter
    * @param  {number} i number start counting with
    * @return {function}   returns function with increment or dicrement
@@ -60,7 +85,35 @@
     }
   }(0));
 
+/**
+ * Counting break points of scale
+ * @param  {number} len amount of points on the scale
+ * @return {object}     returns coordinates of each break point
+ */
+  function breakPoints (len) {
 
+    /**
+     *
+     * Segments amount on the line
+     *
+     */
+    segment.each = segment.width/len;
+    segment.coords = new Array(len);
+    segment.coords[len] = segment.end;
+
+    /**
+     *
+     * Filling range of values
+     *
+     */
+    for (var i = len - 1; i >= 0; i--) {
+      segment.coords[i] = segment.coords[i + 1] - segment.each;
+    }
+
+    delete segment.coords[segment.coords.length - 1];
+
+    return segment.coords;
+  }
 
   /**
    *
@@ -70,57 +123,82 @@
   var segment = defSegment(line), todPlace = defSegment(tod);
 
   /**
+   *
+   * Call this function on each window resize
+   *
+   */
+  window.onresize = function () {
+
+    /**
+     *
+     * Re-count slider line coordinates
+     *
+     */
+    segment = defSegment(line);
+
+    /**
+     *
+     * Re-count break points coordinates, get amount value and find value of break point
+     *
+     */
+    var points = breakPoints(15), index = parseInt(amount.getText());
+
+    /**
+     *
+     * Set correctly toddle left positioning
+     *
+     */
+    tod.style.left = points[index - 1] - segment.start + 'px';
+  }
+
+  /**
    * Track mouse event
    * @param  {[type]} e event
-   * @return {boolean}   returns true of false 
+   * @return {boolean}   returns true of false
    */
   tod.onmousedown = function (e) {
 
-    /**
-     *
-     * Features scrolling line
-     *
-     */
-    var segment = defSegment(line);
-
-    /**
-     *
-     * Segments amount on the line
-     *
-     */
-    segment.amount = 15;
-    segment.each = segment.width/segment.amount;
-
-    segment.coords = new Array(14);
-    segment.coords[14] = segment.end;
-
-    for (var i = segment.amount - 2; i > 0; i--) {
-      segment.coords[i] = segment.coords[i + 1] - segment.each;
-    }
-
-    segment.coords = segment.coords.map(function(x){
-      return Math.floor(x) + 0.8125;
-    });
-
-    var s = step();
-
     moveAt(e);
 
+    /**
+     * Make possible to move our toddle
+     * @param  {object} e our event - moving cursor
+     * @return {undefined}   Returns nothing
+     */
     function moveAt (e) {
-      var newPlace = defSegment(tod);
-
+      /**
+       *
+       * Make range of values which we can't come above
+       *
+       */
       if(e.clientX >= segment.start && e.clientX <= segment.end){
-        tod.style.left = e.clientX - todPlace.start - tod.offsetWidth / 2 + 'px';
+        tod.style.left = e.clientX - segment.start - tod.offsetWidth / 2 + 'px';
       }
+    }
 
-      amount.replaceText(s.toString());
+    function atCheckPoint (e){
+      /**
+       *
+       * Current toddle placement
+       *
+       */
+      var point = defSegment(tod), bPoints = breakPoints(15);
 
-      if (newPlace.start === segment.coords[1]) {
-      }
+      /**
+       *
+       * Search current range of values to change
+       *
+       */
+      bPoints.forEach(function(x, i, a){
+        if (point.start <= x && point.start >= x - 10){
+          amount.replaceText((i + 1).toString());
+        }
+      })
     }
 
     document.onmousemove = function (e) {
       moveAt(e);
+      atCheckPoint(e);
     }
 
     document.onmouseup = function () {

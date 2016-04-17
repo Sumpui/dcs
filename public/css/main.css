@@ -1575,7 +1575,8 @@ img {
 /*==============================
 =            Colors            =
 ==============================*/
-/* Toddler */
+/* Toddler colors */
+/* Toddler text colors */
 /*=====  End of Colors  ======*/
 /*==
   Additional-control
@@ -1644,12 +1645,18 @@ img {
   padding: 18px;
 }
 .plane-title {
+  font-size: 1.2em;
   text-align: center;
-  font-size: 1.5em;
+  text-decoration: ;
+  line-height: ;
+  color: #6c6874;
   font-family: crimsontext, georgia, tahoma;
 }
+.amount-slider {
+  position: relative;
+}
 .toddler-slider {
-  cursor: pointer;
+  cursor: default;
   height: 36px;
   position: relative;
   z-index: 0;
@@ -1676,11 +1683,24 @@ img {
   content: '';
   background: #fff;
   box-shadow: 0px 0px 5px 0px rgba(47,47,47,0.1);
-  border: 1px solid #000;
+  border: 1px solid #dcdcdc;
   border-radius: 50%;
   transition: transform 0.3s;
   transform: translateX(0);
   z-index: 5000;
+}
+.amount {
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  top: 50%;
+  margin-top: -18px;
+  font-size: 1em;
+  text-align: center;
+  text-decoration: italic;
+  line-height: 30.599999999999998px;
+  color: #dbd7d2;
+  color: #6c6874;
 }
 /*=====  End for Control panel  ======*/
 #footing {

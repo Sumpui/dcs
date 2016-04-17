@@ -4,10 +4,16 @@
 
 scale-gray = #ededed
 
-/* Toddler */
+/* Toddler colors */
 gainsboro = #dcdcdc
-forestwolve = #dbd7d2
+forest-wolve = #dbd7d2
 shad = rgba(47, 47, 47, .1)
+
+/* Toddler text colors */
+light-telegram = #d0d0d0
+telegram = #5b5b5b
+blackberry-pearl = #6c6874
+
 /*=====  End of Colors  ======*/
 
 /*==
@@ -74,13 +80,24 @@ cbfont(ff1, ff2 = null, ff3 = null)
   else if (ff1)
     font-family ff1
 
+// Set up font styles
+//  @param al - text aliging (left, center, right)
+//  @param size - font size (in em)
+//  @param dec - text decoration (bold, italic, underline)
+//  @param ln - line height
+font-style(al, size = null, dec = null, ln = null)
+  font-size size
+  text-align al
+  text-decoration dec
+  line-height ln
+
 // Clear all styles
 nostyle()
   background none
   border none
 
 // Add shadow to element (inset or not - depends on your choice).
-//  @param type - inset or out
+//  @param type - inset or out (set 0 if out)
 //  @param x, y - coordinates to add shadow
 //  @param br, sr - blur radius and spread radius
 //  @param rgba - color
@@ -150,13 +167,15 @@ maintext()
   padding baseline
 
 .plane-title
-    text-align center
-    // font-family Arial
-    font-size 1.5em
-    maintext()
+  font-style(center, 1.2em)
+  color blackberry-pearl
+  maintext()
+
+.amount-slider
+  position relative
 
 .toddler-slider
-  cursor pointer
+  cursor default
   height baseline*2
   position relative
   z-index 0
@@ -165,7 +184,7 @@ maintext()
   display block
   alvert(100% 2px, top)
   border-radius baseline
-  background forestwolve
+  background forest-wolve
   z-index 1
 
 .toddler
@@ -175,13 +194,17 @@ maintext()
   content ''
   background white
   shd(0, 0px, 0px, 5px, 0px, shad)
-  // border 1px solid gainsboro
-  border 1px solid black
+  border 1px solid gainsboro
   border-radius 50%
   transition transform .3s
   transform translateX(0)
   z-index 5000
 
+.amount
+  alvert(baseline*2, top)
+  font-style(center, 1em, italic, baseline*1.7)
+  color forest-wolve
+  color blackberry-pearl
 /*=====  End for Control panel  ======*/
 
 #footing
