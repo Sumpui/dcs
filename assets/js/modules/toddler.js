@@ -2,7 +2,8 @@
 
   var tod = get('.toddler')[0],
      line = get('.toddler-line')[0],
-   slider = get('.amount-slider')[0];
+   slider = get('.amount-slider')[0],
+   amount = get('.amount')[0];
 
   /**
    * Define begin and end coordinates of the scroll line
@@ -30,9 +31,9 @@
      *
      */
     mes = 'It is not an object'
-    if (typeof t !== 'object') throw new TypeError(mes);
+    if (typeof t !== 'string') throw new TypeError(mes);
 
-    this.removeChild();
+    this.removeChild(this.childNodes[0]);
     this.appendChild(document.createTextNode(t));
 
     return this;
@@ -101,6 +102,8 @@
       return Math.floor(x) + 0.8125;
     });
 
+    var s = step();
+
     moveAt(e);
 
     function moveAt (e) {
@@ -110,8 +113,9 @@
         tod.style.left = e.clientX - todPlace.start - tod.offsetWidth / 2 + 'px';
       }
 
-      if (newPlace.start === segment.coords) {
+      amount.replaceText(s.toString());
 
+      if (newPlace.start === segment.coords[1]) {
       }
     }
 

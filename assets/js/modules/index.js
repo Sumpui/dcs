@@ -27,8 +27,8 @@ function get(o){
  * @param  {any} el Could be any type
  * @return {undefined}    Doesn't return anything
  */
-function log(el){
-  console.log(el);
+function log(){
+  console.log(arguments);
 }
 
 /**
