@@ -1,3 +1,62 @@
+/**
+ * Get DOM-elements by className or by ID
+ * @param  {string} o Class or ID. For example: '.someclass' or '#someid'
+ * @return {object}   Returns DOM object
+ */
+function get(o){
+  if (!o) throw new TypeError();
+
+  // Identifier
+  var attr;
+  typeof o === 'object' ? attr = o: attr = o.slice(0, 1);
+
+  // Check if it was given a class name
+  if (attr === '.'){
+    return document.getElementsByClassName(o.slice(1, o.length));
+  // Check if it was given an id
+  }else if (attr === '#'){
+    return document.getElementById(o.slice(1, o.length));
+  // Check if it was given an object
+  }else if (typeof attr === 'object'){
+    return o;
+  }
+}
+
+/**
+ * Shortest console.log
+ * @param  {any} el Could be any type
+ * @return {undefined}    Doesn't return anything
+ */
+function log(el){
+  console.log(el);
+}
+
+/**
+ * Set css to DOM objects
+ * @param  {object} o DOM element
+ * @param  {ojbect} p Object with css properties
+ * @return {object}   Returns DOM element
+ */
+function css(o, p){
+  if (!o && !p) throw new TypeError();
+  for (var i in p){
+    o.style[i] = p[i];
+  }
+  return o;
+}
+
+/**
+ * Vertical container aligning
+ * @return {undefined} Doesn't return anything
+ */
+(function() {
+  var container = get('#container'), cHeight = container.clientHeight;
+  if (screen.availHeight) {
+    var m = (screen.availHeight - cHeight)/6;
+    css(container, {marginTop: m + 'px'});
+  }
+}());
+
 (function () {
 
   var tod = get('.toddler')[0],
@@ -104,15 +163,11 @@
     moveAt(e);
 
     function moveAt (e) {
-      var newPlace = defSegment(tod);
-
       if(e.clientX >= segment.start && e.clientX <= segment.end){
         tod.style.left = e.clientX - todPlace.start - tod.offsetWidth / 2 + 'px';
       }
 
-      if (newPlace.start === segment.coords) {
-
-      }
+      if ()
     }
 
     document.onmousemove = function (e) {
@@ -129,4 +184,22 @@
     return false;
   }
 
+}());
+(function (){
+  var myMap;
+
+  // Дождёмся загрузки API и готовности DOM.
+  ymaps.ready(init);
+
+  function init () {
+      // Создание экземпляра карты и его привязка к контейнеру с
+      // заданным id ("map").
+      myMap = new ymaps.Map('dynamic-map', {
+          // При инициализации карты обязательно нужно указать
+          // её центр и коэффициент масштабирования.
+          center: [55.76, 37.64], // Москва
+          zoom: 10,
+          controls: []
+      });
+  }
 }());

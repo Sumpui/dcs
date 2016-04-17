@@ -1649,6 +1649,7 @@ img {
   font-family: crimsontext, georgia, tahoma;
 }
 .toddler-slider {
+  cursor: pointer;
   height: 36px;
   position: relative;
   z-index: 0;
