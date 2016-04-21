@@ -1,0 +1,9 @@
+- var titles = ['dotes', 'area', 'trajectory'], text = ['Точечные цели', 'Площадные цели', 'Траекторные цели']
+section.span-8.targets
+  each val, i in titles
+    if i == 2
+      article(class=titles[i]+'-targets span-6')
+        header(class=titles[i]+ 'titles')=val
+    else
+      article(class=titles[i]+'-targets span-6 offset-1')
+        header(class=titles[i]+ 'titles')=val
