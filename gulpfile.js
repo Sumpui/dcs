@@ -16,14 +16,14 @@ gulp.task('connect', function(){
 
 gulp.task('jade', function(){
   return gulp.src('./assets/jade/*.jade')
-      .pipe(jade())
+      .pipe(jade({pretty: false}))
       .pipe(gulp.dest('public'))
       .pipe(connect.reload());
 });
 
 gulp.task('stylus', function(){
   return gulp.src('./assets/stylus/*.styl')
-      .pipe(stylus({compress: false}))
+      .pipe(stylus({compress: true}))
       .pipe(gulp.dest('assets/stylus/template-css/'));
 });
 

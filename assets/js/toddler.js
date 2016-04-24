@@ -127,29 +127,29 @@
    * Call this function on each window resize
    *
    */
-  window.onresize = function () {
+  // window.onresize = function () {
 
-    /**
-     *
-     * Re-count slider line coordinates
-     *
-     */
-    segment = defSegment(line);
+  //   /**
+  //    *
+  //    * Re-count slider line coordinates
+  //    *
+  //    */
+  //   segment = defSegment(line);
 
-    /**
-     *
-     * Re-count break points coordinates, get amount value and find value of break point
-     *
-     */
-    var points = breakPoints(15), index = parseInt(amount.getText());
+  //   *
+  //    *
+  //    * Re-count break points coordinates, get amount value and find value of break point
+  //    *
+     
+  //   var points = breakPoints(15), index = parseInt(amount.getText());
 
-    /**
-     *
-     * Set correctly toddle left positioning
-     *
-     */
-    tod.style.left = points[index - 1] - segment.start + 'px';
-  }
+  //   /**
+  //    *
+  //    * Set correctly toddle left positioning
+  //    *
+  //    */
+  //   tod.style.left = points[index - 1] - segment.start + 'px';
+  // }
 
   /**
    * Track mouse event

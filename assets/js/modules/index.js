@@ -46,6 +46,72 @@ function css(o, p){
 }
 
 /**
+ * Check element type
+ * @param  {Object}  a Element to check
+ * @return {Boolean}   Return true or false
+ */
+function isArray (a) {
+  if ( a &&
+       a.length &&
+       a.length >= 0 &&
+       isFinite(a.length) &&
+       a.length <= Math.pow(2, 32) ){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+Object.defineProperties(Object.prototype, {
+/**
+ * Change text in the element
+ * @param  {string} t new string to change the old one
+ * @return {object}   returns an object
+ */
+  replaceText:{
+    value: function (t) {
+      /**
+       *
+       * Check incoming parameter on its existing
+       *
+       */
+      var mes = 'There are no any text.'
+      if (!t) throw new TypeError(mes);
+
+      /**
+       *
+       * Check incoming parameter on its type
+       *
+       */
+      mes = 'It is not an object'
+      if (typeof t !== 'string') throw new TypeError(mes);
+
+      this.removeChild(this.childNodes[0]);
+      this.appendChild(document.createTextNode(t));
+
+      return this;
+    },
+    writable: true,
+    enumerable: false,
+    configurable: true
+  },
+/**
+ * A shortcut to get text in the element
+ * @return {string} return string value of the element
+ */
+  getText: {
+    value: function () {
+      var mes = 'Apply this method to object.'
+      if (typeof this !== 'object') throw new TypeError(mes);
+      return this.childNodes[0].nodeValue;
+    },
+    writable: true,
+    enumerable: false,
+    configurable: true
+  }
+});
+
+/**
  * Vertical container aligning
  * @return {undefined} Doesn't return anything
  */
