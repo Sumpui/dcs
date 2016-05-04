@@ -6,20 +6,19 @@ scale-gray = #ededed
 
 /* Toddler colors */
 gainsboro = #dcdcdc
-forest-wolve = #dbd7d2
+forest-wolve = #dbd7d2 rgba(219,215,210, 0.5)
 shad = rgba(47, 47, 47, .1)
 
 /* Toddler text colors */
 light-telegram = #d0d0d0
 telegram = #5b5b5b
-blackberry-pearl = #6c6874
+blackberry-pearl = #6c6874 rgba(108,104,116, 0.5)
 
 /*=====  End of Colors  ======*/
 
-/*==
-  Additional-control
-==*/
-
+/*==========================================
+=            Additional-control            =
+==========================================*/
 
 baseline = 18px
 
@@ -33,9 +32,11 @@ clearfix()
   position relative
   clearfix()
 
-/*==
-  Workspace blocks
-==*/
+/*=====  End of Additional-control  ======*/
+
+/*========================================
+=            Workspace blocks            =
+========================================*/
 
 #dynamic-map, #static-map, #controls, #polygon
   position absolute
@@ -51,6 +52,9 @@ clearfix()
 #polygon
   display block
   z-index 1
+
+
+/*=====  End of Workspace blocks  ======*/
 
 /*========================================
 =            Stylus functions            =
@@ -146,6 +150,7 @@ alvert(d, p)
 maintext()
   cbfont(crimsontext, georgia, tahoma)
 
+
 /*=====================================
 =            Control panel            =
 =====================================*/
@@ -163,12 +168,31 @@ maintext()
 
 #control-additional
   background scale-gray
-  height baseline*13
+  // height baseline*14
   padding baseline
 
+/*----------  Planes and targets articles  ----------*/
+.targets, .planes
+  padding baseline 0 baseline 0
+
+/*----------  Planes and targets sections  ----------*/
+// #planes, #targets
+//   border 1px solid forest-wolve[1]
+
+/*----------  Sections main titles  ----------*/
+.main-titles
+  h1
+    font-style(center, 1.3em, normal, 1.3em)
+    margin 5px 0 0px 0 // Mat.round(baseline/4);
+    padding 3px // baseline/6
+    border-bottom 1px solid forest-wolve[0]
+    color blackberry-pearl[0]
+    maintext()
+
 .plane-title, .targets-title
-  font-style(center, .9em, italic, 1.2em)
-  color blackberry-pearl
+  font-style(center, .8em, normal, 1.2em)
+  cursor pointer
+  color blackberry-pearl[0]
   maintext()
 
 .amount-slider
@@ -184,7 +208,7 @@ maintext()
   display block
   alvert(100% 2px, top)
   border-radius baseline
-  background forest-wolve
+  background forest-wolve[0]
   z-index 1
 
 .toddler
@@ -198,13 +222,38 @@ maintext()
   border-radius 50%
   transition transform .3s
   transform translateX(0)
-  z-index 5000
+  z-index 5
 
 .amount
   alvert(baseline*2, top)
   font-style(center, 1em, italic, baseline*1.7)
-  color forest-wolve
-  color blackberry-pearl
+  color blackberry-pearl[0]
+  line-height baseline*2
+
+.targets-amount, .planes-amount
+  alvert(baseline*2, top left)
+  top 78%
+  cursor pointer
+  font-style(center, 1em, italic, baseline*1.7)
+  color blackberry-pearl[0]
+  line-height baseline*2
+  border-radius 50%
+  border baseline/6 solid blackberry-pearl[0]
+
+/*====================================
+=            Icons styles            =
+====================================*/
+
+svg
+  display block
+
+.takeoff
+  size(3em)
+
+.targets-icons, .svg-blocks
+  height baseline*7
+
+/*=====  End of Icons styles  ======*/
 
 
 /*=====  End for Control panel  ======*/

@@ -1,7 +1,13 @@
-section.span-8#plane-amount
-  .amount-slider.span-16.offset-2
-    .toddler-slider.planes-slider.span-16.offset-2
-      .toddler.planes-toddle.span-20
-      .toddler-line.planes-toddler-line.span-20
-    .amount.planes-amount.span-2 1
-  header.plane-title.span-16.offset-2 Количество беспилотников
+include mixins.jade
+section(class="span-8 offset-2" id="planes" onselectstart="return false;")
+  header(class="planes-main-title main-titles span-16 offset-2")
+    h1 Беспилотники
+  article(class="span-20 planes")
+    .icons#takeoff
+    .amount-slider.span-16.offset-2
+      +icon('targets', 'planes')
+      .toddler-slider.planes-slider.span-16.offset-2
+        .toddler.planes-toddle.span-20
+        .toddler-line.planes-toddler-line.span-20
+      .amount.planes-amount.span-2 1
+    header.plane-title.span-16.offset-2 Количество беспилотников

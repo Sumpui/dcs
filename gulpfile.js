@@ -4,7 +4,10 @@ var gulp = require('gulp'),
     stylus = require('gulp-stylus'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    connect = require('gulp-connect');
+    connect = require('gulp-connect'),
+    svgSprite = require('gulp-svg-sprites'),
+    svgmin = require('gulp-svgmin'),
+    svg2png = require('gulp-svg2png');
 
 gulp.task('connect', function(){
   connect.server({
@@ -50,12 +53,23 @@ gulp.task('compress', ['concat'], function(){
 gulp.task('clean', ['concat', 'compress'], function(){
   return gulp.src('assets/js/template', {read: false})
             .pipe(clean());
-})
+});
+
+gulp.task('svg-sprites', function(){
+  return gulp.src('assets/graphics/icons/svg/*.svg')
+            .pipe(svgmin())
+            .pipe(svgSprite({
+              preview: false,
+              mode: 'symbols'
+            }))
+            .pipe(gulp.dest('assets/jade/icons/sprite'))
+});
 
 gulp.task('watch', function(){
   gulp.watch('./assets/jade/*.jade', ['jade']);
   gulp.watch('./assets/stylus/*.styl', ['concat-css']);
-  gulp.watch('./assets/js/modules/*.js', ['clean']);
+  gulp.watch('./assets/js/modules/*.js', ['clean']),
+  gulp.watch('./assets/graphics/icons/svg/*.svg', ['svg-sprites']);
 })
 
-gulp.task('default', ['connect', 'stylus', 'concat-css', 'jade', 'concat', 'compress', 'clean', 'watch']);
+gulp.task('default', ['connect', 'stylus', 'concat-css', 'jade', 'concat', 'compress', 'clean','svg-sprites', 'watch']);

@@ -74,6 +74,8 @@
 
         var line = self.dom.line.segments;
 
+        self.dom.tongle.style.cursor = 'pointer';
+
         if (e.clientX >= line.start && e.clientX <= line.end){
           self.dom.tongle.style.left = e.clientX - line.start - self.dom.tongle.offsetWidth / 2 + 'px';
         }
@@ -142,7 +144,7 @@
       amount: '.planes-amount',
     },
     options: {
-      divisions: 40
+      divisions: 20
     }
   });
 

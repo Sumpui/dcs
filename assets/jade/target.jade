@@ -1,19 +1,27 @@
 - var titles = ['dotes', 'area', 'trajectory'], text = ['Точечные цели', 'Площадные цели', 'Траекторные цели']
-section.span-8#target
+
+//- Include main functions
+include mixins.jade
+
+section(class="span-8" id="targets" onselectstart="return false;")
+  header(class="targets-main-title main-titles span-16 offset-2")
+    h1 Цели
   each val, i in titles
-    if i == 2
+    if i == 0
       article(class=titles[i]+'-targets targets span-6')
         .amount-slider.span-16.offset-2
+          +icon('targets', titles[i])
+          div(class=titles[i]+'-amount targets-amount span-2') 1
           div(class=titles[i]+'-slider toddler-slider span-16 offset-2')
             div(class=titles[i]+'-toddle toddler span-20')
             div(class=titles[i]+'-toddler-line toddler-line span-20')
-          div(class=titles[i]+'-amount amount span-2') 1
         header(class=titles[i]+ '-titles targets-title')=text[i]
     else
       article(class=titles[i]+'-targets targets span-6 offset-1')
         .amount-slider.span-16.offset-2
+          +icon('targets', titles[i])
           div(class=titles[i]+'-slider toddler-slider span-16 offset-2')
             div(class=titles[i]+'-toddle toddler span-20')
             div(class=titles[i]+'-toddler-line toddler-line span-20')
-          div(class=titles[i]+'-amount amount span-2') 1
+          div(class=titles[i]+'-amount targets-amount span-2') 1
         header(class=titles[i]+ '-titles targets-title')=text[i]

@@ -1,0 +1,4 @@
+mixin icon(main, name)
+  div(class=main+"-icons span-20" onselectstart="return false;")
+    svg(class=name+'-icon svg-blocks span-20')
+      use(xlink:href='#'+name)
