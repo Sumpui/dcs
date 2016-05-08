@@ -3,6 +3,7 @@
 ==============================*/
 
 scale-gray = #ededed
+light-grey = #d8ddef
 
 /* Toddler colors */
 gainsboro = #dcdcdc
@@ -14,6 +15,14 @@ light-telegram = #d0d0d0
 telegram = #5b5b5b
 blackberry-pearl = #6c6874 rgba(108,104,116, 0.5)
 
+/* Loading scripts colors */
+shamrock = #21d19f #10634c
+brill-blue = #336f94
+mint = #4988a0 rgba(73,136,160, .3)
+blue-black = rgba(7, 7, 7, .4)
+
+
+red-purple = #23001e
 /*=====  End of Colors  ======*/
 
 /*==========================================
@@ -21,6 +30,7 @@ blackberry-pearl = #6c6874 rgba(108,104,116, 0.5)
 ==========================================*/
 
 baseline = 18px
+tm = .3s
 
 clearfix()
   &:after
@@ -144,6 +154,16 @@ alvert(d, p)
     else
       margin-{p[1]} -(d[0]/2)
 
+borders(b, t, c)
+  if (b[0])
+    border-top b[0] t c
+  if (b[1])
+    border-right b[1] t c
+  if (b[2])
+    border-left b[2] t c
+  if (b[3])
+    border-bottom b[3] t c
+
 /*=====  End for Stylus functions  ======*/
 
 /* Including fonts */
@@ -173,7 +193,7 @@ maintext()
 
 /*----------  Planes and targets articles  ----------*/
 .targets, .planes
-  padding baseline 0 baseline 0
+  padding 0 0 baseline 0
 
 /*----------  Planes and targets sections  ----------*/
 // #planes, #targets
@@ -253,7 +273,108 @@ svg
 .targets-icons, .svg-blocks
   height baseline*7
 
+.load-icon
+  height baseline*2.5
+
+.load-border
+  stroke white
+
+.load-triangle, .load-halfs
+  stroke white
+
+.load-halfs
+  fill white
 /*=====  End of Icons styles  ======*/
+
+/*=======================================
+=            Loading scripts            =
+=======================================*/
+
+.algorythms
+  cursor pointer
+  height baseline*10
+  overflow-y scroll
+  article
+    &:last-child
+      border-bottom none
+    &:first-child
+      border 1px solid mint[1]
+
+#load-form
+  background mint[0]
+  color white
+  // border-radius 5px
+  shd(0, 1px, 0px, 3px, 0px, blue-black)
+
+.load-title
+  font-style(center, 1.3em, normal, baseline*2.5)
+  font-weight 500
+
+/*----------  Hide input[type="file"]  ----------*/
+#choose-file
+  display none
+
+.input-file-trigger
+  display block
+  cursor pointer
+  line-height baseline*2.5
+  // alvert(baseline/2, top left)
+  // border 1px solid light-grey
+  // border-radius 50%
+  // font-style(center, .1em, normal, baseline*2)
+  // cursor pointer
+  // color transparent
+  // shd(0, 0px, 1px, 5px, 0px, light-grey)
+  // &:hover
+  //   base = baseline*2
+  //   size(base)
+  //   alvert(base, top left)
+  //   color white
+  //   font-size 1em
+  // &:active
+  //   base = baseline*2
+  //   size(base)
+  //   alvert(base, top left)
+
+.ready-algorythm
+  font-style(left, .9em, normal, baseline*3)
+  color blackberry-pearl[1]
+  // border-left 1px solid mint[1]
+  // border-right 1px solid mint[1]
+  // border-bottom 1px solid mint[1]
+  borders(0 1px 1px 1px, solid, mint[1])
+  // border 1px solid forest-wolve[0]
+  &:hover
+    background forest-wolve[1]
+
+.algorythm-script
+  cursor pointer
+
+#active-algorythm
+  position relative
+  color brill-blue[0]
+  background mint[1]
+  border 1px solid transparent
+  .state
+    size(baseline)
+    alvert(baseline/2, top)
+    background brill-blue[0]
+    border-radius 50%
+
+.choosen-file
+  height baseline*2
+
+.chose
+  background shamrock[0]
+  color blue-black
+
+.file-name
+  border 1px solid blue-black
+  color blue-black
+  transition opacity tm
+  font-style(center, 1em, normal, baseline*2)
+
+/*=====  End of Loading scripts  ======*/
 
 
 /*=====  End for Control panel  ======*/

@@ -55,7 +55,7 @@ gulp.task('clean', ['concat', 'compress'], function(){
             .pipe(clean());
 });
 
-gulp.task('svg-sprites', function(){
+gulp.task('svg-sprites', ['clean-svg', 'jade'], function(){
   return gulp.src('assets/graphics/icons/svg/*.svg')
             .pipe(svgmin())
             .pipe(svgSprite({
@@ -65,11 +65,16 @@ gulp.task('svg-sprites', function(){
             .pipe(gulp.dest('assets/jade/icons/sprite'))
 });
 
-gulp.task('watch', function(){
-  gulp.watch('./assets/jade/*.jade', ['jade']);
-  gulp.watch('./assets/stylus/*.styl', ['concat-css']);
-  gulp.watch('./assets/js/modules/*.js', ['clean']),
-  gulp.watch('./assets/graphics/icons/svg/*.svg', ['svg-sprites']);
+gulp.task('clean-svg', function(){
+  return gulp.src('assets/jade/icons', {read: false})
+            .pipe(clean());
 })
 
-gulp.task('default', ['connect', 'stylus', 'concat-css', 'jade', 'concat', 'compress', 'clean','svg-sprites', 'watch']);
+gulp.task('watch', function(){
+  gulp.watch('assets/jade/**/*.jade', ['jade']);
+  gulp.watch('assets/stylus/**/*.styl', ['concat-css']);
+  gulp.watch('assets/js/modules/**/*.js', ['clean']),
+  gulp.watch('assets/graphics/icons/svg/**/*.svg', ['svg-sprites']);
+})
+
+gulp.task('default', ['connect', 'stylus', 'concat-css', 'jade', 'concat', 'compress', 'clean', 'svg-sprites', 'watch']);

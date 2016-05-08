@@ -10,7 +10,7 @@ section(class="span-8" id="targets" onselectstart="return false;")
     if i == 0
       article(class=titles[i]+'-targets targets span-6')
         .amount-slider.span-16.offset-2
-          +icon('targets', titles[i])
+          +icon('planes', titles[i], ['span-20', 'span-20'])
           div(class=titles[i]+'-amount targets-amount span-2') 1
           div(class=titles[i]+'-slider toddler-slider span-16 offset-2')
             div(class=titles[i]+'-toddle toddler span-20')
@@ -19,7 +19,7 @@ section(class="span-8" id="targets" onselectstart="return false;")
     else
       article(class=titles[i]+'-targets targets span-6 offset-1')
         .amount-slider.span-16.offset-2
-          +icon('targets', titles[i])
+          +icon('planes', titles[i], ['span-20', 'span-20'])
           div(class=titles[i]+'-slider toddler-slider span-16 offset-2')
             div(class=titles[i]+'-toddle toddler span-20')
             div(class=titles[i]+'-toddler-line toddler-line span-20')
