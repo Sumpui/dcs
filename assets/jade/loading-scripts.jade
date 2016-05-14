@@ -1,24 +1,24 @@
 include mixins.jade
-- var algoTitles = ['Числа Дейкстры', 'Путь лапласианина', 'Веселые будни', 'Весёлый пуританин'];
+- var algoTitles = ['Числа Дейкстры - dijkstra.js', 'Путь лапласианина - wayLaplasianin.js', 'Веселые будни - happyWeekdays.js', 'Весёлый пуританин - happyPuritanin.js'];
 - var acceptFiles = ['application/x-javascript', 'application/javascript', 'application/ecmascript','text/javascript','text/ecmascript'];
-section(class="span-6 offset-7" id="loading-scripts" onselectstart="return false")
+section(class="span-6 offset-3" id="loading-scripts" onselectstart="return false")
   section.algorythms.span-20
-    - for(var i = 0; i <= algoTitles.length - 1; i++)
+    - for(var i = 0; i <= 0; i++)
         - if (i === 0)
-            article(class="ready-algorythm span-20 algorythm-"+(i+1) id="active-algorythm")
-              header.algorythm-script.span-16.offset-1
-                h3.algorythm-title.span-18.offset-1=algoTitles[i]
+            article(class="ready-algorithm span-20 algorithm-"+(i+1) + ' hidden' id="active-algorithm")
+              header.algorithm-script.span-16.offset-1
+                h3.algorithm-title.span-18.offset-1= algoTitles[i]
               .state.span-2.offset-1
         - else
-            article(class="ready-algorythm span-20 algorythm-"+(i+1))
-              header.algorythm-script.span-16.offset-1
-                h3.algorythm-title.span-18.offset-1=algoTitles[i]
+            article(class="ready-algorithm span-20 algorithm-"+(i+1))
+              header.algorithm-script.span-16.offset-1
+                h3.algorithm-title.span-18.offset-1= algoTitles[i]
               .state.span-2.offset-1
   header.load-scripts-title.span-20
-    form(name="load-scripts" id="load-form" class="span-20 row")
-      input(type="file" id="choose-file" accept = acceptFiles)
-      label(for="choose-file" class="input-file-trigger span-20")
-        h2.load-title.span-12.offset-4 Загрузить алгоритм
-        +icon('load', 'load', ['span-2', 'span-20'])
+    form(action="/upload" enctype="multipart/form-data" method="POST" id="upload-form" class="span-20")
+      input(type="file" id="upload-file" accept = acceptFiles  multiple="multiple" name="file")
+    label(for="upload-file" class="input-file-trigger span-20 row")
+      h2.load-title.span-12.offset-4 Загрузить алгоритм
+      +icon('load', 'load', ['span-2', 'span-20'])
   .choosen-file.span-20
     p.file-name.span-20 Подгружать только JavaScript файлы!

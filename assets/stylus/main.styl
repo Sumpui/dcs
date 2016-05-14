@@ -276,24 +276,27 @@ svg
 .load-icon
   height baseline*2.5
 
-.load-border
-  stroke white
+.load-circle
+  stroke blue-black
+  pointer-events all
+  &:hover
+    stroke white
 
-.load-triangle, .load-halfs
-  stroke white
+.load-triangles
+  stroke blue-black
 
-.load-halfs
-  fill white
+
 /*=====  End of Icons styles  ======*/
 
 /*=======================================
 =            Loading scripts            =
 =======================================*/
 
-.algorythms
+.algorithms
   cursor pointer
   height baseline*10
   overflow-y scroll
+  shd(1, 1px, 1px, 0px, 5px, blue-black)
   article
     &:last-child
       border-bottom none
@@ -301,43 +304,28 @@ svg
       border 1px solid mint[1]
 
 #load-form
-  background mint[0]
-  color white
-  // border-radius 5px
-  shd(0, 1px, 0px, 3px, 0px, blue-black)
+  &:hover
+    margin-top -3px // -baseline/6
+    shd(0, 2px, 2px, 15px, 0px, blue-black)
 
 .load-title
   font-style(center, 1.3em, normal, baseline*2.5)
+  color blue-black
   font-weight 500
 
 /*----------  Hide input[type="file"]  ----------*/
-#choose-file
+#upload-file
   display none
 
 .input-file-trigger
   display block
   cursor pointer
   line-height baseline*2.5
-  // alvert(baseline/2, top left)
-  // border 1px solid light-grey
-  // border-radius 50%
-  // font-style(center, .1em, normal, baseline*2)
-  // cursor pointer
-  // color transparent
-  // shd(0, 0px, 1px, 5px, 0px, light-grey)
-  // &:hover
-  //   base = baseline*2
-  //   size(base)
-  //   alvert(base, top left)
-  //   color white
-  //   font-size 1em
-  // &:active
-  //   base = baseline*2
-  //   size(base)
-  //   alvert(base, top left)
+  background brill-blue[0]
+  shd(0, 1px, 0px, 3px, 0px, blue-black)
 
-.ready-algorythm
-  font-style(left, .9em, normal, baseline*3)
+.ready-algorithm
+  font-style(left, .7em, normal, baseline*3)
   color blackberry-pearl[1]
   // border-left 1px solid mint[1]
   // border-right 1px solid mint[1]
@@ -347,10 +335,13 @@ svg
   &:hover
     background forest-wolve[1]
 
-.algorythm-script
+.algorithm-script
   cursor pointer
 
-#active-algorythm
+.hidden
+  display none
+
+#active-algorithm
   position relative
   color brill-blue[0]
   background mint[1]

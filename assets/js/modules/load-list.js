@@ -35,21 +35,19 @@
 
           /**
            *
-           * Reseting all active states in the list
+           * Reseting active state on element earlier
            *
            */
-          for (var j = 0; j <= len - 1; j++){
+          var isActive = get('#active-algorithm');
 
-            self.list[j].id = '';
-
-          }
+          isActive.id = '';
 
           /**
            *
            * Setting up active state to clicked element
            *
            */
-          this.id = 'active-algorythm';
+          this.id = 'active-algorithm';
 
         }
 
@@ -75,6 +73,46 @@
 
   }
 
+  List.prototype.toServer = function (file) {
+
+    var form = get('#upload-form')
+    , self = this;
+
+    function sendForm(form) {
+      var formData = new FormData(form);
+
+      var request = xhr();
+
+      request.open('POST', form.action, true)
+
+      /**
+       *
+       * Get answer from the server
+       *
+       */
+      request.onload = function(e) {
+        if (this.readyState === 4 && this.status === 200 ){
+          setTimeout(function(){
+            // self.insert();
+            alert('All files have been downloaded');
+          }, self.transitions + self.timeOffset);
+        }
+      }
+
+      /**
+       *
+       * Send data to the server
+       *
+       */
+      request.send(formData);
+
+      return false;
+
+    }
+
+    sendForm(form);
+  }
+
   List.prototype.file = function () {
 
     var self = this;
@@ -83,30 +121,52 @@
 
       /**
        *
+       * Save file to the List object
+       *
+       */
+      self.file = this.files[0];
+
+      self.toServer();
+
+      /**
+       *
        * Gets files local way
        *
        */
-      var fn = this.value;
+      var fn = [];
+
+      Array.prototype.forEach.call(this.files, function(x, i, a){
+        fn.push(x.name);
+      });
 
       /**
        *
        * Gets file name from the local way
        *
        */
-      fn = fn.slice(fn.lastIndexOf('\\') + 1, fn.length);
-
       var fileBlock = self.fileName[0]
 
       css(fileBlock, {opacity: 0});
 
+      /**
+       *
+       * Blinking when loading on server and applying to the other scripts
+       *
+       */
       setTimeout(function(){
 
         /**
          *
-         * Replace old child node on new child node
+         * Replace old child node with new child node and add br elements
          *
          */
-        fileBlock.replaceText(fn);
+        if (fn.length >= 2) {
+          fn = ' Алгоритмы были загружены';
+        }else {
+          fn = 'Алгоритм ' + fn[0] + ' был загружен';
+        }
+
+        fileBlock.replaceText(fn, true);
 
         css(fileBlock, {opacity: 1, border: '1px solid transparent'});
 
@@ -118,12 +178,15 @@
 
   }
 
+  // List.prototype.insert;
+
   var loadingList = new List({
     section: '#loading-scripts',
-    list: '.ready-algorythm',
-    button: '#choose-file',
+    list: '.ready-algorithm',
+    button: '#upload-file',
     fileName: '.file-name',
-    transitions: 300
+    transitions: 300,
+    timeOffset: 100
   });
 
   loadingList.active();
