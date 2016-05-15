@@ -8,7 +8,7 @@
 
     momentLater = Date.now();
     moment = ((momentLater - moment)/(1000*60));
-    console.log(moment);
+    // console.log(moment);
 
     var request = xhr()
     , formData = new FormData()
@@ -27,38 +27,7 @@
      */
     request.onload = function(e) {
       if (this.readyState === 4 && this.status === 200 ){
-
-        if (this.responseText){
-
-          /**
-           *
-           * Save server response and transform it to the object
-           *
-           */
-          var answer = JSON.parse(this.responseText);
-
-          /**
-           *
-           * Save incoming response in URI view
-           *
-           */
-          var toURIView = encodeURIComponent(answer);
-
-          if (toURIView !== getCookies().answer){
-
-            deleteCookies();
-            setCookies('answer', answer, 1);
-
-          }
-
-          var resultCookies = getCookies();
-
-          log(resultCookies);
-
-          // toHTMLView(,count(1)());
-
-        }
-
+        addFiles(this);
       }
     }
 
@@ -71,9 +40,6 @@
 
     return false;
 
-  })
-
-  console.log(getCookies());
-
+  });
 
 }());

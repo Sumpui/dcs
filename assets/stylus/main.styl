@@ -11,15 +11,15 @@ forest-wolve = #dbd7d2 rgba(219,215,210, 0.5)
 shad = rgba(47, 47, 47, .1)
 
 /* Toddler text colors */
-light-telegram = #d0d0d0
+light-telegram = #d0d0d0, rgba(208, 208, 208, 0.3)
 telegram = #5b5b5b
 blackberry-pearl = #6c6874 rgba(108,104,116, 0.5)
 
 /* Loading scripts colors */
 shamrock = #21d19f #10634c
 brill-blue = #336f94
-mint = #4988a0 rgba(73,136,160, .3)
-blue-black = rgba(7, 7, 7, .4)
+mint = #4988a0 rgba(73,136,160, .1)
+blue-black = #070707 rgba(7, 7, 7, .4)
 
 
 red-purple = #23001e
@@ -265,7 +265,7 @@ maintext()
 ====================================*/
 
 svg
-  display block
+  display none
 
 .takeoff
   size(3em)
@@ -273,18 +273,30 @@ svg
 .targets-icons, .svg-blocks
   height baseline*7
 
+.load-scripts-title
+  height baseline*2
+
 .load-icon
   height baseline*2.5
 
-.load-circle
-  stroke blue-black
-  pointer-events all
+// #load
+  // fill currentColor
+
+.load-icon
+  &:hover
+    transform translateY(-9px) scale(1.2)
+
+.load-in-use
+  fill scale-gray
+  stroke brill-blue
+  stroke-width 7px
+  color brill-blue
   &:hover
     stroke white
-
-.load-triangles
-  stroke blue-black
-
+    color white
+    fill brill-blue
+    stroke-width 9px
+    stroke-milterlimit 1px
 
 /*=====  End of Icons styles  ======*/
 
@@ -294,9 +306,11 @@ svg
 
 .algorithms
   cursor pointer
-  height baseline*10
+  height baseline*11
   overflow-y scroll
-  shd(1, 1px, 1px, 0px, 5px, blue-black)
+  border 1px solid mint[1]
+  border-radius 3px // baseline/6
+  shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
   article
     &:last-child
       border-bottom none
@@ -306,7 +320,7 @@ svg
 #load-form
   &:hover
     margin-top -3px // -baseline/6
-    shd(0, 2px, 2px, 15px, 0px, blue-black)
+    shd(0, 2px, 2px, 15px, 0px, blue-black[1])
 
 .load-title
   font-style(center, 1.3em, normal, baseline*2.5)
@@ -321,16 +335,18 @@ svg
   display block
   cursor pointer
   line-height baseline*2.5
-  background brill-blue[0]
-  shd(0, 1px, 0px, 3px, 0px, blue-black)
+  position relative
+  top -18px // -baseline
 
 .ready-algorithm
   font-style(left, .7em, normal, baseline*3)
-  color blackberry-pearl[1]
+  // color blackberry-pearl[1]
+  color brill-blue[0]
+  margin-right 0px !important
   // border-left 1px solid mint[1]
   // border-right 1px solid mint[1]
   // border-bottom 1px solid mint[1]
-  borders(0 1px 1px 1px, solid, mint[1])
+  // borders(0 1px 1px 1px, solid, mint[1])
   // border 1px solid forest-wolve[0]
   &:hover
     background forest-wolve[1]
@@ -341,11 +357,13 @@ svg
 .hidden
   display none
 
+article[hidden="true"]
+  display none
+
 #active-algorithm
   position relative
-  color brill-blue[0]
   background mint[1]
-  border 1px solid transparent
+  // border 1px solid transparent
   .state
     size(baseline)
     alvert(baseline/2, top)
@@ -356,14 +374,14 @@ svg
   height baseline*2
 
 .chose
-  background shamrock[0]
-  color blue-black
+  // background shamrock[0]
+  color blue-black[1]
 
 .file-name
-  border 1px solid blue-black
-  color blue-black
+  border-radius 3px //baseline/6
+  color blue-black[1]
   transition opacity tm
-  font-style(center, 1em, normal, baseline*2)
+  font-style(center, .9em, normal, baseline*2)
 
 /*=====  End of Loading scripts  ======*/
 

@@ -27,32 +27,6 @@
        */
       var self = this;
 
-      function check(x, i, a) {
-
-        x.onclick = function () {
-
-          var len = self.list.length;
-
-          /**
-           *
-           * Reseting active state on element earlier
-           *
-           */
-          var isActive = get('#active-algorithm');
-
-          isActive.id = '';
-
-          /**
-           *
-           * Setting up active state to clicked element
-           *
-           */
-          this.id = 'active-algorithm';
-
-        }
-
-      }
-
       /**
        *
        * Detect if the list is an array or an object
@@ -71,7 +45,7 @@
 
     }
 
-  }
+  };
 
   List.prototype.toServer = function (file) {
 
@@ -83,7 +57,7 @@
 
       var request = xhr();
 
-      request.open('POST', form.action, true)
+      request.open('POST', form.action, true);
 
       /**
        *
@@ -92,10 +66,7 @@
        */
       request.onload = function(e) {
         if (this.readyState === 4 && this.status === 200 ){
-          setTimeout(function(){
-            // self.insert();
-            alert('All files have been downloaded');
-          }, self.transitions + self.timeOffset);
+          addFiles(this, removeNotExisting(this));
         }
       }
 
@@ -111,7 +82,7 @@
     }
 
     sendForm(form);
-  }
+  };
 
   List.prototype.file = function () {
 
@@ -166,13 +137,40 @@
           fn = 'Алгоритм ' + fn[0] + ' был загружен';
         }
 
-        fileBlock.replaceText(fn, true);
+        fileBlock.replaceText(fn);
 
-        css(fileBlock, {opacity: 1, border: '1px solid transparent'});
+        css(fileBlock, {opacity: 1, color: '#336f94'});
 
         fileBlock.className = fileBlock.className + ' chose';
 
       }, self.transitions);
+
+      /**
+       *
+       * Set time out to 0.6 second and set up fileBlock opacity styles
+       *
+       */
+      sleep(fileBlock, {opacity: 0}, self.transitions*5);
+
+      /**
+       *
+       * Change fileBlock styles, inner HTML and class name with time out on 0.9 seconds 
+       *
+       */
+      setTimeout(function(){
+
+        css(fileBlock, {opacity: 0, color: 'rgba(108,104,116, 0.5)'});
+        fileBlock.className = fileBlock.className.slice(0, fileBlock.className.lastIndexOf(' '));
+        fileBlock.replaceText('Загружать только файлы с расширением \'.js\'!');
+
+      }, self.transitions*6)
+
+      /**
+       *
+       * Show fileBlock in a 1.05 seconds
+       *
+       */
+      sleep(fileBlock, {opacity: 1}, self.transitions*6);
 
     }
 

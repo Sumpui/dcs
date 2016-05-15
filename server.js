@@ -11,7 +11,7 @@
         cb(null, __dirname + '/public/js/algorithms')
       },
       filename: function (req, file, cb) {
-        console.log(file);
+        // console.log(file);
         crypto.pseudoRandomBytes(16, function (err, raw) {
           // console.log(mime.extension(file.mimetype));
           // raw.toString('hex') + Date.now() + '.' + file.originalname.slice(file.originalname.lastIndexOf('.') + 1)
@@ -29,14 +29,36 @@
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
   app.post("/upload", function(req, res, next){
+
+    var files = [];
+
     upload(req, res, function(err) {
+      if (req.files){
+        for (var i = 0; i <= req.files.length - 1; i++){
+          var file = req.files[i];
+          for (var j in file){
+            if (j === 'originalname'){
+              files.push(file[j]);
+            }
+          }
+        }
+      }
+
       if (err) {
         return res.end('<p class="answer">0</p>');
       }
-      res.end('<p class="answer">1</p>')
-    })
-    res.status(200).end();
-    next();
+
+      res.status(200).json(files);
+    });
+
+    // var interval = setInterval(function(){
+    //   if (files){
+    //     console.log(files);
+    //     clearInterval(interval);
+    //   }
+    // }, 10);
+
+    // res.status(200).json(files);
   });
 
   app.post('/search', function(req, res, next){

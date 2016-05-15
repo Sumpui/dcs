@@ -120,7 +120,7 @@ HTMLElement.prototype.getChildren = function () {
     , child;
   if (classOf(this) === 'Array'){
     this.forEach(function(x, i, a){
-      if (x.children.length){
+      if (x.children && x.children.length){
         child = x.children;
         for (var i in child){
           if (child.hasOwnProperty(i)){
@@ -133,13 +133,14 @@ HTMLElement.prototype.getChildren = function () {
     if (this.children.length) {
       child = this.children;
       for (var i in child){
-        console.log(child.hasOwnProperty(i));
         if (child.hasOwnProperty(i)){
           children.push(child[i]);
+          // console.log(children);
         }
       }
     }
   }
+
   return children;
 }
 
@@ -250,18 +251,51 @@ function xhr() {
   }
 }
 
+function isString(str){
+  if (typeof str !== 'string') throw new TypeError('Incoming parameter is not an object. It is ' + typeof str);
+}
+
 /**
  * Making an array from the string
+ * Example: string '1 0 0 0' parsing to array [1, 0, 0, 0]
  * @param  {string} str Incoming string
  * @return {object}     Returning object
  */
 function parseToArr(str){
-  if (typeof str !== 'string') throw new TypeError('Incoming parameter is not an object. It is ' + typeof str);
+  isString(str);
   var arr = [];
   for (i = 0; i < str.length - 1; i++){
     if (str[i] !== ' ' && typeof parseInt(str[i]) === 'number'){
       arr.push(!!parseInt(str[i]));
     }
+  }
+  return arr;
+}
+
+/**
+ * Get an array from the string value
+ * @param  {string} str Incoming string
+ * @return {array}     Return array
+ */
+function getArr(str){
+  /* Check if incoming argument is string */
+  isString(str);
+  var arr = []
+    , p = 0
+    , n = 1
+  while(n > 0){
+    /* Looking for separator */
+    n = str.indexOf(',', n);
+    /* Increasing it to not include this to the string */
+    n += 1;
+    /* Check if we are at the end of the string */
+    if (n !== 0){
+      arr.push(str.slice(p, n - 1));
+    }else{
+      arr.push(str.slice(p, str.length));
+    }
+    /* Varuable p is the start of the letters segments */
+    p = n;
   }
   return arr;
 }
@@ -320,6 +354,8 @@ function count(i) {
   }
 }
 
+var counter = count(1);
+
 /**
  * Set coookie to the document.cookie
  * @param {string} name       Property name
@@ -358,9 +394,9 @@ function deleteCookies(name){
    document.cookie = name + '=' + '; expires=Thu, 01 Jan 1970 00:00:01 GMT';
 }
 
-function toHTMLView(obj, i) {
+function toHTMLView(obj) {
 
-  if (typeof obj !== 'object') throw new TypeError('Incoming parameter doesn\'t have \'object\' type');
+  if (typeof obj !== 'object' && classOf(obj) !== 'Array') throw new TypeError('Incoming parameter doesn\'t have \'object\' type');
 
   /**
    *
@@ -371,43 +407,281 @@ function toHTMLView(obj, i) {
     , title = (layout.getChildren()).getChildren();
 
   /**
-    *
-    * Create new class to layout
-    *
+   *
+   * Bypass all the elements of the array
+   *
    */
-  layoutClass = layout.className.slice(0, layout.className.lastIndexOf('-') + 1) + i;
-  layout.className = layoutClass;
-
-  console.log(layout);
+  var arr = obj.map(function(x, i, a){
 
 
-  // article = article[last];
+    var clone = layout.cloneNode(true)
+      , cloneTitle = (clone.getChildren());
 
-  // var clone = article.cloneNode(true)
-  //   , index = parseInt(clone.className.slice(clone.className.lastIndexOf('-') + 1));
+      // console.log(cloneTitle);
 
-  // clone.className = clone.className.slice(0, clone.className.lastIndexOf('-') + 1) + (index + 1);
+    // console.log(clone, cloneTitle);
 
-  // clone.id = '';
+    /* Remove or rename attributes of the each article */
+    clone.removeAttribute('hidden');
+    clone.id = '';
+    clone.className = clone.className.slice(0, clone.className.lastIndexOf('-') + 1) + counter();
 
-  // clone.onclick = function (){
-  //   if (!this.id){
-  //     var algorithms = get('.ready-algorithm')
-  //       , each = Array.prototype.forEach;
+    // console.log(cloneTitle);
 
-  //       each.call(algorithms, function(x, i, a){
-  //         x.id = '';
-  //       })
-  //     this.id = 'active-algorithm';
-  //   }
-  // }
+    if (cloneTitle[0]){
+      /* Replace text node on the necessary */
+      cloneTitle[0].replaceText(x);
+    }
 
-  // var title = ((clone.getChildren()).getChildren())[0];
+    /* Existing scripts, that we can't delete */
+    var existingScripts = ['all.js', 'yandex'];
 
-  // title.replaceText(this.button.files[0].name);
+    if (cloneTitle[0]){
+      /* Set up elements onclick behavior */
+      if (cloneTitle[0].innerText !== 'Вы ещё не загрузили ни один алгоритм'){
 
-  // var section = get('.algorythms')[0];
+        /**
+         *
+         * Setting up even handler for each article
+         *
+         */
+        clone.onclick =  function(){
 
-  // section.appendChild(clone);
+          /**
+           *
+           * Get active article
+           *
+           */
+          var isActive = get('#active-algorithm');
+
+          /**
+           *
+           * If it exists, we remove it's id
+           *
+           */
+          if (isActive){
+            isActive.id = '';
+          }
+
+          /**
+           *
+           * Assign to current element necessary id (to make it active)
+           *
+           */
+          this.id = 'active-algorithm';
+
+          /**
+           *
+           * Get all 'script' elements
+           *
+           */
+          var scripts = document.getElementsByTagName('script');
+
+
+          /**
+           *
+           * Look for other scripts and removing them (except the scripts have already existed)
+           *
+           */
+
+          for (var h = 0; h <= scripts.length - 1; h++){
+
+            /**
+             *
+             * Scripts, that are existed before
+             *
+             */
+            var condition = (scripts[h].src.indexOf(existingScripts[0]) + 1)  || (scripts[h].src.indexOf(existingScripts[1]) + 1);
+
+            if (!(condition)){
+              scripts[h].remove();
+            }
+          }
+
+          /**
+           *
+           * Create new script element, main path to the script and get current script name
+           *
+           */
+          var script = document.createElement('script')
+            , link = cloneTitle[0].innerText
+            , path = 'js/algorithms/';
+
+          /**
+           *
+           * Set up src to the current script
+           *
+           */
+          script.src = path + link;
+          /**
+           *
+           * Append this script to the 'body'
+           *
+           */
+          document.body.appendChild(script);
+        }
+      }
+    }
+
+    return clone;
+
+  });
+
+  var parent = get('.algorithms')[0];
+
+  arr.forEach(function(x, i, a){
+
+    parent.appendChild(x);
+
+  });
+
+}
+
+function sleep(element, styles, time){
+  setTimeout(function(){
+    css(element, styles);
+  }, time);
+}
+
+function addFiles(s){
+  if (!(classOf(s) === 'XMLHttpRequest')) throw new TypeError('Incoming parameter is not an \'XMLHttpRequest\' object!');
+  try{
+    if (s.responseText){
+      /**
+       *
+       * Save server response and transform it to the object
+       *
+       */
+      var answer = JSON.parse(s.responseText);
+      if (!answer.length) {
+        answer.push('Вы ещё не загрузили ни один алгоритм');
+      }
+
+      /**
+       *
+       * Save incoming response in URI view
+       *
+       */
+      var toURIView = encodeURIComponent(answer);
+
+      if (toURIView !== getCookies().answer){
+
+        deleteCookies();
+        setCookies('answer', answer, 1);
+
+      }
+
+      var resultCookies = getCookies();
+
+      var cookiesArr = getArr(resultCookies.answer);
+
+      if (arguments[1]){
+        var exist = arguments[1];
+
+        for(var k in exist){
+          if (exist[k] === 'exists'){
+            delete cookiesArr[k];
+          }
+        }
+      }
+
+      toHTMLView(cookiesArr);
+    }
+  }catch(e){
+    console.log(e);
+  }
+}
+
+function removeNotExisting(s){
+
+  if (!(classOf(s) === 'XMLHttpRequest')) throw new TypeError('Incoming parameter is not an \'XMLHttpRequest\' object!');
+  try{
+    if (s.responseText){
+
+      var exist = get('.ready-algorithm')
+      , choosenFiles = get('#upload-file')
+      , each = Array.prototype.forEach
+      , parts = []
+      , titles = []
+      , c = count(1)
+      , answer = JSON.parse(s.responseText);
+
+      each.call(exist, function(x, i, a){
+        parts.push(get('.algorithm-' + c()));
+        /**
+         *
+         * Each existing element
+         *
+         */
+        var part = parts[i];
+        for (var p in part){
+          /**
+           *
+           * Get titles of existing elements
+           *
+           */
+           if (part.hasOwnProperty(p)){
+
+
+            if (p !== 'length'){
+              var title = (part[p].getChildren());
+            }
+
+
+            for (var j in title){
+              if (title.hasOwnProperty(j)){
+                titles.push(title[j]);
+              }
+            }
+           }
+        }
+      });
+
+      each.call(choosenFiles.files, function(x, i, a){
+        var name = x.name;
+        for (var n in titles){
+          if (titles[n].innerText === name){
+            for (var t in answer){
+              if (answer[t] === name){
+                answer[t] = 'exists';
+              }
+            }
+          }else if(titles[n].innerText === 'Вы ещё не загрузили ни один алгоритм'){
+            ((titles[n].parentNode).parentNode).remove();
+            counter = count(1);
+          }
+        }
+      });
+
+    }
+  }catch(e){
+    console.log(e);
+  }
+  return answer;
+}
+
+function check(x, i, a) {
+
+  x.onclick = function () {
+
+    var len = self.list.length;
+
+    /**
+     *
+     * Reseting active state on element earlier
+     *
+     */
+    var isActive = get('#active-algorithm');
+
+    isActive.id = '';
+
+    /**
+     *
+     * Setting up active state to clicked element
+     *
+     */
+    this.id = 'active-algorithm';
+
+  }
 
 }
