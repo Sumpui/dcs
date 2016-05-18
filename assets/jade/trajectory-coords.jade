@@ -1,0 +1,25 @@
+include mixins.jade
+section(class="span-20 row" id="trajectory-coordinates" onselectstart="return false")
+  header.span-16.offset-2.base-main-title
+    h1 Координаты траекторных целей
+  .trajectory-coords.span-20
+    table(cellpadding="5" class="trajectory-coords-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 coords trajectory-coordinate-1-1 trajectory-coords")
+          td(class="trajectory-coordinates-id span-1") 1T.
+          td(class="trajectory-coordinates-id span-1") 1
+          td(class="lon-thla-1-1 lon-trajectory-hla span-9 not-choosen") -
+          td(class="lat-thla-1-1 lat-trajectory-hla span-9 not-choosen") -
+        tr(class="span-20 coords trajectory-coordinate-1-2 trajectory-coords")
+          td(class="trajectory-coordinates-id span-1") 1T.
+          td(class="trajectory-coordinates-id span-1") 2
+          td(class="lon-thla-1-2 lon-trajectory-hla span-9 not-choosen") -
+          td(class="lat-thla-1-2 lat-trajectory-hla span-9 not-choosen") -
+    table(cellpadding="5" class="trajectory-headers-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 trajectory-coords-headers")
+          td(class="lon-trajectory-headers span-9 offset-2") Долгота
+          td(class="lat-trajectory-headers span-9") Широта
+    input(id="set-trajectory" type='button' value="")
+    label(for="set-trajectory" class="set-trajectory span-4 offset-9")
+      p(title="Установить координаты").trajectory-tip &#8594

@@ -16,8 +16,10 @@ telegram = #5b5b5b
 blackberry-pearl = #6c6874 rgba(108,104,116, 0.5)
 
 /* Loading scripts colors */
-shamrock = #21d19f #10634c
-brill-blue = #336f94
+shamrock = #21d19f #10634c #1bb166
+light-green = #90ee90 #1ec773
+pastel-green = #64e765
+brill-blue = #336f94 #1f445b
 mint = #4988a0 rgba(73,136,160, .1)
 blue-black = #070707 rgba(7, 7, 7, .4)
 
@@ -187,6 +189,7 @@ maintext()
   background white
 
 #control-additional
+  position relative
   background scale-gray
   // height baseline*14
   padding baseline
@@ -288,13 +291,13 @@ svg
 
 .load-in-use
   fill scale-gray
-  stroke brill-blue
+  stroke brill-blue[0]
   stroke-width 7px
-  color brill-blue
+  color brill-blue[0]
   &:hover
     stroke white
     color white
-    fill brill-blue
+    fill brill-blue[0]
     stroke-width 9px
     stroke-milterlimit 1px
 
@@ -306,9 +309,9 @@ svg
 
 .algorithms
   cursor pointer
-  height baseline*11
+  height baseline*16
   overflow-y scroll
-  border 1px solid mint[1]
+  border 2px solid brill-blue[0]
   border-radius 3px // baseline/6
   shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
   article
@@ -338,16 +341,19 @@ svg
   position relative
   top -18px // -baseline
 
+.algorithm-main-title, .dotes-coordinates-main-title, .base-main-title, .main-title-coordinates, .trajectory-main-title, .area-main-title
+  font-style(center, .7em, normal, baseline*2)
+  font-weight 400
+  color blackberry-pearl[0]
+
+.dotes-coordinates-main-title, .base-main-title, .area-main-title
+  font-size .9em
+
 .ready-algorithm
   font-style(left, .7em, normal, baseline*3)
   // color blackberry-pearl[1]
   color brill-blue[0]
   margin-right 0px !important
-  // border-left 1px solid mint[1]
-  // border-right 1px solid mint[1]
-  // border-bottom 1px solid mint[1]
-  // borders(0 1px 1px 1px, solid, mint[1])
-  // border 1px solid forest-wolve[0]
   &:hover
     background forest-wolve[1]
 
@@ -384,6 +390,214 @@ article[hidden="true"]
   font-style(center, .9em, normal, baseline*2)
 
 /*=====  End of Loading scripts  ======*/
+
+/*===================================
+=            Place based            =
+===================================*/
+
+.main-coordinates
+  // shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
+  height baseline*16
+  overflow-y scroll
+
+.coords-headers, .dotes-coords-headers, .area-coords-headers, .trajectory-coords-headers
+  color blackberry-pearl[0]
+  text-transform lowercase
+  border 1px solid transparent
+  font-style(center, .9em, normal, baseline)
+
+.base-coords, .dotes-coords, .trajectory-coords, .area-coords
+  position relative
+
+.coords, .dotes-coords-row, .area-coords-row, .trajectory-coords-row
+  cursor pointer
+  color brill-blue[0]
+  line-height baseline*2
+  border 2px solid brill-blue[0]
+  border-radius 3px // baseline/6
+  shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
+
+.base-coords-table
+  text-align center
+
+.dotes-coords-table
+  text-align center
+  overflow-y scroll
+  height 40px //baseline*2.2222
+  tr
+    &:nth-of-type(n+2)
+      border-top none
+
+.trajectory-coords-table
+  text-align center
+  overflow-y scroll
+  height 78px
+  tr
+    &:nth-of-type(n+2)
+      border-top none
+
+.area-coords-table
+  text-align center
+  overflow-y scroll
+  height 154px // baseline*8.5
+  tr
+    &:nth-of-type(n+2)
+      border-top none
+
+.targets-coords-table
+  td
+    font-style(center, 1em, normal, baseline)
+
+#set-base, #set-dotes-coords, #set-trajectory, #set-area
+  display none
+
+.set-place, .set-dotes, .set-trajectory, .set-area
+  size(48px)
+  cursor pointer
+  display block
+  border-radius 50%
+  border 3px solid brill-blue[0]
+  padding 0 9px 0 9px // baseline/2
+  shd(0, 0px, 0px, 10px, 0px, light-telegram[1])
+  font-style(center, .9em, normal, 44px)
+  color brill-blue[0]
+  background scale-gray
+  &:hover
+    background white
+    shd(0, 0px, 1px, 3px, 0px, blue-black[1])
+  &:focus
+    outline none
+  &:active
+    // background brill-blue[0]
+    opacity .5
+    shd(0, 0px, 0px, 0px, 0px, transparent)
+
+.set-targets
+  line-height 48px
+
+.set-place, .set-dotes, .set-trajectory, .set-area
+  position absolute
+  top 25%
+  left 50%
+  margin-left -24px
+
+.set-trajectory
+  position absolute
+  top 55%
+
+.set-area
+  position absolute
+  top 75%
+
+.not-choosen
+  color telegram[0]
+  opacity .5
+
+.choosen-base
+  color brill-blue[0]
+  opacity .9
+
+.aligned
+  position absolute
+  top 50%
+  margin-top -18px // -baseline
+
+.place-based-icon
+  height baseline*2.3
+
+.place-based-in-use
+  // fill scale-gray
+  color brill-blue[0]
+  stroke-width 7px
+
+.lon-trajectory-hla, .lon-area-hla
+  border-left 2px solid brill-blue[0]
+
+.trajectory-hla, .area-hla
+  margin-left 4px // baseline/5
+
+.separated-rows
+  border-top 2px solid brill-blue[0]
+
+.dotes-coordinates-id, .base-coordinates-id
+  font-style(center, .7em, normal, null)
+  font-size .9em !important
+  border-right 2px solid brill-blue[0]
+
+.snow-close-it, .confirm-base 
+  cursor pointer
+  width baseline*15
+  font-style(center, 1.2em, normal, baseline*2)
+  padding 4px
+  position absolute
+  top 50%
+  left 50%
+  margin -18px 0 0 -125px
+  border-radius 6px
+  background brill-blue[0]
+  border 2px solid transparent
+  color white
+  shd(0, 0px, 1px, 3px, 0px, brill-blue[1])
+  &:hover
+    background mint[1]
+    border 2px solid brill-blue[0]
+    color brill-blue[0]
+  &:focus
+    outline none
+  &:active
+    shd(0, 0px, 1px, 3px, 0px, forest-wolve[0])
+
+.confirm-base
+  background shamrock[0]
+  color shamrock[1]
+  shd(0, 0px, 1px, 3px, 0px, shamrock[1])
+  &:hover
+    border 2px solid shamrock[1]
+    color shamrock[1]
+  &:active
+    shd(0, 0px, 1px, 3px, 0px, forest-wolve[0])
+
+.snow-paragraph
+  display block
+  position relative
+  z-index 4
+  // margin baseline auto 0 auto
+  padding baseline
+  font-style(center, 1.3em, normal, baseline*2)
+  color shamrock[2]
+  background light-green[0]
+  opacity .9
+
+/*=====  End of Place based  ======*/
+
+/*================================
+=            Simulate            =
+================================*/
+
+#simulate
+  background brill-blue[0]
+
+#simulate, #to-canvas
+  cursor pointer
+  dispaly block
+  nostyle()
+  height baseline*2
+  shd(0, 0px, 1px, 3px, 0px, brill-blue[1])
+  &:focus
+    outline none
+
+#simulate
+  background brill-blue[0]
+  color white
+
+#to-canvas
+  background light-green[0]
+  color shamrock[1]
+  shd(0, 0px, 1px, 3px, 0px, shamrock[1])
+
+
+/*=====  End of Simulate  ======*/
+
 
 
 /*=====  End for Control panel  ======*/

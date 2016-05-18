@@ -1,4 +1,23 @@
-mixin icon(main, name, span)
-  div(class=main+"-icons "+span[0] onselectstart="return false;")
+mixin icon(main, name, span, tt)
+  p(class=main+"-icons "+span[0] onselectstart="return false;" title=tt)
     svg(class=name+'-icon svg-blocks '+span[1])
       use(class=name+'-in-use' xlink:href='#'+name)
+
+mixin table(col, str, tc, heads)
+  table(class=tc[0]+"-table span-20" cellpadding="5")
+    tbody.span-20
+      - for(var i = 0; i < str; i++)
+        - if (i === 1)
+          tr.span-20.coords-headers
+            - for (var j = 0; j < col; j++)
+              - if (i === 0)
+                td(class=tc[j+1]+' span-10 not-choosen') Не выбрано
+              - else
+                td(class=tc[j + 1] + '-headers span-10')= heads[j]
+        - else
+          tr.span-20.coords
+            - for (var j = 0; j < col; j++)
+              - if (i === 0)
+                td(class=tc[j+1]+' span-10 not-choosen') Не выбрано
+              - else
+                td(class=tc[j + 1] + '-headers span-10')= heads[j]

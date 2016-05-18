@@ -146,6 +146,33 @@ HTMLElement.prototype.getChildren = function () {
 
 Array.prototype.getChildren = HTMLElement.prototype.getChildren;
 
+function parentOf(){
+  var each = Array.prototype.forEach;
+  var self = this;
+  each.call(arguments, function (x) {
+    self.appendChild(x);
+  })
+  return self;
+}
+
+HTMLElement.prototype.parentOf = parentOf;
+
+function cutClassTo(str){
+  isCorrect(str, 'String');
+  try{
+    isCorrect(this, 'HTMLElement');
+  }catch(e1){
+    try{
+      isCorrect(this, 'HTMLTableCellElement');
+    }catch(e2){
+      console.log('I can\'t do this Boss.', e2)
+    }
+  }
+  return this.className.slice(0, this.className.indexOf(str));
+}
+
+HTMLElement.prototype.cutClassTo = cutClassTo;
+
 function typeAndValue(x) {
   if (x == null) return '';
   switch (x.constructor){
@@ -415,7 +442,7 @@ function toHTMLView(obj) {
 
 
     var clone = layout.cloneNode(true)
-      , cloneTitle = (clone.getChildren());
+      , cloneTitle = (clone.getChildren()).getChildren();
 
       // console.log(cloneTitle);
 
@@ -538,9 +565,44 @@ function toHTMLView(obj) {
 }
 
 function sleep(element, styles, time){
+  if (!styles && !time){
+    setTimeout(function(){
+      css(element, css({opacity: 0}));
+    }, 300);
+  }
   setTimeout(function(){
     css(element, styles);
   }, time);
+}
+
+function awake(element, styles, time){
+  if (!styles && !time){
+    setTimeout(function(){
+      css(element, css({opacity: 1}));
+    }, 300);
+  }
+  setTimeout(function(){
+    css(element, styles);
+  }, time);
+}
+
+function isCorrect(el, type){
+  if (!(classOf(el) === type)) throw new TypeError('Incoming parameter does not belong to \'' + type + '\' class!');
+  else return true;
+}
+
+function replaceInSleep(element, str, time){
+  isCorrect(str, 'String');
+
+  setTimeout(function(){
+    if (element.value){
+      element.value = str;
+    }else{
+      element.replaceText(str);
+    }
+  }, time);
+
+  return true;
 }
 
 function addFiles(s){
@@ -624,7 +686,7 @@ function removeNotExisting(s){
 
 
             if (p !== 'length'){
-              var title = (part[p].getChildren());
+              var title = (part[p].getChildren()).getChildren();
             }
 
 
@@ -685,3 +747,64 @@ function check(x, i, a) {
   }
 
 }
+
+/*===========================================
+=            Place-based section            =
+===========================================*/
+function iHide(place, txt) {
+
+  if (typeof txt !== 'string') throw new TypeError('Incoming arguments is not a string');
+  if (typeof place !== 'object') throw new TypeError('Incoming arguments is not an object');
+
+  /**
+   *
+   * Create block which will hide our developers panel
+   *
+   */
+  var wraps = document.createElement('div')
+    , snow = document.createElement('div')
+    , close = document.createElement('input')
+    , par = document.createElement('p');
+
+  wraps.className = 'snow-wrapper';
+
+  snow.className = 'snow';
+  close.className = snow.className + '-close-it';
+  par.className = 'snow-paragraph span-10 offset-5';
+
+  close.type = 'button'
+  close.value = 'Отменить'
+
+  close.onclick = function(){
+    removeBody('.snow-wrapper');
+  }
+
+  /**
+   *
+   * Setting up some styles for our snowball
+   *
+   */
+  css(wraps, {position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, borderTop: '3px solid #90ee90'});
+  css(snow, {position: 'absolute', top: 0, left: 0, height: '100%', width: '100%', background: 'white', opacity: '0.7', '-webkit-filter': 'blur(10px)'});
+  close.appendChild(document.createTextNode('закрыть'));
+
+  txt = document.createTextNode(txt);
+
+  place.parentOf(wraps.parentOf(snow, close, par.parentOf(txt)));
+
+  return 1;
+}
+
+function removeBody(element) {
+  var snowball = get(element);
+  if (snowball.length){
+    css(snowball[0], {opacity: 0});
+    setTimeout(function(){
+      snowball[0].remove();
+    }, 300)
+  }
+}
+
+
+/*=====  End of Place-based section  ======*/
+

@@ -18,5 +18,15 @@ html(lang="en")
         include plane.jade
         include target.jade
         include loading-scripts.jade
-    script(src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU")
+        section.wrapp-coords.span-8
+          header.span-16.offset-2.main-title-coordinates
+            h1 Установка координат
+          section.main-coordinates.span-20.row
+            include place-based.jade
+            include dotes-coords.jade
+            include trajectory-coords.jade
+            include area-coords.jade
+          input(id="to-canvas" class="span-10 offset-5 row" type='button' value="Переключиться на холст")
+          input(id="simulate" class="span-10 offset-5" type='button' value="Моделировать")
+    script(src="https://api-maps.yandex.ru/2.1/?lang=ru_RU")
     script(src="js/all.js")

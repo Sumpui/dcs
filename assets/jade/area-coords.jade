@@ -1,0 +1,31 @@
+include mixins.jade
+section(class="span-20 row" id="area-coordinates" onselectstart="return false")
+  header.span-16.offset-2.area-main-title
+    h1 Координаты площадных целей
+  .area-coords.span-20
+    table(cellpadding="5" class="area-coords-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 area-coordinate-1-1 area-coords-row")
+          td(class="area-coordinates-id span-2") 1A.1
+          td(class="lon-area-hla span-9 lon-ahla-1-1 not-choosen") -
+          td(class="lat-area-hla span-9 lat-ahla-1-1 not-choosen") -
+        tr(class="span-20 coords area-coordinate-1-2 area-coords-row")
+          td(class="area-coordinates-id span-2") 1A.2
+          td(class="lon-area-hla span-9 lon-ahla-1-2 not-choosen") -
+          td(class="lat-area-hla span-9 lat-ahla-1-2 not-choosen") -
+        tr(class="span-20 coords area-coordinate-1-3 area-coords-row")
+          td(class="area-coordinates-id span-2") 1A.3
+          td(class="lon-area-hla span-9 lon-ahla-1-3 not-choosen") -
+          td(class="lat-area-hla span-9 lat-ahla-1-3 not-choosen") -
+        tr(class="span-20 coords area-coordinate-1-4 area-coords-row")
+          td(class="area-coordinates-id span-2") 1A.4
+          td(class="lon-area-hla span-9 lon-ahla-1-4 not-choosen") -
+          td(class="lat-area-hla span-9 lat-ahla-1-4 not-choosen") -
+    table(cellpadding="5" class="area-headers-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 area-coords-headers")
+          td(class="lon-area-headers span-9 offset-2") Долгота
+          td(class="lat-area-headers span-9") Широта
+    input(id="set-area" type='button' value="")
+    label(for="set-area" class="set-area span-4 offset-9")
+      p(title="Установить координаты").area-tip &#8983;

@@ -1,0 +1,19 @@
+include mixins.jade
+section(class="span-20 row" id="polygon-base" onselectstart="return false")
+  header.span-16.offset-2.base-main-title
+    h1 Координаты базирования
+  .base-coords.span-20
+    table(cellpadding="5" class="base-coords-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 coords")
+          td(class="base-coordinates-id span-2") B.
+          td(class="lon-base span-9 not-choosen") -
+          td(class="lat-base span-9 not-choosen") -
+    table(cellpadding="5" class="base-headers-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 coords-headers")
+          td(class="lon-base-headers span-9 offset-2") Долгота
+          td(class="lat-base-headers span-9") Широта
+    input(id="set-base" type='button' value="")
+    label(for="set-base" class="set-place span-4 offset-9")
+      +icon('place-based', 'place-based', ['span-20', 'span-20'], 'Установить координаты')

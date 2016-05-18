@@ -1,0 +1,19 @@
+include mixins.jade
+section(class="span-20 row" id="dotes-coordinates" onselectstart="return false")
+  header.span-16.offset-2.dotes-coordinates-main-title
+    h1 Координаты точечных целей
+  .dotes-coords.span-20
+    table(cellpadding="5" class="dotes-coords-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 dotes-coords-row dotes-coordinate-1")
+          td(class="dotes-coordinates-id span-2") 1D.
+          td(class="lon-dhla-1 lon-dotes-hla span-9 not-choosen") -
+          td(class="lat-dhla-1 lat-dotes-hla span-9 not-choosen") -
+     table(cellpadding="5" class="dotes-headers-table span-20")
+      tbody(class="span-20")
+        tr(class="span-20 dotes-coords-headers")
+          td(class="lon-dotes-headers span-9 offset-2") Долгота
+          td(class="lat-dotes-headers span-9 ") Широта
+    input(id="set-dotes-coords" type='button' value="")
+    label(for="set-dotes-coords" class="set-dotes span-4 offset-9")
+      p(title="Установить координаты").dotes-tip ⦁⦁⦁
