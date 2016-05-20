@@ -7,9 +7,9 @@ html(lang="en")
   body(onselectstart="return false;")
     include ./icons/sprite/svg/symbols.svg
     #container
-      #dynamic-map.span-20
-      #staticclear-map.span-20
-      canvas#polygon.span-20
+      #dynamic-map
+      #static-map
+      canvas(width="1300" height="600")#polygon
       #controls.span-20
         //- button.fix-map.span-3.offset-17 Зафиксировать
       //- Empty block with fixed height
@@ -26,7 +26,6 @@ html(lang="en")
             include dotes-coords.jade
             include trajectory-coords.jade
             include area-coords.jade
-          input(id="to-canvas" class="span-10 offset-5 row" type='button' value="Переключиться на холст")
-          input(id="simulate" class="span-10 offset-5" type='button' value="Моделировать")
+        include switches.jade
     script(src="https://api-maps.yandex.ru/2.1/?lang=ru_RU")
     script(src="js/all.js")

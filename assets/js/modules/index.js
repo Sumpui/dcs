@@ -83,7 +83,7 @@ Object.defineProperties(Object.prototype, {
        * Check incoming parameter on its type
        *
        */
-      mes = 'It is not an object'
+      mes = 'It is not a string'
       if (typeof t !== 'string') throw new TypeError(mes);
 
       this.removeChild(this.childNodes[0]);
@@ -139,6 +139,27 @@ HTMLElement.prototype.getChildren = function () {
         }
       }
     }
+  }else if (classOf(this) === 'HTMLTableRowElement'){
+    if (this.children.length) {
+      child = this.children;
+      for (var i in child){
+        if (child.hasOwnProperty(i)){
+          children.push(child[i]);
+          // console.log(children);
+        }
+      }
+    }
+  }
+  else if (classOf(this) === 'HTMLTableSectionElement'){
+    if (this.children.length) {
+      child = this.children;
+      for (var i in child){
+        if (child.hasOwnProperty(i)){
+          children.push(child[i]);
+          // console.log(children);
+        }
+      }
+    }
   }
 
   return children;
@@ -165,10 +186,18 @@ function cutClassTo(str){
     try{
       isCorrect(this, 'HTMLTableCellElement');
     }catch(e2){
-      console.log('I can\'t do this Boss.', e2)
+      try {
+        isCorrect(this, 'HTMLTableRowElement');
+      }catch(e3){
+        console.log('I can\'t do this Boss.', e2)
+      }
     }
   }
-  return this.className.slice(0, this.className.indexOf(str));
+  if (arguments[1]){
+    return this.className.slice(0, this.className.lastIndexOf(str));
+  }else{
+    return this.className.slice(0, this.className.indexOf(str));
+  }
 }
 
 HTMLElement.prototype.cutClassTo = cutClassTo;
@@ -807,4 +836,36 @@ function removeBody(element) {
 
 
 /*=====  End of Place-based section  ======*/
+
+
+/*==============================
+=            Canvas            =
+==============================*/
+
+function drawCircle(can, x, y, r, s, e, sc, fc, lw, tx){
+  can.beginPath();
+  can.arc(x, y, r, s, e);
+  can.lineWidth = lw;
+  if (sc && fc) {
+    can.fillStyle = fc;
+    can.strokeStyle = sc;
+    can.stroke();
+    can.fill();
+  }else if (sc) {
+    can.strokeStyle = sc;
+    can.stroke();
+  }else if (fc) {
+    can.fillStyle = fc;
+    can.fill();
+  }
+  if (tx) {
+    console.log(1)
+    can.font = '24px Tahoma';
+    can.fillStyle = fc || sc;
+    can.textAlign = 'left';
+    can.fillText(tx, x, y);
+  }
+}
+
+/*=====  End of Canvas  ======*/
 

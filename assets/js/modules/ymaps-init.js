@@ -16,8 +16,8 @@ function init () {
         // её центр и коэффициент масштабирования.
         center: [55.76, 37.64], // Москва
         zoom: 5,
+        controls: ['rulerControl', 'zoomControl']
     });
-
 
     myCollection = new ymaps.GeoObjectCollection({}, {
         preset: 'twirl#redIcon',
