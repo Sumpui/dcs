@@ -200,7 +200,7 @@ maintext()
 
 #control-additional
   position relative
-  background linear-gradient(-45deg, rgba(230,230,230,1) 0%, rgba(199,199,199,0.6) 44%, rgba(125,125,125,0.08) 100%);
+  background linear-gradient(-20deg, rgba(230,230,230,1) 0%, rgba(199,199,199,0.6) 44%, rgba(125,125,125,0.08) 100%);
   border-radius 6px
   // height baseline*14
   padding baseline
@@ -411,6 +411,9 @@ article[hidden="true"]
 .main-coordinates
   // shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
   height baseline*16
+  padding baseline
+  border 2px solid brill-blue[0]
+  border-radius 3px // baseline/6
   overflow-y scroll
 
 .coords-headers, .dotes-coords-headers, .area-coords-headers, .trajectory-coords-headers
@@ -426,7 +429,7 @@ article[hidden="true"]
   cursor pointer
   color brill-blue[0]
   line-height baseline*2
-  border 2px solid brill-blue[0]
+  // border 2px solid brill-blue[0]
   border-radius 3px // baseline/6
   shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
 
@@ -474,9 +477,9 @@ article[hidden="true"]
   shd(0, 0px, 0px, 10px, 0px, light-telegram[1])
   font-style(center, .9em, normal, 44px)
   color brill-blue[0]
-  background scale-gray
+  // background scale-gray
   &:hover
-    background white
+    // background white
     shd(0, 0px, 1px, 3px, 0px, blue-black[1])
   &:focus
     outline none
@@ -523,8 +526,8 @@ article[hidden="true"]
   color brill-blue[0]
   stroke-width 7px
 
-.lon-trajectory-hla, .lon-area-hla
-  border-left 2px solid brill-blue[0]
+// .lon-trajectory-hla, .lon-area-hla
+//   border-left 2px solid brill-blue[0]
 
 .trajectory-hla, .area-hla
   margin-left 4px // baseline/5
@@ -535,7 +538,7 @@ article[hidden="true"]
 .dotes-coordinates-id, .base-coordinates-id
   font-style(center, .7em, normal, null)
   font-size .9em !important
-  border-right 2px solid brill-blue[0]
+  // border-right 2px solid brill-blue[0]
 
 .snow-close-it, .confirm-base 
   cursor pointer

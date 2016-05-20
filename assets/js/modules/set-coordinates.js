@@ -501,9 +501,8 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
    *
    */
   
-  var polygon = sample.canvasMap.getContext('2d');
-
-  var counter = count(1);
+  var polygon = sample.canvasMap.getContext('2d')
+    , counter = count(1);
 
   sample.dotes.button.onclick = function() {
 
@@ -523,16 +522,14 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
 
     /**
      *
-     * Get snowball if it is existed
+     * Get snowball if it is existed, get amount value;
      *
      */
-    var wasChanged = false;
-
-
     var snowball = get('.snow')
       , dotesAmount = sample.dotes.amount.innerText
       , color = 'rgba(255,64,64, 1)'
-      , ending = '';
+      , ending = ''
+      , wasChanged = false;
 
     dotesAmount > 1 ? ending = ' точечных целей!': ending = ' точечную цель!';
 
@@ -547,38 +544,46 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
           sample.canvasMap.onmousemove = null;
           sample.canvasMap.onclick = null;
 
-          var existedDotes = sample.dotes.coordinates
-            , clones = [];
+          addToTable();
 
-          for (var j = 0; j <= existedDotes.length - 1; j++){
+          function addToTable() {
+            var existedDotes = sample.dotes.coordinates
+              , clones = [];
 
-            var dotesRow = get('.dotes-coords-row')[0]
-              , dotesClone = dotesRow.cloneNode(true);
+            for (var j = 0; j <= existedDotes.length - 1; j++){
 
-            dotesClone.className = dotesClone.cutClassTo('-', true) + '-' + (j + 1);
+              var dotesRow = get('.dotes-coords-row')[0]
+                , dotesClone = dotesRow.cloneNode(true);
 
-            var children = dotesClone.getChildren();
+              dotesClone.className = dotesClone.cutClassTo('-', true) + '-' + (j + 1);
 
-            for (var i = 1; i <= children.length - 1; i++){
-              children[i].className = children[i].cutClassTo('not-choosen', true);
-              children[i].className = children[i].cutClassTo('-', true);
-              children[i].className += '-' + (j + 1) + ' choosen';
-              children[0].replaceText((j + 1) + 'D.');
+              var children = dotesClone.getChildren();
+
+              for (var i = 1; i <= children.length - 1; i++){
+                children[i].className = children[i].cutClassTo('not-choosen', true);
+                children[i].className = children[i].cutClassTo('-', true);
+                children[i].className += '-' + (j + 1) + ' choosen';
+                children[0].replaceText((j + 1) + 'D.');
+              }
+
+              children[1].replaceText((sample.dotes.coordinates[j].x).toString());
+              children[2].replaceText((sample.dotes.coordinates[j].y).toString());
+
+              clones.push(dotesClone);
+
             }
 
-            children[1].replaceText((sample.dotes.coordinates[j].x).toString());
-            children[2].replaceText((sample.dotes.coordinates[j].y).toString());
+            var tbody = get('.dotes-body')[0]
+              , tbodyChildren = tbody.getChildren();
 
-            clones.push(dotesClone);
+              for (var b = 0; b <= tbodyChildren.length - 1; b++){
+                tbodyChildren[b].remove();
+              }
 
-          }
-
-          var tbody = get('.dotes-body')[0];
-
-          (tbody.getChildren())[0].remove();
-
-          for (var k = 0; k <= clones.length - 1; k++){
-            tbody.parentOf(clones[k]);
+            for (var k = 0; k <= clones.length - 1; k++){
+              tbody.parentOf(clones[k]);
+            }
+            return true;
           }
 
         }
@@ -675,7 +680,7 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
          *
          */
         
-        drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2, ' ' + counter() + 'D.');
+        drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2, '  ' + counter() + 'D');
         drawCircle(polygon, x0, y0, r + 6, startAngle, endAngle, color, 0, 2, 0);
 
         sample.dotes.coordinates.push({
@@ -688,33 +693,380 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
     }
 
   }
-
-
 };
 
-// MapInteraction.prototype.canvas.setTrajectory = function(sample) {
-// };
+MapInteraction.prototype.canvas.setTrajectory = function(sample) {
+
+  /**
+   *
+   * Create canvas
+   *
+   */
+  var polygon = sample.canvasMap.getContext('2d')
+    , r = sample.trajectory.radius
+    , d = r*2*2;
+
+  /**
+   *
+   * Counters
+   *
+   */
+  var counter = count(1)
+    , evenCounter = count(0)
+    , dotesID = count(1)
+    , evDotes = dotesID();
+
+  /**
+   *
+   * Gather dotes to line in one array;
+   *
+   */
+  var lineCoords = [];
+
+
+  sample.trajectory.button.onclick = function() {
+
+
+    /**
+     *
+     * Get snowball if it is existed, get amount value;
+     *
+     */
+    var snowball = get('.snow')
+      , ending = ''
+      , wasChanged = false
+      , amount = parseInt(sample.trajectory.amount.innerText)
+      , trajectoryLen = sample.trajectory.coordinates.length;
+
+
+    amount > 1 ? ending = ' траекторных целей!': ending = ' тректорную цель!';
+    /**
+     *
+     * If it hasn't been created
+     *
+     */
+    
+    if (!snowball.length){
+      iHide(sample.panel, 'Кликните на карту и определите ' + amount + ending);
+    }
+
+    if (amount <= trajectoryLen){
+      var coords = sample.trajectory.coordinates;
+
+      for (var i = 0; i <= coords.length - 1; i++){
+        coordinate = coords[i];
+        var xc1 = coordinate[0].x
+          , yc1 = coordinate[0].y
+          , xc2 = coordinate[1].x
+          , yc2 = coordinate[1].y;
+
+        /**
+         *
+         * Clear dotes and text near there
+         *
+         */
+        
+        polygon.clearRect(xc1 - d*2*2, yc1 - d*2*2.65, d*2*2*5, d*2*2*2)
+        polygon.clearRect(xc2 - d*2*2, yc2 - d*2*2.65, d*2*2*5, d*2*2*2)
+        /**
+         *
+         * Clear line
+         *
+         */
+        
+        polygon.clearRect(xc1, yc1, (xc2 - xc1), (yc2 - yc1));
+      }
+      counter = count(1);
+      evenCounter = count(0);
+      dotesID = count(1);
+      evDotes = dotesID();
+      coords.length = 0;
+    }
+
+  var interval = setInterval(function() {
+  /**
+   *
+   * Stop add new points
+   *
+   */
+    if (wasChanged) {
+      clearInterval(interval);
+      sample.canvasMap.onmousemove = null;
+      sample.canvasMap.onclick = null;
+
+      addToTrajectoryTable();
+
+      function addToTrajectoryTable() {
+
+        var existedTrajectory = sample.trajectory.coordinates
+          , clones = [];
+
+        /**
+         *
+         * Run on all arrays
+         *
+         */
+        
+        for (var j = 0; j <= existedTrajectory.length - 1; j++){
+
+          var element = existedTrajectory[j];
+
+          /**
+           *
+           * Run on all elements in arrays (coordinates)
+           *
+           */
+          
+          for (var l = 0; l <= element.length - 1; l++){
+
+            /**
+             *
+             * Cloning trajectory table row and its children. Setting up attributes to correct view
+             *
+             */
+            
+            var trajectoryRow = get('.trajectory-coords-row')[0]
+              , trajectoryClone = trajectoryRow.cloneNode(true);
+
+            trajectoryClone.className = trajectoryClone.cutClassTo('coordinate-1', true) + 'coordinate-' + (j + 1) + '-' + (l + 1);
+
+            var children = trajectoryClone.getChildren();
+
+            for (var h = 1; h <= children.length - 1; h++){
+              children[h].className = children[h].cutClassTo('not-choosen', true);
+              children[h].className = children[h].cutClassTo('thla-', true);
+              children[h].className += 'thla-' + (l + 1) + '-' + h + ' choosen';
+            }
+
+            children[0].replaceText((j + 1) + 'T.' + (l + 1));
+            children[1].replaceText((sample.trajectory.coordinates[j][l].x).toString());
+            children[2].replaceText((sample.trajectory.coordinates[j][l].y).toString());
+
+            clones.push(trajectoryClone);
+
+          }
+        }
+
+      /**
+       *
+       * Get parent table body
+       *
+       */
+      
+      var tbody = get('.trajectory-table-body')[0]
+
+      /**
+       *
+       * Search for the existed children
+       *
+       */
+      
+      var tbodyChildren = tbody.getChildren();
+
+      for (var e = 0; e <= tbodyChildren.length - 1; e++){
+        tbodyChildren[e].remove();
+      }
+
+      /**
+       *
+       * Remove existed children
+       *
+       */
+      
+      for (var q = 0; q <= clones.length - 1; q++){
+        tbody.parentOf(clones[q]);
+      }
+
+      return true;
+      }
+    }
+  }, 10);
+    /**
+     *
+     * Handler to mouse moving
+     *
+     */
+    
+    sample.canvasMap.onmousemove = function(e) {
+
+
+      /**
+       *
+       * Handler to events
+       *
+       */
+      
+      this.onclick = function() {
+
+        /**
+         *
+         * Canvas offset, circle radiuses and center
+         *
+         */
+        
+        var offset = sample.canvasMap.getBoundingClientRect()
+        , x0 = e.clientX - offset.left
+        , y0 = e.clientY - offset.top
+        , color = 'rgba(73, 121, 107, 1)'
+        , startAngle = 0
+        , endAngle = 2*Math.PI
+
+        // console.log(x0, y0);
+
+        /**
+         *
+         * Increasing it every time when user clicks
+         *
+         */
+        
+        lineCoords.push({
+          x: x0,
+          y: y0
+        });
+
+        var ev = evenCounter();
+
+        /**
+         *
+         * To define a line we need to draw
+         *
+         */
+          
+        if (ev === 1){
+          evenCounter = count(0);
+          sample.trajectory.coordinates.push(lineCoords);
+
+          /**
+           *
+           * Lines peaks coordinates
+           *
+           */
+          
+          var x1 = lineCoords[0].x
+            , y1 = lineCoords[0].y
+            , x2 = lineCoords[1].x
+            , y2 = lineCoords[1].y
+
+          polygon.beginPath();
+          polygon.moveTo(x1, y1);
+          polygon.lineTo(x2, y2);
+          polygon.strokeStyle = 'rgba(73, 121, 107, .5)';
+          polygon.stroke();
+
+          lineCoords = [];
+
+          /**
+           *
+           * If trajectory targets amount is equal to targets, that we have created
+           *
+           */
+          
+          if (sample.trajectory.coordinates.length === amount){
+
+           /**
+             *
+             * Get all center coords (lontitude and latitude)
+             *
+             */
+            var closeSnow = get('.snow-close-it')[0]
+              , par = get('.snow-paragraph')[0];
+
+            /**
+             *
+             * Makes closeSnow button and paragraph sleep again
+             *
+             */
+            css(closeSnow, {opacity: 0});
+            css(par, {opacity: 0});
+
+            /**
+             *
+             * Add new class to button
+             *
+             */
+            closeSnow.className = closeSnow.className + ' confirm-base';
+
+            /**
+             *
+             * Replace value of the button while it is in 'Sleep'
+             *
+             */
+            replaceInSleep(closeSnow, 'Подтвердить', 300);
+            replaceInSleep(par, 'Задание целей произошло успешно!', 300);
+
+            css(closeSnow, {top: '20%'});
+
+            /**
+             *
+             * Show again this button
+             *
+             */
+            awake(closeSnow);
+            awake(par);
+
+            wasChanged = true;
+          }
+
+        }
+
+        /**
+         *
+         * Draw filled circle
+         *
+         */
+        
+        drawCircle(polygon, x0, y0, r + 2, startAngle, endAngle, 0, color, 2, '  ' + evDotes + 'T.' + counter());
+
+        if (ev === 1){
+          evDotes = dotesID();
+          counter = count(1);
+        }
+        // drawLine(polygon)
+
+        // console.log(lineCoords);
+
+        // console.log(sample.trajectory.coordinates)
+
+
+      }
+
+
+
+    }
+
+
+  }
+};
 
 // MapInteraction.prototype.canvas.setArea = function(sample) {
 // };
 
+MapInteraction.prototype.replaceHeaders = function(lon, lat){
+
+  this.base.headers.xH.replaceText(lon);
+  this.base.headers.yH.replaceText(lat);
+
+  this.dotes.headers.xH.replaceText(lon);
+  this.dotes.headers.yH.replaceText(lat);
+
+  this.trajectory.headers.xH.replaceText(lon);
+  this.trajectory.headers.yH.replaceText(lat);
+
+  this.area.headers.xH.replaceText(lon);
+  this.area.headers.yH.replaceText(lat);
+
+  return this;
+
+}
+
 MapInteraction.prototype.canvas.initialize = function(sp) {
 
-  sp.base.headers.xH.replaceText('x');
-  sp.base.headers.yH.replaceText('y');
 
-  sp.dotes.headers.xH.replaceText('x');
-  sp.dotes.headers.yH.replaceText('y');
-
-  sp.trajectory.headers.xH.replaceText('x');
-  sp.trajectory.headers.yH.replaceText('y');
-
-  sp.area.headers.xH.replaceText('x');
-  sp.area.headers.yH.replaceText('y');
+  sp.replaceHeaders('x', 'y');
 
   this.setBase(sp);
   this.setDotes(sp);
-  // this.setTrajectory(sp);
+  this.setTrajectory(sp);
   // this.setArea(sp);
 
   return this;
@@ -815,7 +1167,7 @@ MapInteraction.prototype.trajectoryCoordinates = [];
           x: 0,
           y: 0
         },
-        radius: 2,
+        radius: 3,
         button: get('#set-base'),
         values: {
           xV: get('.lon-base')[0],
@@ -838,22 +1190,10 @@ MapInteraction.prototype.trajectoryCoordinates = [];
         },
         amount: get('.dotes-amount')[0],
         button: get('#set-dotes'),
-        radius: 1
+        radius: 2
       },
       trajectory: {
-        coordinates:
-        [
-          [
-            {
-              x: 0,
-              y: 0
-            }, 
-            {
-              x: 0,
-              y: 0
-            }
-          ]
-        ],
+        coordinates: [],
         values: {
           xV: get('.lon-trajectory-hla')[0],
           yV: get('.lat-trajectory-hla')[0]
@@ -863,7 +1203,8 @@ MapInteraction.prototype.trajectoryCoordinates = [];
           yH: get('.lat-trajectory-headers')[0]
         },
         amount: get('.trajectory-amount')[0],
-        button: get('#set-trajectory')
+        button: get('#set-trajectory'),
+        radius: 1.5
       },
       area: {
         coordinates:
@@ -966,17 +1307,8 @@ MapInteraction.prototype.trajectoryCoordinates = [];
       cv.initialize(mapData);
 
     }else{
-      mapData.base.headers.xH.replaceText('Долгота');
-      mapData.base.headers.yH.replaceText('Широта');
 
-      mapData.dotes.headers.xH.replaceText('Долгота');
-      mapData.dotes.headers.yH.replaceText('Широта');
-
-      mapData.trajectory.headers.xH.replaceText('Долгота');
-      mapData.trajectory.headers.yH.replaceText('Широта');
-
-      mapData.area.headers.xH.replaceText('Долгота');
-      mapData.area.headers.yH.replaceText('Широта');
+      mapData.replaceHeaders('Долгота', 'Широта');
 
       baseMap.setBase();
       targetsMap.setDotes();

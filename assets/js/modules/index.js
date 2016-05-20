@@ -846,6 +846,7 @@ function drawCircle(can, x, y, r, s, e, sc, fc, lw, tx){
   can.beginPath();
   can.arc(x, y, r, s, e);
   can.lineWidth = lw;
+
   if (sc && fc) {
     can.fillStyle = fc;
     can.strokeStyle = sc;
@@ -858,9 +859,9 @@ function drawCircle(can, x, y, r, s, e, sc, fc, lw, tx){
     can.fillStyle = fc;
     can.fill();
   }
+
   if (tx) {
-    console.log(1)
-    can.font = '24px Tahoma';
+    can.font = '18px Tahoma';
     can.fillStyle = fc || sc;
     can.textAlign = 'left';
     can.fillText(tx, x, y);
