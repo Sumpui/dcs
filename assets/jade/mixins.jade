@@ -3,6 +3,55 @@ mixin icon(main, name, span, tt)
     svg(class=name+'-icon svg-blocks '+span[1])
       use(class=name+'-in-use' xlink:href='#'+name)
 
+
+mixin buildDrones(parentArt, parentHead, hTitle, drones, childrenArt, childrenHead, childrenLabel, labelText, countries, typeD, rad, charArt, charHead, techChars, propsArt, propsHead, propsPar, namesVal, propN, propVal)
+  - var parent = [parentArt, parentHead]
+  - var parentValue = hTitle
+  - var drones = drones
+  - var children = [childrenArt,childrenHead,childrenLabel]
+  - var labelValue = labelText
+  - var countries = countries
+  - var tp = typeD
+  - var radio = rad
+  - var chars = [charArt, charHead]
+  - var charsHeadValue = techChars
+  - var props = [propsArt, propsHead, propsPar]
+  - var namesValues = namesVal
+  - var propNames = propN
+  - var propValues = propVal
+    article(class="span-20 row " + parent[0])
+      header(class="span-20 " + parent[1])
+        h1= parentValue
+      - for (var i = 0; i <= drones.length - 1; i++)
+        input(type='checkbox' name=tp class= radio + "checks" id=radio + (i+1))
+        article(class="span-20 " + children[0] + (i + 1))
+          header(class= "span-20 " + children[1])
+            - if (i === 0)
+              div(class= "span-1 offset-1 " + countries[0] + '-icon country-icons')
+                +icon(country[0], country[0], ['span-20', 'span-20'], country[0])
+            - else if (i === 1)
+              div(class= "span-1 offset-1 " + countries[1] + '-icon country-icons')
+                +icon(country[1], country[1], ['span-20', 'span-20'], country[1])
+            - else if (i === 2)
+              div(class= "span-1 offset-1 " + countries[2] + '-icon country-icons')
+                +icon(country[2], country[2], ['span-20', 'span-20'], country[2])
+            h2.drone-name.span-8= drones[i]
+            input(type="button" class= radio + "hide" id= radio + "more-"+(i + 1))
+            label(for= radio + 'more-' + (i + 1)  class= radio + "buttons span-4") Подробнее
+            label(for=radio + (i+1) class= "span-4 " + children[2])= labelValue
+            input(type="text" class="span-2 " + radio + 'amount' placeholder="Количество беспилотников")
+            input(type="button" id = radio + 'close-' + (i+1) class= radio + 'cls')
+            label(for= radio + 'close-' + (i + 1)  class= radio + "close-buttons span-4") ⨯
+          article(class="span-14 offset-3 " + chars[0])
+            header(class="span-20 " + chars[1])
+              h2= charsHeadValue
+            .chars-group.span-16.offset-2
+              - for (var k = 0; k <= namesValues.length - 1; k++)
+                article(class= "span-20 " + props[0] + " " + propNames[k] + '-' + (i + 1))
+                  header(class= "span-12 " + props[1])
+                    h3= namesValues[k]
+                  p(class= "span-8 " + props[2])= propValues[i][k]
+
 mixin table(col, str, tc, heads)
   table(class=tc[0]+"-table span-20" cellpadding="5")
     tbody.span-20

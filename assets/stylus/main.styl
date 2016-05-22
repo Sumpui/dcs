@@ -1,3 +1,5 @@
+*
+  box-sizing border-box
 /*==============================
 =            Colors            =
 ==============================*/
@@ -5,7 +7,12 @@
 scale-gray = #ededed
 light-grey = #d8ddef
 dark-slate-gray = #2f4f4f rgba(49, 74, 74, .4)
+grayish-cyan = #bec6c8
 
+grayish-blue = #a3aeba rgba(163,174,186, .9)
+dark-grayish-gray = #778899 rgba(119,136,153, .5)
+
+white-whisper = rgba(255, 255, 255, .3)
 
 /* Toddler colors */
 gainsboro = #dcdcdc
@@ -22,8 +29,12 @@ shamrock = #21d19f #10634c #1bb166
 light-green = #90ee90 #1ec773
 pastel-green = #64e765
 
+outer-space = #414a4c rgba(65, 74, 76, .1)
+
 brill-blue = #336f94 #1f445b
 mint = #4988a0 rgba(73,136,160, .1)
+
+corn-flower = rgba(154, 206, 235, .3) rgba(154,206,235, 1)
 
 air-force-blue = #5d8aa8;
 
@@ -214,7 +225,7 @@ maintext()
 //   border 1px solid forest-wolve[1]
 
 /*----------  Sections main titles  ----------*/
-.main-titles
+.main-titles, .drones-main-head
   h1
     font-style(center, 1.3em, normal, 1.3em)
     margin 5px 0 0px 0 // Mat.round(baseline/4);
@@ -412,6 +423,7 @@ article[hidden="true"]
   // shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
   height baseline*16
   padding baseline
+  padding-left baseline*2
   border 2px solid brill-blue[0]
   border-radius 3px // baseline/6
   overflow-y scroll
@@ -622,6 +634,262 @@ article[hidden="true"]
 
 /*=====  End of Simulate  ======*/
 
+/*==============================
+=            Drones            =
+==============================*/
+.drone-types
+  overflow-y scroll
+  overflow-x hidden
+  height baseline*16
+  padding-left 9px
+  shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
+
+#hard-drone-1, #hard-drone-2, #hard-drone-3,
+#middle-drone-1, #middle-drone-2, #middle-drone-3
+#light-drone-1, #light-drone-2, #light-drone-3
+  display none
+
+#hard-drone-close-1, #hard-drone-close-2, #hard-drone-close-3,
+#middle-drone-close-1, #middle-drone-close-2, #middle-drone-close-3
+#light-drone-close-1, #light-drone-close-2, #light-drone-close-3
+  display none
+
+
+.hd-header, .md-header, .lt-header
+  margin baseline/2 0 baseline/2 0
+  border-bottom 1px solid grayish-cyan
+  h1
+    font-style(center, .9em, normal, 2em)
+    color blackberry-pearl[1]
+    font-weight 400
+
+.drones-names
+  cursor pointer
+  display block
+  font-style(center, .8em, normal, 3.1em)
+  color blackberry-pearl[0]
+  border 1px solid transparent
+  transition visibility .3s
+  &:active
+    background forest-wolve[1]
+
+.drones-main-head
+  h1
+    border none
+
+.hard-drone-hide,
+.middle-drone-hide,
+.light-drone-hide
+  display none
+
+.hard-drone-buttons,
+.middle-drone-buttons,
+.light-drone-buttons
+  display block
+  position relative
+  font-style(center, .8em, normal, 3.1em)
+  color transparent
+  &:after
+    display block
+    content '⤵'
+    position absolute
+    right 10%
+    top 50%
+    margin-top -1.1em
+    transition margin-top .3s, position .3s
+    font-style(center, .8em, normal, 3.1em)
+    color transparent
+  nostyle()
+
+.drone-name
+  cursor default
+  font-style(left, 1.3em, normal, 2em)
+  letter-spacing .1em
+  font-weight 400
+  color blackberry-pearl[1]
+  padding-left 3%
+
+.country-icons
+  height 1.3em
+  margin-top .65em
+
+.usa-icon, .isr-icon, .rus-icon
+  height 1.3em
+
+.sub-drones
+  border-bottom 1px solid forest-wolve[0]
+
+.hard-drones,
+.middle-drones,
+.light-drones
+  article
+    &:last-child
+      border-bottom 1px solid transparent
+
+.sub-headers
+  position relative
+  margin 9px 0 9px 0 // baseline/2
+  padding 9px 0 9px 0 // baseline/2
+  &:hover
+    .drone-name
+      color brill-blue[0]
+      padding-left 1%
+    .drones-names
+      font-style(center, 1em, normal, 2.45em)
+      transition font-size .3s, line-height .3s
+      border 1px solid dark-slate-gray[0]
+      color dark-slate-gray[0]
+      &:active
+        border 1px solid brill-blue[0]
+        color brill-blue[0]
+    .country-icons
+      margin-left 7%
+    .hard-drone-buttons,
+    .middle-drone-buttons,
+    .light-drone-buttons
+      cursor pointer
+      margin-left -5%
+      color dark-slate-gray[0]
+      &:active
+        color brill-blue[0]
+        &:after
+          color brill-blue[0]
+      &:after
+        color dark-slate-gray[0]
+
+.chars
+  max-height 0
+  overflow hidden
+  transition max-height .3s, background .3s, margin .3s, padding .3s
+
+.drones-names
+  &:active
+    font-style(center, .8em, normal, 3.1em)
+
+.chars-header
+  h2
+    font-style(center, 1.7em, normal, 2em)
+    font-weight 400
+    color outer-space[0]
+
+.chars-values
+  font-style(center, 1.1em, normal, 1.85em)
+
+.common-chars-title
+  h3
+    cursor default
+    font-style(left, .8em, normal, 2.5em)
+    color outer-space[0]
+    padding-left 6px //baseline/3
+    // ~.chars-values
+    //   font-style(left, 1.4em, normal, 1.5em)
+
+.chars-group
+  article
+    &:nth-of-type(2n + 1)
+      background outer-space[1]
+
+.common-chars
+  cursor zoom-in
+  position relative
+  z-index 0
+  &:hover
+    cursor zoom-out
+    position relative
+    transform scale(1.2)
+    line-height 1.4em
+    background grayish-cyan !important
+    z-index 3
+    // font-style(left, 1.4em, normal, 1.5em)
+
+.hard-drone-amount,
+.middle-drone-amount,
+.light-drone-amount
+  position absolute
+  right -200px
+  display block
+  font-style(center, .7em, normal, 1.5em)
+  top 50%
+  margin-top -1.5em
+  padding 9px 0 9px 2px // baseline/2, baseline/9
+  nostyle()
+  background white
+  border-radius 3px
+  &:focus
+    outline none
+
+.hard-drone-close-buttons,
+.middle-drone-close-buttons,
+.light-drone-close-buttons
+  cursor pointer
+  position absolute
+  right -200px
+  display block
+  font-style(center, 2em, normal, 2.1em)
+  top 50%
+  margin-top -1.5em
+  padding 9px 0 9px 2px // baseline/2, baseline/9
+  nostyle()
+  color outer-space[0]
+  border-radius 3px
+  &:focus
+    outline none
+
+for num in 1 2 3 4 5
+  #hard-drone-{num}
+    &:checked
+      +.sub-drones
+        .sub-headers
+          background light-green[0]
+        .drones-names
+          visibility hidden
+        .hard-drone-amount
+          right 3%
+          width 30%
+        .hard-drone-close-buttons
+          right 1%
+          width 2%
+          height 2%
+
+for num in 1 2 3 4 5
+  #middle-drone-{num}
+    &:checked
+      +.sub-drones
+        .sub-headers
+          background light-green[0]
+        .drones-names
+          visibility hidden
+        .middle-drone-amount
+          right 3%
+          width 30%
+        .middle-drone-close-buttons
+          right 1%
+          width 2%
+          height 2%
+
+for num in 1 2 3 4 5
+  #light-drone-{num}
+    &:checked
+      +.sub-drones
+        .sub-headers
+          background light-green[0]
+        .drones-names
+          visibility hidden
+        .light-drone-amount
+          right 3%
+          width 30%
+        .light-drone-close-buttons
+          right 1%
+          width 2%
+          height 2%
+
+#active
+  max-height baseline*50
+  padding-bottom 18px
+  padding-left 11px
+  margin-bottom  9px // baseline/2
+  background white-whisper
+/*=====  End of Drones  ======*/
 
 
 /*=====  End for Control panel  ======*/
