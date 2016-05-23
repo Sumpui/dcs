@@ -1,13 +1,22 @@
 include mixins.jade
 section(class="span-8 offset-2" id="planes" onselectstart="return false;")
   header.planes-main-title.main-titles.span-16.offset-2
-    h1 Беспилотники
-  article(class="span-20 planes")
+    h1 Беспилотники и ПВО
+  article(class="span-10 planes")
     .amount-slider.span-16.offset-2
       //- Set icons offset to 1 to align it correctly 
-      +icon('planes', 'planes', ['span-6 offset-7', 'span-20 offset-1'], 'Беспилотники')
+      +icon('planes', 'planes', ['span-12 offset-4', 'span-20 offset-1'], 'Беспилотники')
       .toddler-slider.planes-slider.span-16.offset-2
         .toddler.planes-toddle.span-20
         .toddler-line.planes-toddler-line.span-20
       .amount.planes-amount.span-2 1
     header.plane-title.span-16.offset-2 Количество беспилотников
+  article(class="span-10 defence")
+    .amount-slider.span-16.offset-2
+      //- Set icons offset to 1 to align it correctly 
+      +icon('defence', 'defence', ['span-12 offset-4', 'span-20 offset-1'], 'ПВО')
+      .toddler-slider.defence-slider.span-16.offset-2
+        .toddler.defence-toddle.span-20
+        .toddler-line.defence-toddler-line.span-20
+      .amount.defence-amount.span-2 1
+    header.defence-title.span-16.offset-2 Количество ПВО

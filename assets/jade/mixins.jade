@@ -39,7 +39,7 @@ mixin buildDrones(parentArt, parentHead, hTitle, drones, childrenArt, childrenHe
             input(type="button" class= radio + "hide" id= radio + "more-"+(i + 1))
             label(for= radio + 'more-' + (i + 1)  class= radio + "buttons span-4") Подробнее
             label(for=radio + (i+1) class= "span-4 " + children[2])= labelValue
-            input(type="text" class="span-2 " + radio + 'amount' placeholder="Количество беспилотников")
+            input(type="text" class="span-2 " + radio + 'amount' id= radio + 'amount-' + (i + 1) placeholder="Количество беспилотников")
             input(type="button" id = radio + 'close-' + (i+1) class= radio + 'cls')
             label(for= radio + 'close-' + (i + 1)  class= radio + "close-buttons span-4") ⨯
           article(class="span-14 offset-3 " + chars[0])
@@ -48,9 +48,9 @@ mixin buildDrones(parentArt, parentHead, hTitle, drones, childrenArt, childrenHe
             .chars-group.span-16.offset-2
               - for (var k = 0; k <= namesValues.length - 1; k++)
                 article(class= "span-20 " + props[0] + " " + propNames[k] + '-' + (i + 1))
-                  header(class= "span-12 " + props[1])
+                  header(class= "span-13 " + props[1])
                     h3= namesValues[k]
-                  p(class= "span-8 " + props[2])= propValues[i][k]
+                  p(class= "span-7 " + props[2])= propValues[i][k]
 
 mixin table(col, str, tc, heads)
   table(class=tc[0]+"-table span-20" cellpadding="5")

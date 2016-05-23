@@ -17,13 +17,16 @@
       if (hardContent[i].id === 'active') {
         hardContent[i].id = '';
       }else {
-        each.call(hardContent, function(y, j, b){
-          if (y.id){
-            y.id = '';
-          }
-        });
         hardContent[i].id = 'active';
       }
+      // else {
+      //   each.call(hardContent, function(y, j, b){
+      //     if (y.id){
+      //       y.id = '';
+      //     }
+      //   });
+      //   hardContent[i].id = 'active';
+      // }
     }
   });
 
@@ -35,7 +38,7 @@
 
   /**
    *
-   * Setting up event handler for hard-drones
+   * Setting up event handler for middle-drones
    *
    */
   
@@ -45,11 +48,11 @@
       if (middleContent[i].id === 'active') {
         middleContent[i].id = '';
       }else {
-        each.call(middleContent, function(y, j, b){
-          if (y.id){
-            y.id = '';
-          }
-        });
+        // each.call(middleContent, function(y, j, b){
+        //   if (y.id){
+        //     y.id = '';
+        //   }
+        // });
         middleContent[i].id = 'active';
       }
 
@@ -63,7 +66,7 @@
 
   /**
    *
-   * Setting up event handler for hard-drones
+   * Setting up event handler for light-drones
    *
    */
   
@@ -73,11 +76,11 @@
       if (lightContent[i].id === 'active') {
         lightContent[i].id = '';
       }else {
-        each.call(lightContent, function(y, j, b){
-          if (y.id){
-            y.id = '';
-          }
-        });
+        // each.call(lightContent, function(y, j, b){
+        //   if (y.id){
+        //     y.id = '';
+        //   }
+        // });
         lightContent[i].id = 'active';
       }
 

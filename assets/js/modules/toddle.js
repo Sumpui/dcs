@@ -151,6 +151,21 @@
   tod.create();
 
   // Create new Object
+  var def = new Toddle({
+    dom: {
+      slider: '.defence-slider',
+      line: '.defence-toddler-line',
+      tongle: '.defence-toddle',
+      amount: '.defence-amount',
+    },
+    options: {
+      divisions: 10
+    }
+  });
+
+  def.create();
+
+  // Create new Object
   var dotes = new Toddle({
     dom: {
       slider: '.dotes-slider',

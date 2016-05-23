@@ -26,7 +26,7 @@ blackberry-pearl = #6c6874 rgba(108,104,116, 0.5)
 
 /* Loading scripts colors */
 shamrock = #21d19f #10634c #1bb166
-light-green = #90ee90 #1ec773
+light-green = #90ee90 #1ec773 rgba(144, 238, 144, 0.4)
 pastel-green = #64e765
 
 outer-space = #414a4c rgba(65, 74, 76, .1)
@@ -42,6 +42,7 @@ blue-black = #070707 rgba(7, 7, 7, .4)
 
 
 red-purple = #23001e
+
 /*=====  End of Colors  ======*/
 
 /*==========================================
@@ -234,7 +235,7 @@ maintext()
     color blackberry-pearl[0]
     maintext()
 
-.plane-title, .targets-title
+.plane-title, .targets-title, .defence-title
   font-style(center, .8em, normal, 1.2em)
   cursor pointer
   color blackberry-pearl[0]
@@ -275,7 +276,7 @@ maintext()
   color blackberry-pearl[0]
   line-height baseline*2
 
-.targets-amount, .planes-amount
+.targets-amount, .planes-amount, .defence-amount
   alvert(baseline*2, top left)
   top 78%
   cursor pointer
@@ -640,8 +641,11 @@ article[hidden="true"]
 .drone-types
   overflow-y scroll
   overflow-x hidden
-  height baseline*16
+  height baseline*30
   padding-left 9px
+  cursor pointer
+  border 2px solid brill-blue[0]
+  border-radius 3px // baseline/6
   shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
 
 #hard-drone-1, #hard-drone-2, #hard-drone-3,
@@ -808,10 +812,11 @@ article[hidden="true"]
   position absolute
   right -200px
   display block
-  font-style(center, .7em, normal, 1.5em)
+  border 1px solid black
+  font-style(center, .7em, normal, 1.4em)
   top 50%
-  margin-top -1.5em
-  padding 9px 0 9px 2px // baseline/2, baseline/9
+  margin-top -1.8em
+  padding 12px 0 12px 2px // baseline - 6px, 0, baseline - 6px, baseline/9
   nostyle()
   background white
   border-radius 3px
@@ -832,20 +837,33 @@ article[hidden="true"]
   nostyle()
   color outer-space[0]
   border-radius 3px
+  &:hover
+    color brill-blue[0]
+    text-shadow 0px 0px 5px white
+  &:active
+    text-shadow 0 0 0 transparent
   &:focus
     outline none
+    border 1px solid transparent;
 
 for num in 1 2 3 4 5
   #hard-drone-{num}
     &:checked
       +.sub-drones
         .sub-headers
-          background light-green[0]
+          background light-green[2]
+        .drone-name
+          padding-left 1%
+          color shamrock[2]
+          text-shadow 0 0 1px white-whisper[0]
+        .country-icons
+          margin-left 7.5%
         .drones-names
           visibility hidden
         .hard-drone-amount
           right 3%
           width 30%
+          border 1px solid transparent
         .hard-drone-close-buttons
           right 1%
           width 2%
@@ -856,12 +874,19 @@ for num in 1 2 3 4 5
     &:checked
       +.sub-drones
         .sub-headers
-          background light-green[0]
+          background light-green[2]
+        .drone-name
+          padding-left 1%
+          color shamrock[2]
+          text-shadow 0 0 1px white-whisper[0]
+        .country-icons
+          margin-left 7.5%
         .drones-names
           visibility hidden
         .middle-drone-amount
           right 3%
           width 30%
+          border 1px solid transparent
         .middle-drone-close-buttons
           right 1%
           width 2%
@@ -872,12 +897,19 @@ for num in 1 2 3 4 5
     &:checked
       +.sub-drones
         .sub-headers
-          background light-green[0]
+          background light-green[2]
+        .drone-name
+          padding-left 1%
+          color shamrock[2]
+          text-shadow 0 0 1px white-whisper[0]
+        .country-icons
+          margin-left 7.5%
         .drones-names
           visibility hidden
         .light-drone-amount
           right 3%
           width 30%
+          border 1px solid transparent
         .light-drone-close-buttons
           right 1%
           width 2%
