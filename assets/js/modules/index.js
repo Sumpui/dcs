@@ -189,7 +189,11 @@ function cutClassTo(str){
       try {
         isCorrect(this, 'HTMLTableRowElement');
       }catch(e3){
-        console.log('I can\'t do this Boss.', e2)
+        try {
+          isCorrect(this, 'HTMLInputElement');
+        }catch(e4){
+          console.log('Incoming parameter doesn\'t belong to HTMLElement, HTMLInputElement, HTMLTableRowElement, HTMLTableCellElement');
+        }
       }
     }
   }
@@ -837,6 +841,27 @@ function removeBody(element) {
 
 /*=====  End of Place-based section  ======*/
 
+/**
+ * It looks all elements for those one which class will contain incoming parameter
+ * @param  {string} cls Class name
+ * @return {array}     Array of elements which class name coincide with the incoming parameter
+ */
+Array.prototype.findByClass = function(cls) {
+  isCorrect(this, 'Array') && isCorrect(cls, 'String');
+
+  var tmpArr = [];
+
+  for (var i in this){
+    if (typeof this[i] !== 'function'){
+      if (this.hasOwnProperty(i)){
+        if (this[i].className.indexOf(cls) + 1){
+          tmpArr.push(this[i]);
+        }
+      }
+    }
+  }
+  return tmpArr;
+}
 
 /*==============================
 =            Canvas            =
@@ -868,5 +893,31 @@ function drawCircle(can, x, y, r, s, e, sc, fc, lw, tx){
   }
 }
 
+function drawText(p, c, f, t){
+  p.beginPath();
+  p.fillStyle = c;
+  p.font = f;
+  var width = p.measureText(t.length).width
+    , height = p.measureText('w').width;
+  p.fillText(t.length, t[0].base.x - width/2, t[0].base.y + height/2);
+}
+
+/**
+ * Return random value between a and b
+ * @param  {number} a The number we start with
+ * @param  {number} b The number we end with
+ * @return {number}   Random value from a to b
+ */
+function random(a, b){
+  return Math.abs(Math.floor(Math.random()*b - a));
+}
+
+function even(a){
+  if ((a % 2) === 0){
+    return true;
+  }else{
+    return false;
+  }
+}
 /*=====  End of Canvas  ======*/
 

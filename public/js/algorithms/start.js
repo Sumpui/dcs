@@ -1,3 +1,3 @@
 function start(){
-  alert('I was scripted!')
+  alert('Мы подключили скрипт start.js')
 }

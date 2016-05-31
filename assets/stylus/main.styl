@@ -218,7 +218,7 @@ maintext()
   padding baseline
 
 /*----------  Planes and targets articles  ----------*/
-.targets, .planes
+.targets, .planes-section
   padding 0 0 baseline 0
 
 /*----------  Planes and targets sections  ----------*/
@@ -420,7 +420,7 @@ article[hidden="true"]
 =            Place based            =
 ===================================*/
 
-.main-coordinates
+.main-coordinates, #drones-subsection-colors
   // shd(inset, 0px, 0px, 10px, 0px, light-telegram[1])
   height baseline*16
   padding baseline
@@ -658,6 +658,8 @@ article[hidden="true"]
 #light-drone-close-1, #light-drone-close-2, #light-drone-close-3
   display none
 
+.drones
+  display none
 
 .hd-header, .md-header, .lt-header
   margin baseline/2 0 baseline/2 0
@@ -837,6 +839,7 @@ article[hidden="true"]
   nostyle()
   color outer-space[0]
   border-radius 3px
+  opacity 0
   &:hover
     color brill-blue[0]
     text-shadow 0px 0px 5px white
@@ -868,6 +871,7 @@ for num in 1 2 3 4 5
           right 1%
           width 2%
           height 2%
+          opacity 1
 
 for num in 1 2 3 4 5
   #middle-drone-{num}
@@ -891,6 +895,7 @@ for num in 1 2 3 4 5
           right 1%
           width 2%
           height 2%
+          opacity 1
 
 for num in 1 2 3 4 5
   #light-drone-{num}
@@ -914,6 +919,7 @@ for num in 1 2 3 4 5
           right 1%
           width 2%
           height 2%
+          opacity 1
 
 #active
   max-height baseline*50
@@ -922,6 +928,50 @@ for num in 1 2 3 4 5
   margin-bottom  9px // baseline/2
   background white-whisper
 /*=====  End of Drones  ======*/
+
+/*=====================================
+=            Drones colors            =
+=====================================*/
+
+#drones-colors
+  display block
+  padding 0 0 18px 54px // baseline 0 baseline baseline*3
+  article
+    margin-left 6.5%
+    &:nth-of-type(5n + 1)
+      margin-left 3.25%
+  header
+    h1
+      font-style(center, 1.5em, normal, 1.5em)
+      padding 3px // baseline/6
+
+.color-header
+  color outer-space[0]
+  // padding 0 0 18px 0 // baseline*4
+
+.drone-info-headers
+  h2, h5
+    display block
+  h2
+    font-style(center, 1.1em, normal, 1em)
+    color outer-space[0]
+  h5
+    font-style(center, .7em, normal, .7em)
+    padding 9px 0 3px 0 // baseline/6 0
+    margin-bottom 6px
+    color blackberry-pearl[1]
+    border-bottom 1px solid outer-space[1]
+
+.drone-trace
+  border-radius 30%
+
+#drones-subsection-colors
+  padding-top 0
+  height baseline*8.8
+  overflow-y scroll
+
+/*=====  End of Drones colors  ======*/
+
 
 
 /*=====  End for Control panel  ======*/

@@ -158,7 +158,6 @@ MapInteraction.prototype.setDotes = function() {
   }
 }
 
-
 MapInteraction.prototype.setBase = function() {
 
   var self = this;
@@ -424,7 +423,7 @@ MapInteraction.prototype.canvas.setBase = function(sample) {
         drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2);
         drawCircle(polygon, x0, y0, r + 6, startAngle, endAngle, color, 0, 2);
 
-        sample.base.coordinates = {x: x0, y: y0 };
+        MapInteraction.prototype.baseCoordinates = {x: x0, y: y0 };
         sample.canvasMap.onmousemove = null;
 
         /**
@@ -476,13 +475,27 @@ MapInteraction.prototype.canvas.setBase = function(sample) {
          *
          */
         
-        sample.base.coordinates.x = x0;
-        sample.base.coordinates.y = y0;
+        MapInteraction.prototype.baseCoordinates.x = x0;
+        MapInteraction.prototype.baseCoordinates.y = y0;
+        MapInteraction.prototype.baseRadius = r;
 
         var values = sample.base.values;
 
         values.xV.replaceText(x0.toString());
         values.yV.replaceText(y0.toString());
+
+        /**
+         *
+         * Show drones block, if it is hidden
+         *
+         */
+        
+        var drones = get('.drones')[0]
+          , styles = window.getComputedStyle(drones);
+
+        if (styles.display === 'none'){
+          css(drones, {display: 'block'});
+        }
 
         for (var i in values){
           values[i].className = values[i].cutClassTo('not-choosen') + 'choosen';
@@ -547,7 +560,7 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
           addToTable();
 
           function addToTable() {
-            var existedDotes = sample.dotes.coordinates
+            var existedDotes = sample.dotesCoordinates
               , clones = [];
 
             for (var j = 0; j <= existedDotes.length - 1; j++){
@@ -566,8 +579,8 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
                 children[0].replaceText((j + 1) + 'D.');
               }
 
-              children[1].replaceText((sample.dotes.coordinates[j].x).toString());
-              children[2].replaceText((sample.dotes.coordinates[j].y).toString());
+              children[1].replaceText((sample.dotesCoordinates[j].x).toString());
+              children[2].replaceText((sample.dotesCoordinates[j].y).toString());
 
               clones.push(dotesClone);
 
@@ -603,7 +616,7 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
 
       this.onclick = function() {
 
-        var len = sample.dotes.coordinates.length;
+        var len = sample.dotesCoordinates.length;
 
         /**
          *
@@ -659,7 +672,15 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
            * We can't set up dotes any more
            *
            */
-           wasChanged = true;
+          wasChanged = true;
+
+         /**
+          *
+          * Start computing distance from drones to points
+          *
+          */
+          var drones = new Planes();
+          drones.computeDistance('dotes');
         }
 
         /**
@@ -683,7 +704,7 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
         drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2, '  ' + counter() + 'D');
         drawCircle(polygon, x0, y0, r + 6, startAngle, endAngle, color, 0, 2, 0);
 
-        sample.dotes.coordinates.push({
+        MapInteraction.prototype.dotesCoordinates.push({
           x: x0,
           y: y0
         });
@@ -736,7 +757,7 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
       , ending = ''
       , wasChanged = false
       , amount = parseInt(sample.trajectory.amount.innerText)
-      , trajectoryLen = sample.trajectory.coordinates.length;
+      , trajectoryLen = sample.trajectoryCoordinates.length;
 
 
     amount > 1 ? ending = ' траекторных целей!': ending = ' тректорную цель!';
@@ -751,7 +772,7 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
     }
 
     if (amount <= trajectoryLen){
-      var coords = sample.trajectory.coordinates;
+      var coords = sample.trajectoryCoordinates;
 
       for (var i = 0; i <= coords.length - 1; i++){
         coordinate = coords[i];
@@ -798,7 +819,7 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
 
       function addToTrajectoryTable() {
 
-        var existedTrajectory = sample.trajectory.coordinates
+        var existedTrajectory = sample.trajectoryCoordinates
           , clones = [];
 
         /**
@@ -839,8 +860,8 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
             }
 
             children[0].replaceText((j + 1) + 'T.' + (l + 1));
-            children[1].replaceText((sample.trajectory.coordinates[j][l].x).toString());
-            children[2].replaceText((sample.trajectory.coordinates[j][l].y).toString());
+            children[1].replaceText((sample.trajectoryCoordinates[j][l].x).toString());
+            children[2].replaceText((sample.trajectoryCoordinates[j][l].y).toString());
 
             clones.push(trajectoryClone);
 
@@ -934,7 +955,8 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
           
         if (ev === 1){
           evenCounter = count(0);
-          sample.trajectory.coordinates.push(lineCoords);
+          // sample.trajectory.coordinates.push(lineCoords);
+          MapInteraction.prototype.trajectoryCoordinates.push(lineCoords);
 
           /**
            *
@@ -961,7 +983,7 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
            *
            */
           
-          if (sample.trajectory.coordinates.length === amount){
+          if (sample.trajectoryCoordinates.length === amount){
 
            /**
              *
@@ -1005,6 +1027,14 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
             awake(par);
 
             wasChanged = true;
+
+            /**
+              *
+              * Start computing distance from drones to trajectories
+              *
+              */
+            var drones = new Planes();
+            drones.computeDistance('trajectory');
           }
 
         }
@@ -1056,7 +1086,6 @@ MapInteraction.prototype.replaceHeaders = function(lon, lat){
   this.area.headers.yH.replaceText(lat);
 
   return this;
-
 }
 
 MapInteraction.prototype.canvas.initialize = function(sp) {
@@ -1239,12 +1268,12 @@ MapInteraction.prototype.trajectoryCoordinates = [];
         amount: get('.area-amount')[0],
         button: get('#set-area')
       }
-    });
+  });
 
   var cv = mapData.canvas;
-  
+
   /*=====  End of Switcher logic  ======*/
-  
+
 
   var button = get('#switch')
     , flag = false;

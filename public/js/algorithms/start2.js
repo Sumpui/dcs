@@ -1,3 +1,3 @@
 function start(){
-  alert('Fuck off BITCH!');
+  alert('Мы подключили скрипт start2.js!');
 }
