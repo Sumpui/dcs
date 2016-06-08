@@ -1,1 +1,1349 @@
-*{box-sizing:border-box}#container{margin-top:0 !important;position:relative;}#container:after{display:block;content:'';clear:both}#dynamic-map,#static-map,#controls,.canvases,.actions,.common-polygons,.dotes-polygon,.trajectory-polygon,.area-polygon{position:absolute;height:600px;width:1300px;left:50%;margin-left:-650px;top:0}#dynamic-map{z-index:2}#static-map{z-index:1}#polygon{display:block;z-index:1}#dotes-polygons,.trajectory-polygons,.area-polygons{display:block;z-index:1}.actions{display:block;z-index:1;background:transparent}@font-face{font-family:crimsontext;src:local('Ҧѽ');src:url("./fonts/crimsontext/crimsontext.ttf");src:url("./fonts/crimsontext/crimsontext.woff");font-style:normal;font-weight:400}#controls{background:#fff;opacity:.4;z-index:1}.fix-map{display:block;height:54px;background:none;border:none;box-shadow:1px 5px 50px 2px #000;background:#fff}#control-additional{position:relative;background:#d0d4f1;background:linear-gradient(to right,#ebebeb,#eaebed);border-radius:6px;padding:18px}.targets,.planes-section{padding:0 0 18px 0}.main-titles h1,.drones-main-head h1{font-size:1.3em;text-align:center;text-decoration:normal;line-height:1.3em;margin:5px 0 0 0;padding:3px;border-bottom:1px solid #dbd7d2;color:#6c6874;font-family:crimsontext,georgia,tahoma}.plane-title,.targets-title,.defence-title{font-size:.8em;text-align:center;text-decoration:normal;line-height:1.2em;cursor:pointer;color:#6c6874;font-family:crimsontext,georgia,tahoma}.amount-slider{position:relative}.toddler-slider{cursor:default;height:36px;position:relative;z-index:0}.toddler-line{display:block;position:absolute;width:100%;height:2px;top:50%;margin-top:-1px;border-radius:18px;background:#dbd7d2;z-index:1}.toddler{cursor:pointer;position:absolute;height:20px;width:20px;top:50%;margin-top:-10px;display:block;content:'';background:#fff;box-shadow:0 0 5px 0 rgba(47,47,47,0.1);border:1px solid #dcdcdc;border-radius:50%;transition:transform .3s;transform:translateX(0);z-index:5}.amount{position:absolute;height:36px;width:36px;top:50%;margin-top:-18px;font-size:1em;text-align:center;text-decoration:italic;line-height:30.599999999999998px;color:#6c6874;line-height:36px}.targets-amount,.planes-amount,.defence-amount{position:absolute;height:36px;width:36px;top:50%;margin-top:-18px;left:50%;margin-left:-18px;top:78%;cursor:pointer;font-size:1em;text-align:center;text-decoration:italic;line-height:30.599999999999998px;color:#6c6874;line-height:36px;border-radius:50%;border:18px/6 solid #6c6874}svg{display:none}.takeoff{height:3em;width:3em}.targets-icons,.svg-blocks{height:126px}.load-scripts-title{height:36px}.load-icon{height:45px}.load-icon:hover{transform:translateY(-9px) scale(1.2)}.load-in-use{fill:#ededed;stroke:#336f94;stroke-width:7px;color:#336f94;}.load-in-use:hover{stroke:#fff;color:#fff;fill:#336f94;stroke-width:9px;stroke-milterlimit:1px}.algorithms{cursor:pointer;height:288px;overflow-y:scroll;border:2px solid #336f94;border-radius:3px;box-shadow:inset 0 0 10px 0 rgba(208,208,208,0.3);}.algorithms article:last-child{border-bottom:none}.algorithms article:first-child{border:1px solid rgba(73,136,160,0.1)}#load-form:hover{margin-top:-3px;box-shadow:2px 2px 15px 0 rgba(7,7,7,0.4)}.load-title{font-size:1.3em;text-align:center;text-decoration:normal;line-height:45px;color:#070707 rgba(7,7,7,0.4);font-weight:500}#upload-file{display:none}.input-file-trigger{display:block;cursor:pointer;line-height:45px;position:relative;top:-18px}.algorithm-main-title,.dotes-coordinates-main-title,.base-main-title,.main-title-coordinates,.trajectory-main-title,.area-main-title{font-size:.7em;text-align:center;text-decoration:normal;line-height:36px;font-weight:400;color:#6c6874}.dotes-coordinates-main-title,.base-main-title,.area-main-title{font-size:.9em}.ready-algorithm{font-size:.7em;text-align:left;text-decoration:normal;line-height:54px;color:#336f94;margin-right:0 !important;}.ready-algorithm:hover{background:rgba(219,215,210,0.5)}.algorithm-script{cursor:pointer}.hidden{display:none}article[hidden="true"]{display:none}#active-algorithm{position:relative;background:rgba(73,136,160,0.1);}#active-algorithm .state{height:18px;width:18px;position:absolute;height:9px;width:9px;top:50%;margin-top:-4.5px;background:#336f94;border-radius:50%}.choosen-file{position:relative;top:-9px;height:36px}.chose{color:rgba(7,7,7,0.4)}.file-name{border-radius:3px;color:rgba(7,7,7,0.4);transition:opacity .3s;font-size:.9em;text-align:center;text-decoration:normal;line-height:36px}.main-coordinates,#drones-subsection-colors{height:288px;padding:18px;padding-left:36px;border:2px solid #336f94;border-radius:3px;overflow-y:scroll}.coords-headers,.dotes-coords-headers,.area-coords-headers,.trajectory-coords-headers{color:#6c6874;text-transform:lowercase;border:1px solid transparent;font-size:.9em;text-align:center;text-decoration:normal;line-height:18px}.base-coords,.dotes-coords,.trajectory-coords,.area-coords{position:relative}.coords,.dotes-coords-row,.area-coords-row,.trajectory-coords-row{cursor:pointer;color:#336f94;line-height:36px;border-radius:3px;box-shadow:inset 0 0 10px 0 rgba(208,208,208,0.3)}.base-coords-table{text-align:center}.dotes-coords-table{text-align:center;overflow-y:scroll;height:40px;}.dotes-coords-table tr:nth-of-type(n+2){border-top:none}.trajectory-coords-table{text-align:center;overflow-y:scroll;height:78px;}.trajectory-coords-table tr:nth-of-type(n+2){border-top:none}.area-coords-table{text-align:center;overflow-y:scroll;height:154px;}.area-coords-table tr:nth-of-type(n+2){border-top:none}.targets-coords-table td{font-size:1em;text-align:center;text-decoration:normal;line-height:18px}#set-base,#set-dotes,#set-trajectory,#set-area{display:none}.set-place,.set-dotes,.set-trajectory,.set-area{height:48px;width:48px;cursor:pointer;display:block;border-radius:50%;border:3px solid #336f94;padding:0 9px 0 9px;box-shadow:0 0 10px 0 rgba(208,208,208,0.3);font-size:.9em;text-align:center;text-decoration:normal;line-height:44px;color:#336f94;}.set-place:hover,.set-dotes:hover,.set-trajectory:hover,.set-area:hover{box-shadow:0 1px 3px 0 rgba(7,7,7,0.4)}.set-place:focus,.set-dotes:focus,.set-trajectory:focus,.set-area:focus{outline:none}.set-place:active,.set-dotes:active,.set-trajectory:active,.set-area:active{opacity:.5;box-shadow:0 0 0 0 transparent}.set-targets{line-height:48px}.set-place,.set-dotes,.set-trajectory,.set-area{position:absolute;top:25%;left:50%;margin-left:-24px}.set-trajectory{position:absolute;top:55%}.set-area{position:absolute;top:75%}.not-choosen{color:#5b5b5b;opacity:.5}.choosen-base{color:#336f94;opacity:.9}.aligned{position:absolute;top:50%;margin-top:-18px}.place-based-icon{height:41.4px}.place-based-in-use{color:#336f94;stroke-width:7px}.trajectory-hla,.area-hla{margin-left:4px}.separated-rows{border-top:2px solid #336f94}.dotes-coordinates-id,.base-coordinates-id{font-size:.7em;text-align:center;text-decoration:normal;line-height:;font-size:.9em !important}.snow-close-it,.confirm-base{cursor:pointer;width:270px;font-size:1.2em;text-align:center;text-decoration:normal;line-height:36px;padding:4px;position:absolute;top:50%;left:50%;margin:-18px 0 0 -125px;border-radius:6px;background:#336f94;border:2px solid transparent;color:#fff;box-shadow:0 1px 3px 0 #1f445b;}.snow-close-it:hover,.confirm-base:hover{background:rgba(73,136,160,0.1);border:2px solid #336f94;color:#336f94}.snow-close-it:focus,.confirm-base:focus{outline:none}.snow-close-it:active,.confirm-base:active{box-shadow:0 1px 3px 0 #dbd7d2}.confirm-base{background:#21d19f;color:#10634c;box-shadow:0 1px 3px 0 #10634c;}.confirm-base:hover{border:2px solid #10634c;color:#10634c}.confirm-base:active{box-shadow:0 1px 3px 0 #dbd7d2}.snow-paragraph{display:block;position:relative;z-index:4;padding:18px;font-size:1.3em;text-align:center;text-decoration:normal;line-height:36px;color:#1bb166;background:#90ee90;opacity:.9}#simulate{background:#336f94}#simulate,#switch{cursor:pointer;dispaly:block;background:none;border:none;height:36px;box-shadow:0 1px 3px 0 rgba(49,74,74,0.4);font-weight:600;}#simulate:hover,#switch:hover{box-shadow:0 1px 7px 0 rgba(49,74,74,0.4)}#simulate:active,#switch:active{margin-top:3px;box-shadow:0 1px 3px 0 transparent}#simulate:focus,#switch:focus{outline:none}#simulate{background:#336f94;color:#fff}#switch{background:#90ee90;color:#10634c}.drone-types{overflow-y:scroll;overflow-x:hidden;height:540px;padding-left:9px;cursor:pointer;border:2px solid #336f94;border-radius:3px;box-shadow:inset 0 0 10px 0 rgba(208,208,208,0.3)}#hard-drone-1,#hard-drone-2,#hard-drone-3,#middle-drone-1,#middle-drone-2,#middle-drone-3,#light-drone-1,#light-drone-2,#light-drone-3{display:none}#hard-drone-close-1,#hard-drone-close-2,#hard-drone-close-3,#middle-drone-close-1,#middle-drone-close-2,#middle-drone-close-3,#light-drone-close-1,#light-drone-close-2,#light-drone-close-3{display:none}.drones{display:none}.hd-header,.md-header,.lt-header{margin:18px/2 0 18px/2 0;border-bottom:1px solid #bec6c8;}.hd-header h1,.md-header h1,.lt-header h1{font-size:.9em;text-align:center;text-decoration:normal;line-height:2em;color:rgba(108,104,116,0.5);font-weight:400}.drones-names{cursor:pointer;display:block;font-size:.8em;text-align:center;text-decoration:normal;line-height:3.1em;color:#6c6874;border:1px solid transparent;transition:visibility .3s;}.drones-names:active{background:rgba(219,215,210,0.5)}.drones-main-head h1{border:none}.hard-drone-hide,.middle-drone-hide,.light-drone-hide{display:none}.hard-drone-buttons,.middle-drone-buttons,.light-drone-buttons{display:block;position:relative;font-size:.8em;text-align:center;text-decoration:normal;line-height:3.1em;color:transparent;background:none;border:none}.hard-drone-buttons:after,.middle-drone-buttons:after,.light-drone-buttons:after{display:block;content:'⤵';position:absolute;right:10%;top:50%;margin-top:-1.1em;transition:margin-top .3s,position .3s;font-size:.8em;text-align:center;text-decoration:normal;line-height:3.1em;color:transparent}.drone-name{cursor:default;font-size:1.3em;text-align:left;text-decoration:normal;line-height:2em;letter-spacing:.1em;font-weight:400;color:rgba(108,104,116,0.5);padding-left:3%}.country-icons{height:1.3em;margin-top:.65em}.usa-icon,.isr-icon,.rus-icon{height:1.3em}.sub-drones{border-bottom:1px solid #dbd7d2}.hard-drones article:last-child,.middle-drones article:last-child,.light-drones article:last-child{border-bottom:1px solid transparent}.sub-headers{position:relative;margin:9px 0 9px 0;padding:9px 0 9px 0;}.sub-headers:hover .drone-name{color:#336f94;padding-left:1%}.sub-headers:hover .drones-names{font-size:1em;text-align:center;text-decoration:normal;line-height:2.45em;transition:font-size .3s,line-height .3s;border:1px solid #2f4f4f;color:#2f4f4f;}.sub-headers:hover .drones-names:active{border:1px solid #336f94;color:#336f94}.sub-headers:hover .country-icons{margin-left:7%}.sub-headers:hover .hard-drone-buttons,.sub-headers:hover .middle-drone-buttons,.sub-headers:hover .light-drone-buttons{cursor:pointer;margin-left:-5%;color:#2f4f4f;}.sub-headers:hover .hard-drone-buttons:active,.sub-headers:hover .middle-drone-buttons:active,.sub-headers:hover .light-drone-buttons:active{color:#336f94;}.sub-headers:hover .hard-drone-buttons:active:after,.sub-headers:hover .middle-drone-buttons:active:after,.sub-headers:hover .light-drone-buttons:active:after{color:#336f94}.sub-headers:hover .hard-drone-buttons:after,.sub-headers:hover .middle-drone-buttons:after,.sub-headers:hover .light-drone-buttons:after{color:#2f4f4f}.chars{max-height:0;overflow:hidden;transition:max-height .3s,background .3s,margin .3s,padding .3s}.drones-names:active{font-size:.8em;text-align:center;text-decoration:normal;line-height:3.1em}.chars-header h2{font-size:1.7em;text-align:center;text-decoration:normal;line-height:2em;font-weight:400;color:#414a4c}.chars-values{font-size:1.1em;text-align:center;text-decoration:normal;line-height:1.85em}.common-chars-title h3{cursor:default;font-size:.8em;text-align:left;text-decoration:normal;line-height:2.5em;color:#414a4c;padding-left:6px}.chars-group article:nth-of-type(2n + 1){background:rgba(65,74,76,0.1)}.common-chars{cursor:zoom-in;position:relative;z-index:0;}.common-chars:hover{cursor:zoom-out;position:relative;transform:scale(1.2);line-height:1.4em;background:#bec6c8 !important;z-index:3}.hard-drone-amount,.middle-drone-amount,.light-drone-amount{position:absolute;right:-200px;display:block;border:1px solid #000;font-size:.7em;text-align:center;text-decoration:normal;line-height:1.4em;top:50%;margin-top:-1.8em;padding:12px 0 12px 2px;background:none;border:none;background:#fff;border-radius:3px;}.hard-drone-amount:focus,.middle-drone-amount:focus,.light-drone-amount:focus{outline:none}.hard-drone-close-buttons,.middle-drone-close-buttons,.light-drone-close-buttons{cursor:pointer;position:absolute;right:-200px;display:block;font-size:2em;text-align:center;text-decoration:normal;line-height:2.1em;top:50%;margin-top:-1.5em;padding:9px 0 9px 2px;background:none;border:none;color:#414a4c;border-radius:3px;opacity:0;}.hard-drone-close-buttons:hover,.middle-drone-close-buttons:hover,.light-drone-close-buttons:hover{color:#336f94;text-shadow:0 0 5px #fff}.hard-drone-close-buttons:active,.middle-drone-close-buttons:active,.light-drone-close-buttons:active{text-shadow:0 0 0 transparent}.hard-drone-close-buttons:focus,.middle-drone-close-buttons:focus,.light-drone-close-buttons:focus{outline:none;border:1px solid transparent}#hard-drone-1:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#hard-drone-1:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#hard-drone-1:checked +.sub-drones .country-icons{margin-left:7.5%}#hard-drone-1:checked +.sub-drones .drones-names{visibility:hidden}#hard-drone-1:checked +.sub-drones .hard-drone-amount{right:3%;width:30%;border:1px solid transparent}#hard-drone-1:checked +.sub-drones .hard-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#hard-drone-2:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#hard-drone-2:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#hard-drone-2:checked +.sub-drones .country-icons{margin-left:7.5%}#hard-drone-2:checked +.sub-drones .drones-names{visibility:hidden}#hard-drone-2:checked +.sub-drones .hard-drone-amount{right:3%;width:30%;border:1px solid transparent}#hard-drone-2:checked +.sub-drones .hard-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#hard-drone-3:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#hard-drone-3:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#hard-drone-3:checked +.sub-drones .country-icons{margin-left:7.5%}#hard-drone-3:checked +.sub-drones .drones-names{visibility:hidden}#hard-drone-3:checked +.sub-drones .hard-drone-amount{right:3%;width:30%;border:1px solid transparent}#hard-drone-3:checked +.sub-drones .hard-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#hard-drone-4:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#hard-drone-4:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#hard-drone-4:checked +.sub-drones .country-icons{margin-left:7.5%}#hard-drone-4:checked +.sub-drones .drones-names{visibility:hidden}#hard-drone-4:checked +.sub-drones .hard-drone-amount{right:3%;width:30%;border:1px solid transparent}#hard-drone-4:checked +.sub-drones .hard-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#hard-drone-5:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#hard-drone-5:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#hard-drone-5:checked +.sub-drones .country-icons{margin-left:7.5%}#hard-drone-5:checked +.sub-drones .drones-names{visibility:hidden}#hard-drone-5:checked +.sub-drones .hard-drone-amount{right:3%;width:30%;border:1px solid transparent}#hard-drone-5:checked +.sub-drones .hard-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#middle-drone-1:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#middle-drone-1:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#middle-drone-1:checked +.sub-drones .country-icons{margin-left:7.5%}#middle-drone-1:checked +.sub-drones .drones-names{visibility:hidden}#middle-drone-1:checked +.sub-drones .middle-drone-amount{right:3%;width:30%;border:1px solid transparent}#middle-drone-1:checked +.sub-drones .middle-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#middle-drone-2:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#middle-drone-2:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#middle-drone-2:checked +.sub-drones .country-icons{margin-left:7.5%}#middle-drone-2:checked +.sub-drones .drones-names{visibility:hidden}#middle-drone-2:checked +.sub-drones .middle-drone-amount{right:3%;width:30%;border:1px solid transparent}#middle-drone-2:checked +.sub-drones .middle-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#middle-drone-3:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#middle-drone-3:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#middle-drone-3:checked +.sub-drones .country-icons{margin-left:7.5%}#middle-drone-3:checked +.sub-drones .drones-names{visibility:hidden}#middle-drone-3:checked +.sub-drones .middle-drone-amount{right:3%;width:30%;border:1px solid transparent}#middle-drone-3:checked +.sub-drones .middle-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#middle-drone-4:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#middle-drone-4:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#middle-drone-4:checked +.sub-drones .country-icons{margin-left:7.5%}#middle-drone-4:checked +.sub-drones .drones-names{visibility:hidden}#middle-drone-4:checked +.sub-drones .middle-drone-amount{right:3%;width:30%;border:1px solid transparent}#middle-drone-4:checked +.sub-drones .middle-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#middle-drone-5:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#middle-drone-5:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#middle-drone-5:checked +.sub-drones .country-icons{margin-left:7.5%}#middle-drone-5:checked +.sub-drones .drones-names{visibility:hidden}#middle-drone-5:checked +.sub-drones .middle-drone-amount{right:3%;width:30%;border:1px solid transparent}#middle-drone-5:checked +.sub-drones .middle-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#light-drone-1:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#light-drone-1:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#light-drone-1:checked +.sub-drones .country-icons{margin-left:7.5%}#light-drone-1:checked +.sub-drones .drones-names{visibility:hidden}#light-drone-1:checked +.sub-drones .light-drone-amount{right:3%;width:30%;border:1px solid transparent}#light-drone-1:checked +.sub-drones .light-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#light-drone-2:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#light-drone-2:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#light-drone-2:checked +.sub-drones .country-icons{margin-left:7.5%}#light-drone-2:checked +.sub-drones .drones-names{visibility:hidden}#light-drone-2:checked +.sub-drones .light-drone-amount{right:3%;width:30%;border:1px solid transparent}#light-drone-2:checked +.sub-drones .light-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#light-drone-3:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#light-drone-3:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#light-drone-3:checked +.sub-drones .country-icons{margin-left:7.5%}#light-drone-3:checked +.sub-drones .drones-names{visibility:hidden}#light-drone-3:checked +.sub-drones .light-drone-amount{right:3%;width:30%;border:1px solid transparent}#light-drone-3:checked +.sub-drones .light-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#light-drone-4:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#light-drone-4:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#light-drone-4:checked +.sub-drones .country-icons{margin-left:7.5%}#light-drone-4:checked +.sub-drones .drones-names{visibility:hidden}#light-drone-4:checked +.sub-drones .light-drone-amount{right:3%;width:30%;border:1px solid transparent}#light-drone-4:checked +.sub-drones .light-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#light-drone-5:checked +.sub-drones .sub-headers{background:rgba(144,238,144,0.4)}#light-drone-5:checked +.sub-drones .drone-name{padding-left:1%;color:#1bb166;text-shadow:0 0 1px rgba(255,255,255,0.3)}#light-drone-5:checked +.sub-drones .country-icons{margin-left:7.5%}#light-drone-5:checked +.sub-drones .drones-names{visibility:hidden}#light-drone-5:checked +.sub-drones .light-drone-amount{right:3%;width:30%;border:1px solid transparent}#light-drone-5:checked +.sub-drones .light-drone-close-buttons{right:1%;width:2%;height:2%;opacity:1}#active{max-height:900px;padding-bottom:18px;padding-left:11px;margin-bottom:9px;background:rgba(255,255,255,0.3)}#drones-colors{display:block;padding:0 0 18px 54px;}#drones-colors article{margin-left:6.5%;}#drones-colors article:nth-of-type(5n + 1){margin-left:3.25%}#drones-colors header h1{font-size:1.5em;text-align:center;text-decoration:normal;line-height:1.5em;padding:3px}.color-header{color:#414a4c}.drone-info-headers h2,.drone-info-headers h5{display:block}.drone-info-headers h2{font-size:1.1em;text-align:center;text-decoration:normal;line-height:1em;color:#414a4c}.drone-info-headers h5{font-size:.7em;text-align:center;text-decoration:normal;line-height:.7em;padding:9px 0 3px 0;margin-bottom:6px;color:rgba(108,104,116,0.5);border-bottom:1px solid rgba(65,74,76,0.1)}.drone-trace{border-radius:30%}#drones-subsection-colors{padding-top:0;height:158.4px;overflow-y:scroll}#footing{position:relative;height:600px}
+* {
+  box-sizing: border-box;
+}
+/*==============================
+=            Colors            =
+==============================*/
+/* Toddler colors */
+/* Toddler text colors */
+/* Loading scripts colors */
+/*=====  End of Colors  ======*/
+/*==========================================
+=            Additional-control            =
+==========================================*/
+#container {
+  margin-top: 0 !important;
+  position: relative;
+}
+#container:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+/*=====  End of Additional-control  ======*/
+/*========================================
+=            Workspace blocks            =
+========================================*/
+#dynamic-map,
+#static-map,
+#controls,
+.canvases,
+.actions,
+.common-polygons,
+.dotes-polygon,
+.trajectory-polygon,
+.area-polygon {
+  position: absolute;
+  height: 600px;
+  width: 1300px;
+  left: 50%;
+  margin-left: -650px;
+  top: 0;
+}
+#dynamic-map {
+  z-index: 2;
+}
+#static-map {
+  z-index: 1;
+}
+#polygon {
+  display: block;
+  z-index: 1;
+}
+#dotes-polygons,
+.trajectory-polygons,
+.area-polygons {
+  display: block;
+  z-index: 1;
+}
+.actions {
+  display: block;
+  z-index: 1;
+  background: transparent;
+}
+/*=====  End of Workspace blocks  ======*/
+/*========================================
+=            Stylus functions            =
+========================================*/
+@font-face {
+  font-family: crimsontext;
+  src: local('Ҧѽ');
+  src: url("./fonts/crimsontext/crimsontext.ttf");
+  src: url("./fonts/crimsontext/crimsontext.woff");
+  font-style: normal;
+  font-weight: 400;
+}
+/*=====  End for Stylus functions  ======*/
+/* Including fonts */
+/*=====================================
+=            Control panel            =
+=====================================*/
+#controls {
+  background: #fff;
+  opacity: 0.4;
+  z-index: 1;
+}
+.fix-map {
+  display: block;
+  height: 54px;
+  background: none;
+  border: none;
+  box-shadow: 1px 5px 50px 2px #000;
+  background: #fff;
+}
+#control-additional {
+  position: relative;
+  background: #d0d4f1;
+  background: linear-gradient(to right, #ebebeb, #eaebed);
+  border-radius: 6px;
+  padding: 18px;
+}
+/*----------  Planes and targets articles  ----------*/
+.targets,
+.planes-section {
+  padding: 0 0 18px 0;
+}
+/*----------  Planes and targets sections  ----------*/
+/*----------  Sections main titles  ----------*/
+.main-titles h1,
+.drones-main-head h1 {
+  font-size: 1.3em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 1.3em;
+  margin: 5px 0 0px 0;
+  padding: 3px;
+  border-bottom: 1px solid #dbd7d2;
+  color: #6c6874;
+  font-family: crimsontext, georgia, tahoma;
+}
+.plane-title,
+.targets-title,
+.defence-title {
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 1.2em;
+  cursor: pointer;
+  color: #6c6874;
+  font-family: crimsontext, georgia, tahoma;
+}
+.amount-slider {
+  position: relative;
+}
+.toddler-slider {
+  cursor: default;
+  height: 36px;
+  position: relative;
+  z-index: 0;
+}
+.toddler-line {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  top: 50%;
+  margin-top: -1px;
+  border-radius: 18px;
+  background: #dbd7d2;
+  z-index: 1;
+}
+.toddler {
+  cursor: pointer;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: 50%;
+  margin-top: -10px;
+  display: block;
+  content: '';
+  background: #fff;
+  box-shadow: 0px 0px 5px 0px rgba(47,47,47,0.1);
+  border: 1px solid #dcdcdc;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  transform: translateX(0);
+  z-index: 5;
+}
+.amount {
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  top: 50%;
+  margin-top: -18px;
+  font-size: 1em;
+  text-align: center;
+  text-decoration: italic;
+  line-height: 30.599999999999998px;
+  color: #6c6874;
+  line-height: 36px;
+}
+.targets-amount,
+.planes-amount,
+.defence-amount {
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  top: 50%;
+  margin-top: -18px;
+  left: 50%;
+  margin-left: -18px;
+  top: 78%;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+  text-decoration: italic;
+  line-height: 30.599999999999998px;
+  color: #6c6874;
+  line-height: 36px;
+  border-radius: 50%;
+  border: 18px/6 solid #6c6874;
+}
+/*====================================
+=            Icons styles            =
+====================================*/
+svg {
+  display: none;
+}
+.takeoff {
+  height: 3em;
+  width: 3em;
+}
+.targets-icons,
+.svg-blocks {
+  height: 126px;
+}
+.load-scripts-title {
+  height: 36px;
+}
+.load-icon {
+  height: 45px;
+}
+.load-icon:hover {
+  transform: translateY(-9px) scale(1.2);
+}
+.load-in-use {
+  fill: #ededed;
+  stroke: #336f94;
+  stroke-width: 7px;
+  color: #336f94;
+}
+.load-in-use:hover {
+  stroke: #fff;
+  color: #fff;
+  fill: #336f94;
+  stroke-width: 9px;
+  stroke-milterlimit: 1px;
+}
+/*=====  End of Icons styles  ======*/
+/*=======================================
+=            Loading scripts            =
+=======================================*/
+.algorithms {
+  cursor: pointer;
+  height: 288px;
+  overflow-y: scroll;
+  border: 2px solid #336f94;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 10px 0px rgba(208,208,208,0.3);
+}
+.algorithms article:last-child {
+  border-bottom: none;
+}
+.algorithms article:first-child {
+  border: 1px solid rgba(73,136,160,0.1);
+}
+#load-form:hover {
+  margin-top: -3px;
+  box-shadow: 2px 2px 15px 0px rgba(7,7,7,0.4);
+}
+.load-title {
+  font-size: 1.3em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 45px;
+  color: #070707 rgba(7,7,7,0.4);
+  font-weight: 500;
+}
+/*----------  Hide input[type="file"]  ----------*/
+#upload-file {
+  display: none;
+}
+.input-file-trigger {
+  display: block;
+  cursor: pointer;
+  line-height: 45px;
+  position: relative;
+  top: -18px;
+}
+.algorithm-main-title,
+.dotes-coordinates-main-title,
+.base-main-title,
+.main-title-coordinates,
+.trajectory-main-title,
+.area-main-title {
+  font-size: 0.7em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 36px;
+  font-weight: 400;
+  color: #6c6874;
+}
+.dotes-coordinates-main-title,
+.base-main-title,
+.area-main-title {
+  font-size: 0.9em;
+}
+.ready-algorithm {
+  font-size: 0.7em;
+  text-align: left;
+  text-decoration: normal;
+  line-height: 54px;
+  color: #336f94;
+  margin-right: 0px !important;
+}
+.ready-algorithm:hover {
+  background: rgba(219,215,210,0.5);
+}
+.algorithm-script {
+  cursor: pointer;
+}
+.hidden {
+  display: none;
+}
+article[hidden="true"] {
+  display: none;
+}
+#active-algorithm {
+  position: relative;
+  background: rgba(73,136,160,0.1);
+}
+#active-algorithm .state {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  height: 9px;
+  width: 9px;
+  top: 50%;
+  margin-top: -4.5px;
+  background: #336f94;
+  border-radius: 50%;
+}
+.choosen-file {
+  position: relative;
+  top: -9px;
+  height: 36px;
+}
+.chose {
+  color: rgba(7,7,7,0.4);
+}
+.file-name {
+  border-radius: 3px;
+  color: rgba(7,7,7,0.4);
+  transition: opacity 0.3s;
+  font-size: 0.9em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 36px;
+}
+/*=====  End of Loading scripts  ======*/
+/*===================================
+=            Place based            =
+===================================*/
+.main-coordinates,
+#drones-subsection-colors {
+  height: 288px;
+  padding: 18px;
+  padding-left: 36px;
+  border: 2px solid #336f94;
+  border-radius: 3px;
+  overflow-y: scroll;
+}
+.coords-headers,
+.dotes-coords-headers,
+.area-coords-headers,
+.trajectory-coords-headers {
+  color: #6c6874;
+  text-transform: lowercase;
+  border: 1px solid transparent;
+  font-size: 0.9em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 18px;
+}
+.base-coords,
+.dotes-coords,
+.trajectory-coords,
+.area-coords {
+  position: relative;
+}
+.coords,
+.dotes-coords-row,
+.area-coords-row,
+.trajectory-coords-row {
+  cursor: pointer;
+  color: #336f94;
+  line-height: 36px;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 10px 0px rgba(208,208,208,0.3);
+}
+.base-coords-table {
+  text-align: center;
+}
+.dotes-coords-table {
+  text-align: center;
+  overflow-y: scroll;
+  height: 40px;
+}
+.dotes-coords-table tr:nth-of-type(n+2) {
+  border-top: none;
+}
+.trajectory-coords-table {
+  text-align: center;
+  overflow-y: scroll;
+  height: 78px;
+}
+.trajectory-coords-table tr:nth-of-type(n+2) {
+  border-top: none;
+}
+.area-coords-table {
+  text-align: center;
+  overflow-y: scroll;
+  height: 154px;
+}
+.area-coords-table tr:nth-of-type(n+2) {
+  border-top: none;
+}
+.targets-coords-table td {
+  font-size: 1em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 18px;
+}
+#set-base,
+#set-dotes,
+#set-trajectory,
+#set-area {
+  display: none;
+}
+.set-place,
+.set-dotes,
+.set-trajectory,
+.set-area {
+  height: 48px;
+  width: 48px;
+  cursor: pointer;
+  display: block;
+  border-radius: 50%;
+  border: 3px solid #336f94;
+  padding: 0 9px 0 9px;
+  box-shadow: 0px 0px 10px 0px rgba(208,208,208,0.3);
+  font-size: 0.9em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 44px;
+  color: #336f94;
+}
+.set-place:hover,
+.set-dotes:hover,
+.set-trajectory:hover,
+.set-area:hover {
+  box-shadow: 0px 1px 3px 0px rgba(7,7,7,0.4);
+}
+.set-place:focus,
+.set-dotes:focus,
+.set-trajectory:focus,
+.set-area:focus {
+  outline: none;
+}
+.set-place:active,
+.set-dotes:active,
+.set-trajectory:active,
+.set-area:active {
+  opacity: 0.5;
+  box-shadow: 0px 0px 0px 0px transparent;
+}
+.set-targets {
+  line-height: 48px;
+}
+.set-place,
+.set-dotes,
+.set-trajectory,
+.set-area {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  margin-left: -24px;
+}
+.set-trajectory {
+  position: absolute;
+  top: 55%;
+}
+.set-area {
+  position: absolute;
+  top: 75%;
+}
+.not-choosen {
+  color: #5b5b5b;
+  opacity: 0.5;
+}
+.choosen-base {
+  color: #336f94;
+  opacity: 0.9;
+}
+.aligned {
+  position: absolute;
+  top: 50%;
+  margin-top: -18px;
+}
+.place-based-icon {
+  height: 41.4px;
+}
+.place-based-in-use {
+  color: #336f94;
+  stroke-width: 7px;
+}
+.trajectory-hla,
+.area-hla {
+  margin-left: 4px;
+}
+.separated-rows {
+  border-top: 2px solid #336f94;
+}
+.dotes-coordinates-id,
+.base-coordinates-id {
+  font-size: 0.7em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: ;
+  font-size: 0.9em !important;
+}
+.snow-close-it,
+.confirm-base {
+  cursor: pointer;
+  width: 270px;
+  font-size: 1.2em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 36px;
+  padding: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -18px 0 0 -125px;
+  border-radius: 6px;
+  background: #336f94;
+  border: 2px solid transparent;
+  color: #fff;
+  box-shadow: 0px 1px 3px 0px #1f445b;
+}
+.snow-close-it:hover,
+.confirm-base:hover {
+  background: rgba(73,136,160,0.1);
+  border: 2px solid #336f94;
+  color: #336f94;
+}
+.snow-close-it:focus,
+.confirm-base:focus {
+  outline: none;
+}
+.snow-close-it:active,
+.confirm-base:active {
+  box-shadow: 0px 1px 3px 0px #dbd7d2;
+}
+.confirm-base {
+  background: #21d19f;
+  color: #10634c;
+  box-shadow: 0px 1px 3px 0px #10634c;
+}
+.confirm-base:hover {
+  border: 2px solid #10634c;
+  color: #10634c;
+}
+.confirm-base:active {
+  box-shadow: 0px 1px 3px 0px #dbd7d2;
+}
+.snow-paragraph {
+  display: block;
+  position: relative;
+  z-index: 4;
+  padding: 18px;
+  font-size: 1.3em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 36px;
+  color: #1bb166;
+  background: #90ee90;
+  opacity: 0.9;
+}
+/*=====  End of Place based  ======*/
+/*================================
+=            Simulate            =
+================================*/
+#simulate {
+  background: #336f94;
+}
+#simulate,
+#switch {
+  cursor: pointer;
+  dispaly: block;
+  background: none;
+  border: none;
+  height: 36px;
+  box-shadow: 0px 1px 3px 0px rgba(49,74,74,0.4);
+  font-weight: 600;
+}
+#simulate:hover,
+#switch:hover {
+  box-shadow: 0px 1px 7px 0px rgba(49,74,74,0.4);
+}
+#simulate:active,
+#switch:active {
+  margin-top: 3px;
+  box-shadow: 0px 1px 3px 0px transparent;
+}
+#simulate:focus,
+#switch:focus {
+  outline: none;
+}
+#simulate {
+  background: #336f94;
+  color: #fff;
+}
+#switch {
+  background: #90ee90;
+  color: #10634c;
+}
+/*=====  End of Simulate  ======*/
+/*==============================
+=            Drones            =
+==============================*/
+.drone-types {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 540px;
+  padding-left: 9px;
+  cursor: pointer;
+  border: 2px solid #336f94;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 10px 0px rgba(208,208,208,0.3);
+}
+#hard-drone-1,
+#hard-drone-2,
+#hard-drone-3,
+#middle-drone-1,
+#middle-drone-2,
+#middle-drone-3,
+#light-drone-1,
+#light-drone-2,
+#light-drone-3 {
+  display: none;
+}
+#hard-drone-close-1,
+#hard-drone-close-2,
+#hard-drone-close-3,
+#middle-drone-close-1,
+#middle-drone-close-2,
+#middle-drone-close-3,
+#light-drone-close-1,
+#light-drone-close-2,
+#light-drone-close-3 {
+  display: none;
+}
+.drones {
+  display: none;
+}
+.hd-header,
+.md-header,
+.lt-header {
+  margin: 18px/2 0 18px/2 0;
+  border-bottom: 1px solid #bec6c8;
+}
+.hd-header h1,
+.md-header h1,
+.lt-header h1 {
+  font-size: 0.9em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 2em;
+  color: rgba(108,104,116,0.5);
+  font-weight: 400;
+}
+.drones-names {
+  cursor: pointer;
+  display: block;
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 3.1em;
+  color: #6c6874;
+  border: 1px solid transparent;
+  transition: visibility 0.3s;
+}
+.drones-names:active {
+  background: rgba(219,215,210,0.5);
+}
+.drones-main-head h1 {
+  border: none;
+}
+.hard-drone-hide,
+.middle-drone-hide,
+.light-drone-hide {
+  display: none;
+}
+.hard-drone-buttons,
+.middle-drone-buttons,
+.light-drone-buttons {
+  display: block;
+  position: relative;
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 3.1em;
+  color: transparent;
+  background: none;
+  border: none;
+}
+.hard-drone-buttons:after,
+.middle-drone-buttons:after,
+.light-drone-buttons:after {
+  display: block;
+  content: '⤵';
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  margin-top: -1.1em;
+  transition: margin-top 0.3s, position 0.3s;
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 3.1em;
+  color: transparent;
+}
+.drone-name {
+  cursor: default;
+  font-size: 1.3em;
+  text-align: left;
+  text-decoration: normal;
+  line-height: 2em;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  color: rgba(108,104,116,0.5);
+  padding-left: 3%;
+}
+.country-icons {
+  height: 1.3em;
+  margin-top: 0.65em;
+}
+.usa-icon,
+.isr-icon,
+.rus-icon {
+  height: 1.3em;
+}
+.sub-drones {
+  border-bottom: 1px solid #dbd7d2;
+}
+.hard-drones article:last-child,
+.middle-drones article:last-child,
+.light-drones article:last-child {
+  border-bottom: 1px solid transparent;
+}
+.sub-headers {
+  position: relative;
+  margin: 9px 0 9px 0;
+  padding: 9px 0 9px 0;
+}
+.sub-headers:hover .drone-name {
+  color: #336f94;
+  padding-left: 1%;
+}
+.sub-headers:hover .drones-names {
+  font-size: 1em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 2.45em;
+  transition: font-size 0.3s, line-height 0.3s;
+  border: 1px solid #2f4f4f;
+  color: #2f4f4f;
+}
+.sub-headers:hover .drones-names:active {
+  border: 1px solid #336f94;
+  color: #336f94;
+}
+.sub-headers:hover .country-icons {
+  margin-left: 7%;
+}
+.sub-headers:hover .hard-drone-buttons,
+.sub-headers:hover .middle-drone-buttons,
+.sub-headers:hover .light-drone-buttons {
+  cursor: pointer;
+  margin-left: -5%;
+  color: #2f4f4f;
+}
+.sub-headers:hover .hard-drone-buttons:active,
+.sub-headers:hover .middle-drone-buttons:active,
+.sub-headers:hover .light-drone-buttons:active {
+  color: #336f94;
+}
+.sub-headers:hover .hard-drone-buttons:active:after,
+.sub-headers:hover .middle-drone-buttons:active:after,
+.sub-headers:hover .light-drone-buttons:active:after {
+  color: #336f94;
+}
+.sub-headers:hover .hard-drone-buttons:after,
+.sub-headers:hover .middle-drone-buttons:after,
+.sub-headers:hover .light-drone-buttons:after {
+  color: #2f4f4f;
+}
+.chars {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s, background 0.3s, margin 0.3s, padding 0.3s;
+}
+.drones-names:active {
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 3.1em;
+}
+.chars-header h2 {
+  font-size: 1.7em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 2em;
+  font-weight: 400;
+  color: #414a4c;
+}
+.chars-values {
+  font-size: 1.1em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 1.85em;
+}
+.common-chars-title h3 {
+  cursor: default;
+  font-size: 0.8em;
+  text-align: left;
+  text-decoration: normal;
+  line-height: 2.5em;
+  color: #414a4c;
+  padding-left: 6px;
+}
+.chars-group article:nth-of-type(2n + 1) {
+  background: rgba(65,74,76,0.1);
+}
+.common-chars {
+  cursor: zoom-in;
+  position: relative;
+  z-index: 0;
+}
+.common-chars:hover {
+  cursor: zoom-out;
+  position: relative;
+  transform: scale(1.2);
+  line-height: 1.4em;
+  background: #bec6c8 !important;
+  z-index: 3;
+}
+.hard-drone-amount,
+.middle-drone-amount,
+.light-drone-amount {
+  position: absolute;
+  right: -200px;
+  display: block;
+  border: 1px solid #000;
+  font-size: 0.7em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 1.4em;
+  top: 50%;
+  margin-top: -1.8em;
+  padding: 12px 0 12px 2px;
+  background: none;
+  border: none;
+  background: #fff;
+  border-radius: 3px;
+}
+.hard-drone-amount:focus,
+.middle-drone-amount:focus,
+.light-drone-amount:focus {
+  outline: none;
+}
+.hard-drone-close-buttons,
+.middle-drone-close-buttons,
+.light-drone-close-buttons {
+  cursor: pointer;
+  position: absolute;
+  right: -200px;
+  display: block;
+  font-size: 2em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 2.1em;
+  top: 50%;
+  margin-top: -1.5em;
+  padding: 9px 0 9px 2px;
+  background: none;
+  border: none;
+  color: #414a4c;
+  border-radius: 3px;
+  opacity: 0;
+}
+.hard-drone-close-buttons:hover,
+.middle-drone-close-buttons:hover,
+.light-drone-close-buttons:hover {
+  color: #336f94;
+  text-shadow: 0px 0px 5px #fff;
+}
+.hard-drone-close-buttons:active,
+.middle-drone-close-buttons:active,
+.light-drone-close-buttons:active {
+  text-shadow: 0 0 0 transparent;
+}
+.hard-drone-close-buttons:focus,
+.middle-drone-close-buttons:focus,
+.light-drone-close-buttons:focus {
+  outline: none;
+  border: 1px solid transparent;
+}
+#hard-drone-1:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#hard-drone-1:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#hard-drone-1:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#hard-drone-1:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#hard-drone-1:checked +.sub-drones .hard-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#hard-drone-1:checked +.sub-drones .hard-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#hard-drone-2:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#hard-drone-2:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#hard-drone-2:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#hard-drone-2:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#hard-drone-2:checked +.sub-drones .hard-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#hard-drone-2:checked +.sub-drones .hard-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#hard-drone-3:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#hard-drone-3:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#hard-drone-3:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#hard-drone-3:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#hard-drone-3:checked +.sub-drones .hard-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#hard-drone-3:checked +.sub-drones .hard-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#hard-drone-4:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#hard-drone-4:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#hard-drone-4:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#hard-drone-4:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#hard-drone-4:checked +.sub-drones .hard-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#hard-drone-4:checked +.sub-drones .hard-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#hard-drone-5:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#hard-drone-5:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#hard-drone-5:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#hard-drone-5:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#hard-drone-5:checked +.sub-drones .hard-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#hard-drone-5:checked +.sub-drones .hard-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#middle-drone-1:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#middle-drone-1:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#middle-drone-1:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#middle-drone-1:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#middle-drone-1:checked +.sub-drones .middle-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#middle-drone-1:checked +.sub-drones .middle-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#middle-drone-2:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#middle-drone-2:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#middle-drone-2:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#middle-drone-2:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#middle-drone-2:checked +.sub-drones .middle-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#middle-drone-2:checked +.sub-drones .middle-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#middle-drone-3:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#middle-drone-3:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#middle-drone-3:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#middle-drone-3:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#middle-drone-3:checked +.sub-drones .middle-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#middle-drone-3:checked +.sub-drones .middle-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#middle-drone-4:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#middle-drone-4:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#middle-drone-4:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#middle-drone-4:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#middle-drone-4:checked +.sub-drones .middle-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#middle-drone-4:checked +.sub-drones .middle-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#middle-drone-5:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#middle-drone-5:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#middle-drone-5:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#middle-drone-5:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#middle-drone-5:checked +.sub-drones .middle-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#middle-drone-5:checked +.sub-drones .middle-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#light-drone-1:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#light-drone-1:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#light-drone-1:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#light-drone-1:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#light-drone-1:checked +.sub-drones .light-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#light-drone-1:checked +.sub-drones .light-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#light-drone-2:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#light-drone-2:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#light-drone-2:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#light-drone-2:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#light-drone-2:checked +.sub-drones .light-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#light-drone-2:checked +.sub-drones .light-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#light-drone-3:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#light-drone-3:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#light-drone-3:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#light-drone-3:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#light-drone-3:checked +.sub-drones .light-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#light-drone-3:checked +.sub-drones .light-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#light-drone-4:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#light-drone-4:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#light-drone-4:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#light-drone-4:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#light-drone-4:checked +.sub-drones .light-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#light-drone-4:checked +.sub-drones .light-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#light-drone-5:checked +.sub-drones .sub-headers {
+  background: rgba(144,238,144,0.4);
+}
+#light-drone-5:checked +.sub-drones .drone-name {
+  padding-left: 1%;
+  color: #1bb166;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+}
+#light-drone-5:checked +.sub-drones .country-icons {
+  margin-left: 7.5%;
+}
+#light-drone-5:checked +.sub-drones .drones-names {
+  visibility: hidden;
+}
+#light-drone-5:checked +.sub-drones .light-drone-amount {
+  right: 3%;
+  width: 30%;
+  border: 1px solid transparent;
+}
+#light-drone-5:checked +.sub-drones .light-drone-close-buttons {
+  right: 1%;
+  width: 2%;
+  height: 2%;
+  opacity: 1;
+}
+#active {
+  max-height: 900px;
+  padding-bottom: 18px;
+  padding-left: 11px;
+  margin-bottom: 9px;
+  background: rgba(255,255,255,0.3);
+}
+/*=====  End of Drones  ======*/
+/*=====================================
+=            Drones colors            =
+=====================================*/
+#drones-colors {
+  display: block;
+  padding: 0 0 18px 54px;
+}
+#drones-colors article {
+  margin-left: 6.5%;
+}
+#drones-colors article:nth-of-type(5n + 1) {
+  margin-left: 3.25%;
+}
+#drones-colors header h1 {
+  font-size: 1.5em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 1.5em;
+  padding: 3px;
+}
+.color-header {
+  color: #414a4c;
+}
+.drone-info-headers h2,
+.drone-info-headers h5 {
+  display: block;
+}
+.drone-info-headers h2 {
+  font-size: 1.1em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 1em;
+  color: #414a4c;
+}
+.drone-info-headers h5 {
+  font-size: 0.7em;
+  text-align: center;
+  text-decoration: normal;
+  line-height: 0.7em;
+  padding: 9px 0 3px 0;
+  margin-bottom: 6px;
+  color: rgba(108,104,116,0.5);
+  border-bottom: 1px solid rgba(65,74,76,0.1);
+}
+.drone-trace {
+  border-radius: 30%;
+}
+#drones-subsection-colors {
+  padding-top: 0;
+  height: 158.4px;
+  overflow-y: scroll;
+}
+/*=====  End of Drones colors  ======*/
+/*=====  End for Control panel  ======*/
+#footing {
+  position: relative;
+  height: 600px;
+}

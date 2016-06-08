@@ -666,7 +666,7 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
      */
     var snowball = get('.snow')
       , dotesAmount = sample.dotes.amount.innerText
-      , color = 'rgba(255,64,64, 1)'
+      , color = 'rgba(255,64,64, .6)'
       , ending = '';
 
     dotesAmount > 1 ? ending = ' точечных целей!': ending = ' точечную цель!';
@@ -769,6 +769,8 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
           sample.canvasMap.onclick = null;
 
           addToTable(sample);
+
+          humane.log('Вы установили все точечные цели.');
 
          /**
           *

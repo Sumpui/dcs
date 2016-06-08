@@ -72,7 +72,11 @@ function Planes(){
 
     var pol = get('#polygon');
     css(pol, {zIndex: 26});
+  }
 
+  Planes.prototype.time = {
+    taskRun: 0,
+    eachDrone: {}
   }
 
   Planes.prototype.initialize = function(){
@@ -271,13 +275,16 @@ function Planes(){
     var container = get('.actions');
 
     var map = new MapInteraction()
+      , now = new Date()
       , each = Array.prototype.forEach
       , step = 10 // in miliseconds
       , radius = 4
       , startAngle = 0
       , endAngle = Math.PI*2
       , assignmentTime = 0
-      , done = count(1);
+      , done = count(1)
+      , timePass = [now.valueOf()]
+      , passedTime = 0;
 
     Planes.prototype.all.coordinates = [];
 
@@ -293,16 +300,16 @@ function Planes(){
        */
       
       if (drone.watch.length){
-        droneWay(drone, [drone.base.x, drone.base.y], [drone.watch[0].coords.x, drone.watch[0].coords.y], [assignmentTime, done]);
+        droneWay(drone, [drone.base.x, drone.base.y], [drone.watch[0].coords.x, drone.watch[0].coords.y], [assignmentTime, done, timePass, passedTime]);
       }
 
     });
   }
 
   /**
-   * Define if
-   * @param  {[type]} d [description]
-   * @return {[type]}   [description]
+   * Define if dot has been achieved by drone
+   * @param  {Object} d Drone is achieved
+   * @return {undefined}   Doesn't return anything
    */
   function dotIsAchieved(d){
     var map = new MapInteraction();
@@ -326,9 +333,16 @@ function Planes(){
     dotes.clearRect(dotX - r * 5, dotY - r * 6, (r * r * 2) + nmWidth, (r * r * r * r) - 5);
     // drawCircle(dotes, dotX, dotY, r + 3, startAngle, endAngle, 0, c, 2, nm);
     drawCircle(dotes, dotX, dotY, r + 6, startAngle, endAngle, c, 0, 2, nm);
-
   }
 
+  /**
+   * Drawing strokes
+   * @param  {HTMLObject} p Canvas context
+   * @param  {Array} s Canvas coordinates of start
+   * @param  {Array} e Canvas coordinates of end
+   * @param  {String} c Stroke color
+   * @return {undefined}   Doesn't return anything
+   */
   function drawStroke(p, s, e, c){
     p.beginPath();
     p.setLineDash([5, 2, 2, 2]);
@@ -426,8 +440,14 @@ function Planes(){
 
         var completed = d.completed;
 
+        /**
+         *
+         * If drone doesn't come to end
+         *
+         */
+        
         if (start[0] !== end[0]){
-          dWay.callee(d, [completed[completed.length - 1].coords.x, completed[completed.length - 1].coords.y], [d.watch[0].coords.x, d.watch[0].coords.y], [options[0], options[1]]);
+          dWay.callee(d, [completed[completed.length - 1].coords.x, completed[completed.length - 1].coords.y], [d.watch[0].coords.x, d.watch[0].coords.y], [options[0], options[1], options[2], options[3]]);
         }else{
 
           /**
@@ -440,21 +460,57 @@ function Planes(){
             , date = new Date()
             , pls = get('.planes-amount')[0]
             , activeDrones = new Planes()
-            , currentAmount = 0;
+            , currentAmount = 0
+            , hours = date.getHours()
+            , minutes = date.getMinutes()
+            , seconds = date.getSeconds()
+            , countedDate = (date.valueOf()-options[2][0])/1000;
 
+          /**
+           *
+           * Searching active drones at the polygon
+           *
+           */
+          
           activeDrones.all.forEach(function(x, i, a){
-            console.log(x);
             if (x.completed.length){
               currentAmount++;
             }
           });
 
+          /**
+           *
+           * Each drone executing time
+           *
+           */
+          
+          options[2].push((date.valueOf()-options[2][0])/1000);
+
+          activeDrones.time.eachDrone[d.name + '-' + d.iAm] = (date.valueOf()-options[2][0])/1000;
+
+          /**
+           *
+           * The whole executing time
+           *
+           */
+          
+          options[3] += (date.valueOf()-options[2][0])/1000;
+
+          humane.log('[' + hours + ':' + minutes + ':' + seconds + '] \t' + d.name + '-' + d.iAm + '. Выполнил задание за ' + countedDate, { timeout: 2000, clickToClose: true, addnCls: 'humane-error'});
+          console.log('' + hours + ':' + minutes + ':' + seconds, '' + d.name + '-' + d.iAm + ' has completed task for ' + countedDate);
 
 
-          console.log('[' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ']', d.name + '-' + d.iAm + ' has fulfilled the task.');
-
-          if (cmp === parseInt((map.canvas.dotes.amount).innerText())) {
-            console.log('Simulating has been completed.')
+          if (cmp === currentAmount) {
+            /**
+             *
+             * Logging the results
+             *
+             */
+            
+            humane.log('Моделирование завершено за ' + options[3] + ' минут');
+            console.log('Simulating has been completed.');
+            console.log(activeDrones.all);
+            activeDrones.time.taskRun = options[3];
           }
 
         }
@@ -463,7 +519,6 @@ function Planes(){
 
     }, step);
   }
-
 
   function notWatched(dotes, drone){
 
@@ -484,7 +539,6 @@ function Planes(){
     }
 
     setDroneWay(toWatch, drone);
-
   }
 
 
@@ -592,7 +646,6 @@ function Planes(){
         }
       }
     }
-
   }
 
 }());
