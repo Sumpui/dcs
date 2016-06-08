@@ -919,5 +919,42 @@ function even(a){
     return false;
   }
 }
+
+function summ(a, b){
+  return a + b;
+}
+
+  /**
+   * Execute computing distance between two dotes
+   * @param  {Array} start Coordinates of the first dot. In the order: [x, y]
+   * @param  {Array} end   Coordinates of the second dot. In the order: [x, y]
+   * @return {Number}       Current distance between two dotes.
+   */
+function getDistance(start, end){
+
+  isCorrect(start, 'Array');
+  isCorrect(end, 'Array');
+
+  var x = end[0] - start[0]
+    , y = end[1] - start[1];
+
+  var doubleX = Math.pow(x, 2)
+    , doubleY = Math.pow(y, 2)
+
+  /**
+   *
+   * If it is need to round, please round it.
+   *
+   */
+  
+  if (arguments.length === 2){
+    return parseInt((Math.sqrt(doubleX + doubleY)).toFixed(arguments[arguments.length - 1]));
+  }else{
+    return Math.sqrt(doubleX + doubleY);
+  }
+
+
+}
+
 /*=====  End of Canvas  ======*/
 

@@ -349,15 +349,6 @@ MapInteraction.prototype.canvas.setBase = function(sample) {
 
     dotesAmount > 1 ? ending = ' точечных целей!': ending = ' точечную цель!';
 
-    var wasChanged = false;
-
-    var interval = setInterval(function() {
-      if(wasChanged){
-        clearInterval(interval);
-        sample.canvasMap.onclick = null;
-      }
-    },10);
-
     /**
      *
      * If it hasn't been created
@@ -467,7 +458,7 @@ MapInteraction.prototype.canvas.setBase = function(sample) {
         awake(closeSnow);
         awake(par);
 
-        wasChanged = true;
+        sample.canvasMap.onclick = null;
 
         /**
          *
@@ -506,6 +497,138 @@ MapInteraction.prototype.canvas.setBase = function(sample) {
   }
 };
 
+
+MapInteraction.prototype.canvas.createPolygons = function(sample){
+
+  var mainPolygon = get('#polygon')
+    , control = get('#controls')
+    , controlParent = control.parentNode
+    , each = Array.prototype.forEach
+    , dotesAmount = parseInt((get('.dotes-amount')[0]).innerText)
+    , trajectoryAmount = parseInt((get('.trajectory-amount')[0]).innerText)
+    , areaAmount = parseInt((get('.area-amount')[0]).innerText)
+    , amount = [{dotes: dotesAmount}, {trajectory: trajectoryAmount}, {area: areaAmount}]
+    , canvases = []
+    , groups = []
+    , max = -Infinity
+    , inds = 5;
+
+
+  amount.forEach(function(x, i, a){
+    for (var e in x){
+      if (x.hasOwnProperty(e)){
+        if (x[e] >= max){
+          max = x[e];
+        }
+      }
+    }
+  });
+
+  amount.forEach(function(x, i, a){
+
+    for (var p in x){
+
+      if (x.hasOwnProperty(p)){
+        var arr = [];
+        for (var j = 0; j <= x[p] - 1; j++){
+
+          var polygon = document.createElement('canvas');
+
+          polygon.width = mainPolygon.width;
+          polygon.height = mainPolygon.height;
+          polygon.id = (j + 1) + (p.slice(0, 1)).toUpperCase();
+          polygon.className = p + '-polygon';
+
+          css(polygon, {zIndex: (inds += 1)});
+
+          arr.push(polygon);
+
+        }
+
+      groups.push(p);
+      canvases.push(arr);
+
+      }
+
+    }
+  });
+
+
+  groups.forEach(function(x, i, a){
+
+    var existed = get('.' + x + '-polygons')
+      , elements = get('.' + x + '-polygon');
+
+
+    console.log(x);
+
+    // console.log(elements);
+
+    if (existed.length){
+
+      /**
+       *
+       * If elements are less than current amount
+       *
+       */
+      
+
+       // console.log(elements.length, amount[i][x], elements, amount);
+
+      if (amount[i][x] <= elements.length){
+
+        // console.log(existed);
+
+
+        existed[0].remove();
+
+        var group = document.createElement('div');
+        group.className = x + '-polygons common-polygons';
+
+        for (var t in canvases){
+          if (canvases.hasOwnProperty(t)){
+            if (t === x){
+              var can = canvases[t];
+              group.appendChild(can);
+            }
+          }
+        }
+
+        controlParent.insertBefore(group, control);
+
+      /**
+       *
+       * If elements more than current amount
+       *
+       */
+      
+      }else{
+
+
+
+      }
+
+
+
+
+    }
+  });
+
+  canvases.forEach(function(x, i, a){
+
+    var group = document.createElement('div');
+
+    group.className = groups[i] + '-polygons common-polygons';
+
+    x.forEach(function(y, j, b){
+      group.appendChild(y);
+    });
+
+    controlParent.insertBefore(group, control);
+
+  });
+}
+
 MapInteraction.prototype.canvas.setDotes = function(sample) {
 
   /**
@@ -514,18 +637,21 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
    *
    */
   
-  var polygon = sample.canvasMap.getContext('2d')
+  var mainPolygon = get('#polygon')
+    , polygon = sample.canvasMap.getContext('2d')
     , counter = count(1);
 
   sample.dotes.button.onclick = function() {
 
+    // sample.canvas.createPolygons(sample);
+
     var amount = parseInt(sample.dotes.amount.innerText)
-      , dotesLen = sample.dotes.coordinates.length
+      , dotesLen = sample.dotesCoordinates.length
       , r = sample.dotes.radius
       , d = r*2*2;
 
-    if (amount <= dotesLen){
-      var coords = sample.dotes.coordinates;
+    if (amount <= dotesLen - 1){
+      var coords = sample.dotesCoordinates;
       for (var i = 0; i <= coords.length - 1; i++){
         polygon.clearRect(coords[i].x - d*2*2, coords[i].y - d*2*2.65, d*2*2*5, d*2*2*2);
       }
@@ -541,66 +667,9 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
     var snowball = get('.snow')
       , dotesAmount = sample.dotes.amount.innerText
       , color = 'rgba(255,64,64, 1)'
-      , ending = ''
-      , wasChanged = false;
+      , ending = '';
 
     dotesAmount > 1 ? ending = ' точечных целей!': ending = ' точечную цель!';
-
-    var interval = setInterval(function() {
-      /**
-       *
-       * Stop add new points
-       *
-       */
-        if(wasChanged){
-          clearInterval(interval);
-          sample.canvasMap.onmousemove = null;
-          sample.canvasMap.onclick = null;
-
-          addToTable();
-
-          function addToTable() {
-            var existedDotes = sample.dotesCoordinates
-              , clones = [];
-
-            for (var j = 0; j <= existedDotes.length - 1; j++){
-
-              var dotesRow = get('.dotes-coords-row')[0]
-                , dotesClone = dotesRow.cloneNode(true);
-
-              dotesClone.className = dotesClone.cutClassTo('-', true) + '-' + (j + 1);
-
-              var children = dotesClone.getChildren();
-
-              for (var i = 1; i <= children.length - 1; i++){
-                children[i].className = children[i].cutClassTo('not-choosen', true);
-                children[i].className = children[i].cutClassTo('-', true);
-                children[i].className += '-' + (j + 1) + ' choosen';
-                children[0].replaceText((j + 1) + 'D.');
-              }
-
-              children[1].replaceText((sample.dotesCoordinates[j].x).toString());
-              children[2].replaceText((sample.dotesCoordinates[j].y).toString());
-
-              clones.push(dotesClone);
-
-            }
-
-            var tbody = get('.dotes-body')[0]
-              , tbodyChildren = tbody.getChildren();
-
-              for (var b = 0; b <= tbodyChildren.length - 1; b++){
-                tbodyChildren[b].remove();
-              }
-
-            for (var k = 0; k <= clones.length - 1; k++){
-              tbody.parentOf(clones[k]);
-            }
-            return true;
-          }
-
-        }
-    },10);
 
     /**
      *
@@ -617,6 +686,34 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
       this.onclick = function() {
 
         var len = sample.dotesCoordinates.length;
+
+        /**
+         *
+         * Canvas offset, circle radiuses and center
+         *
+         */
+        
+        var offset = sample.canvasMap.getBoundingClientRect()
+        , x0 = e.clientX - offset.left
+        , y0 = e.clientY - offset.top
+        , startAngle = 0
+        , endAngle = 2*Math.PI
+        , val = counter();
+
+        /**
+         *
+         * Draw filled circle
+         *
+         */
+        
+        drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2, '  ' + val + 'D');
+        drawCircle(polygon, x0, y0, r + 6, startAngle, endAngle, color, 0, 2, 0);
+
+        MapInteraction.prototype.dotesCoordinates.push({
+          name: val + 'D',
+          x: x0,
+          y: y0
+        });
 
         /**
          *
@@ -667,52 +764,60 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
           awake(closeSnow);
           awake(par);
 
-          /**
-           *
-           * We can't set up dotes any more
-           *
-           */
-          wasChanged = true;
+
+          sample.canvasMap.onmousemove = null;
+          sample.canvasMap.onclick = null;
+
+          addToTable(sample);
 
          /**
           *
           * Start computing distance from drones to points
           *
           */
-          var drones = new Planes();
-          drones.computeDistance('dotes');
+          sample.computeDistance('dotes');
         }
-
-        /**
-         *
-         * Canvas offset, circle radiuses and center
-         *
-         */
-        
-        var offset = sample.canvasMap.getBoundingClientRect()
-        , x0 = e.clientX - offset.left
-        , y0 = e.clientY - offset.top
-        , startAngle = 0
-        , endAngle = 2*Math.PI
-
-        /**
-         *
-         * Draw filled circle
-         *
-         */
-        
-        drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2, '  ' + counter() + 'D');
-        drawCircle(polygon, x0, y0, r + 6, startAngle, endAngle, color, 0, 2, 0);
-
-        MapInteraction.prototype.dotesCoordinates.push({
-          x: x0,
-          y: y0
-        });
-
       }
+    }
+  }
+  function addToTable(s) {
+    var existedDotes = s.dotesCoordinates
+      , clones = [];
+
+    for (var j = 0; j <= existedDotes.length - 1; j++){
+
+      var dotesRow = get('.dotes-coords-row')[0]
+        , dotesClone = dotesRow.cloneNode(true);
+
+      dotesClone.className = dotesClone.cutClassTo('-', true) + '-' + (j + 1);
+
+      var children = dotesClone.getChildren();
+
+      for (var i = 1; i <= children.length - 1; i++){
+        children[i].className = children[i].cutClassTo('not-choosen', true);
+        children[i].className = children[i].cutClassTo('-', true);
+        children[i].className += '-' + (j + 1) + ' choosen';
+        children[0].replaceText((j + 1) + 'D.');
+      }
+
+      children[1].replaceText((s.dotesCoordinates[j].x).toString());
+      children[2].replaceText((s.dotesCoordinates[j].y).toString());
+
+      clones.push(dotesClone);
 
     }
 
+    var tbody = get('.dotes-body')[0]
+      , tbodyChildren = tbody.getChildren();
+
+      for (var b = 0; b <= tbodyChildren.length - 1; b++){
+        tbodyChildren[b].remove();
+      }
+
+    for (var k = 0; k <= clones.length - 1; k++){
+      tbody.parentOf(clones[k]);
+    }
+    return true;
   }
 };
 
@@ -748,6 +853,8 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
   sample.trajectory.button.onclick = function() {
 
 
+    // sample.canvas.createPolygons();
+
     /**
      *
      * Get snowball if it is existed, get amount value;
@@ -755,10 +862,8 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
      */
     var snowball = get('.snow')
       , ending = ''
-      , wasChanged = false
       , amount = parseInt(sample.trajectory.amount.innerText)
       , trajectoryLen = sample.trajectoryCoordinates.length;
-
 
     amount > 1 ? ending = ' траекторных целей!': ending = ' тректорную цель!';
     /**
@@ -804,104 +909,6 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
       coords.length = 0;
     }
 
-  var interval = setInterval(function() {
-  /**
-   *
-   * Stop add new points
-   *
-   */
-    if (wasChanged) {
-      clearInterval(interval);
-      sample.canvasMap.onmousemove = null;
-      sample.canvasMap.onclick = null;
-
-      addToTrajectoryTable();
-
-      function addToTrajectoryTable() {
-
-        var existedTrajectory = sample.trajectoryCoordinates
-          , clones = [];
-
-        /**
-         *
-         * Run on all arrays
-         *
-         */
-        
-        for (var j = 0; j <= existedTrajectory.length - 1; j++){
-
-          var element = existedTrajectory[j];
-
-          /**
-           *
-           * Run on all elements in arrays (coordinates)
-           *
-           */
-          
-          for (var l = 0; l <= element.length - 1; l++){
-
-            /**
-             *
-             * Cloning trajectory table row and its children. Setting up attributes to correct view
-             *
-             */
-            
-            var trajectoryRow = get('.trajectory-coords-row')[0]
-              , trajectoryClone = trajectoryRow.cloneNode(true);
-
-            trajectoryClone.className = trajectoryClone.cutClassTo('coordinate-1', true) + 'coordinate-' + (j + 1) + '-' + (l + 1);
-
-            var children = trajectoryClone.getChildren();
-
-            for (var h = 1; h <= children.length - 1; h++){
-              children[h].className = children[h].cutClassTo('not-choosen', true);
-              children[h].className = children[h].cutClassTo('thla-', true);
-              children[h].className += 'thla-' + (l + 1) + '-' + h + ' choosen';
-            }
-
-            children[0].replaceText((j + 1) + 'T.' + (l + 1));
-            children[1].replaceText((sample.trajectoryCoordinates[j][l].x).toString());
-            children[2].replaceText((sample.trajectoryCoordinates[j][l].y).toString());
-
-            clones.push(trajectoryClone);
-
-          }
-        }
-
-      /**
-       *
-       * Get parent table body
-       *
-       */
-      
-      var tbody = get('.trajectory-table-body')[0]
-
-      /**
-       *
-       * Search for the existed children
-       *
-       */
-      
-      var tbodyChildren = tbody.getChildren();
-
-      for (var e = 0; e <= tbodyChildren.length - 1; e++){
-        tbodyChildren[e].remove();
-      }
-
-      /**
-       *
-       * Remove existed children
-       *
-       */
-      
-      for (var q = 0; q <= clones.length - 1; q++){
-        tbody.parentOf(clones[q]);
-      }
-
-      return true;
-      }
-    }
-  }, 10);
     /**
      *
      * Handler to mouse moving
@@ -1026,15 +1033,17 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
             awake(closeSnow);
             awake(par);
 
-            wasChanged = true;
+            sample.canvasMap.onmousemove = null;
+            sample.canvasMap.onclick = null;
+
+            addToTrajectoryTable(sample);
 
             /**
               *
               * Start computing distance from drones to trajectories
               *
               */
-            var drones = new Planes();
-            drones.computeDistance('trajectory');
+            sample.computeDistance('trajectory');
           }
 
         }
@@ -1051,25 +1060,214 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
           evDotes = dotesID();
           counter = count(1);
         }
-        // drawLine(polygon)
+      }
+    }
+  }
+  function addToTrajectoryTable(s) {
 
-        // console.log(lineCoords);
+    var existedTrajectory = s.trajectoryCoordinates
+      , clones = [];
 
-        // console.log(sample.trajectory.coordinates)
+    /**
+     *
+     * Run on all arrays
+     *
+     */
+    
+    for (var j = 0; j <= existedTrajectory.length - 1; j++){
 
+      var element = existedTrajectory[j];
+
+      /**
+       *
+       * Run on all elements in arrays (coordinates)
+       *
+       */
+      
+      for (var l = 0; l <= element.length - 1; l++){
+
+        /**
+         *
+         * Cloning trajectory table row and its children. Setting up attributes to correct view
+         *
+         */
+        
+        var trajectoryRow = get('.trajectory-coords-row')[0]
+          , trajectoryClone = trajectoryRow.cloneNode(true);
+
+        trajectoryClone.className = trajectoryClone.cutClassTo('coordinate-1', true) + 'coordinate-' + (j + 1) + '-' + (l + 1);
+
+        var children = trajectoryClone.getChildren();
+
+        for (var h = 1; h <= children.length - 1; h++){
+          children[h].className = children[h].cutClassTo('not-choosen', true);
+          children[h].className = children[h].cutClassTo('thla-', true);
+          children[h].className += 'thla-' + (l + 1) + '-' + h + ' choosen';
+        }
+
+        children[0].replaceText((j + 1) + 'T.' + (l + 1));
+        children[1].replaceText((s.trajectoryCoordinates[j][l].x).toString());
+        children[2].replaceText((s.trajectoryCoordinates[j][l].y).toString());
+
+        clones.push(trajectoryClone);
 
       }
+    }
+    /**
+     *
+     * Get parent table body
+     *
+     */
 
+    var tbody = get('.trajectory-table-body')[0]
 
+    /**
+     *
+     * Search for the existed children
+     *
+     */
+    var tbodyChildren = tbody.getChildren();
 
+    for (var e = 0; e <= tbodyChildren.length - 1; e++){
+      tbodyChildren[e].remove();
     }
 
+    /**
+     *
+     * Remove existed children
+     *
+     */
 
+    for (var q = 0; q <= clones.length - 1; q++){
+      tbody.parentOf(clones[q]);
+    }
+
+    return true;
   }
 };
 
 // MapInteraction.prototype.canvas.setArea = function(sample) {
 // };
+
+MapInteraction.prototype.computeDistance = function(kind) {
+
+  var map = new MapInteraction();
+
+  MapInteraction.prototype.kInP = 2.84210526315789;
+
+  if(kind === 'dotes') MapInteraction.prototype.distances.toDotes = computeDistanceToDotes();
+  if(kind === 'trajectory') MapInteraction.prototype.distances.toTrajectories = computeDistanceToTrajectories();
+  if(kind === 'area') MapInteraction.prototype.distances.toAreas = computeDistanceToAreas();
+
+  function computeDistanceToDotes(){
+    var mapCanvas = new MapInteraction()
+      , dotes = mapCanvas.dotesCoordinates
+      , base = mapCanvas.baseCoordinates
+      , result = [];
+
+    if (isCorrect(dotes, 'Array')){
+
+      dotes.forEach(function(element, ind, arr){
+        var dotX = element.x
+          , dotY = element.y
+          , baseX = base.x
+          , baseY = base.y
+          , distance = {}
+          , obj = {}
+          , k = mapCanvas.kInP;
+
+          distance.x = dotX - baseX;
+          distance.y = dotY - baseY;
+
+          distance.result = Math.sqrt(Math.pow(distance.x, 2) + Math.pow(distance.y, 2));
+
+          distance.result = parseInt(distance.result.toFixed(3));
+
+        obj = {
+          name: element.name,
+          pixels: distance.result,
+          coords: {
+            x: dotX,
+            y: dotY
+          },
+          kilometers: distance.result*k,
+          to: {}
+        }
+
+        dotes.forEach(function(dot, i, a){
+          var distance = {};
+
+          if (i !== ind){
+
+
+            distance.x = dot.x - dotX;
+            distance.y = dot.y - dotY;
+
+            distance.result = Math.sqrt(Math.pow(distance.x, 2) + Math.pow(distance.y, 2));
+
+            distance.result = parseInt(distance.result.toFixed(3));
+
+            obj.to[dot.name] = {
+              pixels: distance.result,
+              kilometers: distance.result*k,
+              name: dot.name
+            }
+          }
+        });
+
+          result.push(obj);
+      });
+
+    }
+
+    return result;
+  }
+
+  function computeDistanceToTrajectories(){
+    var mapCanvas = new MapInteraction()
+      , trajectory = mapCanvas.trajectoryCoordinates
+      , base = mapCanvas.baseCoordinates
+      , result = []
+      , k = mapCanvas.kInP;
+
+    if (isCorrect(trajectory, 'Array')) trajectory.forEach(function(element, ind, arr){
+
+      result.push([]);
+
+      element.forEach(function(oneDot, j, b){
+        var dotX = oneDot.x
+          , dotY = oneDot.y
+          , baseX = base.x
+          , baseY = base.y
+          , distance = {}
+          , previous = result[ind][j - 1]
+          , data = {};
+
+        distance.x = dotX - baseX;
+        distance.y = dotY - baseY;
+
+        distance.result = Math.sqrt(Math.pow(distance.x, 2) + Math.pow(distance.y, 2));
+
+        distance.result = parseInt(distance.result.toFixed(3));
+
+        data.pixels = distance.result;
+        data.kilometers = distance.result*k;
+
+        if (previous){
+          if (distance.result <= previous.pixels){
+            data.entry = true;
+          }else {
+            result[ind][j - 1].entry = true;
+          }
+        }
+        result[ind].push(data);
+      });
+
+    });
+
+    return result;
+  }
+}
 
 MapInteraction.prototype.replaceHeaders = function(lon, lat){
 
@@ -1111,6 +1309,7 @@ MapInteraction.prototype.baseCoordinates = [];
 MapInteraction.prototype.dotesCoordinates = [];
 MapInteraction.prototype.areaCoordinates = [];
 MapInteraction.prototype.trajectoryCoordinates = [];
+MapInteraction.prototype.distances = {};
 
 
 /*=====  End of Map's methods and properties  ======*/
@@ -1290,8 +1489,7 @@ MapInteraction.prototype.trajectoryCoordinates = [];
         , static = get('#static-map');
 
       sleep(canvas, static);
-      // sleep(static);
-      css(canvas, {zIndex: 5});
+      css(canvas, {zIndex: 200});
       css(static, {zIndex: 4, background: 'rgba(255, 255, 255, .4)'})
       awake(canvas, static);
 

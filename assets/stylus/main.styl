@@ -69,7 +69,7 @@ clearfix()
 =            Workspace blocks            =
 ========================================*/
 
-#dynamic-map, #static-map, #controls, #polygon
+#dynamic-map, #static-map, #controls, .canvases, .actions, .common-polygons, .dotes-polygon, .trajectory-polygon, .area-polygon
   position absolute
   height 600px
   width 1300px
@@ -87,6 +87,14 @@ clearfix()
   display block
   z-index 1
 
+#dotes-polygons, .trajectory-polygons, .area-polygons
+  display block
+  z-index 1
+
+.actions
+  display block
+  z-index 1
+  background transparent
 
 /*=====  End of Workspace blocks  ======*/
 
@@ -212,9 +220,9 @@ maintext()
 
 #control-additional
   position relative
-  background linear-gradient(-20deg, rgba(230,230,230,1) 0%, rgba(199,199,199,0.6) 44%, rgba(125,125,125,0.08) 100%);
+  background #d0d4f1 
+  background linear-gradient(to right, #ebebeb, #eaebed)
   border-radius 6px
-  // height baseline*14
   padding baseline
 
 /*----------  Planes and targets articles  ----------*/

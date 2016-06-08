@@ -90,17 +90,14 @@
             time += 300;
 
           }, 300);
-
         } else{
-
           this.placeholder = 'Количество БПЛА.';
-
         }
 
         /**
          *
          * If it's okay, we notify our user he
-         * can continue working with the program.
+         * can continue his work with the program.
          *
          */
         
@@ -108,9 +105,11 @@
           var c = counting();
           if (c < 1){
             var drones = getDronesData();
+
             toPage(drones);
-            Planes.prototype.all = parseDrones(drones);
-            // setToCanvas(drones);
+
+            parseDrones(drones);
+
           }
         }
 
@@ -195,7 +194,6 @@ function getDronesData() {
           tempClass = tempClass.slice(tempClass.lastIndexOf(' ') + 1, tempClass.lastIndexOf('-'));
 
           specifications[tempClass] = parseInt(values[q].innerText);
-
         });
 
         var a = parseInt(y.value)
@@ -229,7 +227,7 @@ function colorIs(from, to){
   var r = Math.abs(Math.floor(Math.random()*to - from))
     , b = Math.abs(Math.floor(Math.random()*to - from))
     , g = Math.abs(Math.floor(Math.random()*to - from))
-    , o = 0.6;
+    , o = 0.7;
 
   return 'rgba(' + r + ', ' + b + ', ' + g + ', ' + o + ')';
 }
@@ -339,10 +337,11 @@ function toPage(obj){
   }
 }
 
-function parseDrones(obj) {
+function parseDrones(obj, callback) {
   isCorrect(obj, 'Array');
 
-  var tempObj = [];
+  var tempObj = []
+    , band = new Planes();
 
   for (var i = 0; i <= obj.length - 1; i++){
     var current = obj[i];
@@ -359,10 +358,13 @@ function parseDrones(obj) {
           props[k] = current[k];
         }
       }
+      props.iAm = (j + 1);
       tempObj.push(props);
     }
   }
 
-  return tempObj;
+  Planes.prototype.all = tempObj;
+
+  band.initialize();
 
 }

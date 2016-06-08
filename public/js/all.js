@@ -1,2 +1,2152 @@
-function get(e){if(!e)throw new TypeError;var t;return t="object"==typeof e?e:e.slice(0,1),"."===t?document.getElementsByClassName(e.slice(1,e.length)):"#"===t?document.getElementById(e.slice(1,e.length)):"object"==typeof t?e:void 0}function log(){console.log(arguments)}function css(e,t){if(!e&&!t)throw new TypeError;for(var n in t)e.style[n]=t[n];return e}function isArray(e){return!!(e&&e.length&&e.length>=0&&isFinite(e.length)&&e.length<=Math.pow(2,32))}function parentOf(){var e=Array.prototype.forEach,t=this;return e.call(arguments,function(e){t.appendChild(e)}),t}function cutClassTo(e){isCorrect(e,"String");try{isCorrect(this,"HTMLElement")}catch(t){try{isCorrect(this,"HTMLTableCellElement")}catch(n){try{isCorrect(this,"HTMLTableRowElement")}catch(o){try{isCorrect(this,"HTMLInputElement")}catch(a){console.log("Incoming parameter doesn't belong to HTMLElement, HTMLInputElement, HTMLTableRowElement, HTMLTableCellElement")}}}}return arguments[1]?this.className.slice(0,this.className.lastIndexOf(e)):this.className.slice(0,this.className.indexOf(e))}function typeAndValue(e){if(null==e)return"";switch(e.constructor){case Number:return"Number: "+e;case String:return"String: '"+e+"'";case Date:return"Date: "+e;case Boolean:return"Boolean: "+e;case RegExp:return"RegExp: "+e;case List:return"List: "+e}}function type(e){var t,n,o;return null===e?"null":e!==e?"nan":"object"!=(n=typeof e)?n:"Object"!==(t=classOf(e))?t:(o=e.constructor.getName())?o:"Object"}function classOf(e){return Object.prototype.toString.call(e).slice(8,-1)}function quacks(e){for(var t=1;t<=arguments.length-1;t++){var n=arguments[t];switch(typeof n){case"string":if("function"!==e[n])return!1;continue;case"function":n=n.prototype;case"object":for(var o in n)if("function"==typeof n[o]&&"function"!=typeof e[o])return!1}}return!0}function xhr(){if(void 0!==window.XMLHttpRequest)return new XMLHttpRequest;try{return new ActiveXObject("Msxml2.XMLHTTP.6.0")}catch(e){try{return new ActiveXObject("Msxml2.XMLHTTP.3.0")}catch(t){throw new Error("XMLHttpRequest doesn't support")}}}function isString(e){if("string"!=typeof e)throw new TypeError("Incoming parameter is not an object. It is "+typeof e)}function parseToArr(e){isString(e);var t=[];for(i=0;i<e.length-1;i++)" "!==e[i]&&"number"==typeof parseInt(e[i])&&t.push(!!parseInt(e[i]));return t}function getArr(e){isString(e);for(var t=[],n=0,o=1;o>0;)o=e.indexOf(",",o),o+=1,0!==o?t.push(e.slice(n,o-1)):t.push(e.slice(n,e.length)),n=o;return t}function parseLogic(e){if(!e)throw new TypeError("Incoming parameter is not an object. It is "+typeof e);for(var t,n,o={},a=0;a<e.length;a++){var r=e[a];t=r.slice(0,r.indexOf("-")-1),n=r.slice(r.indexOf("-")+2),o[a]={},o[a].name=t,o[a].value=n}return o}function count(e){return void 0==e?e=0:e,function(){return e++}}function setCookies(e,t,n){var o=e+"="+encodeURIComponent(t);"number"==typeof n&&(o+="; max-age="+60*n*60*24),document.cookie=o}function getCookies(){var e={},t=document.cookie;if(""===t)return e;for(var n=t.split("; "),o=0;o<=n.length-1;o++){var a=n[o],r=a.indexOf("="),s=a.slice(0,r),i=a.slice(r+1);i=decodeURIComponent(i),e[s]=i}return e}function deleteCookies(e){document.cookie=e+"=; expires=Thu, 01 Jan 1970 00:00:01 GMT"}function toHTMLView(e){if("object"!=typeof e&&"Array"!==classOf(e))throw new TypeError("Incoming parameter doesn't have 'object' type");var t=get(".ready-algorithm")[0],n=(t.getChildren().getChildren(),e.map(function(e,n,o){var a=t.cloneNode(!0),r=a.getChildren().getChildren();a.removeAttribute("hidden"),a.id="",a.className=a.className.slice(0,a.className.lastIndexOf("-")+1)+counter(),r[0]&&r[0].replaceText(e);var s=["all.js","yandex"];return r[0]&&"Вы ещё не загрузили ни один алгоритм"!==r[0].innerText&&(a.onclick=function(){var e=get("#active-algorithm");e&&(e.id=""),this.id="active-algorithm";for(var t=document.getElementsByTagName("script"),n=0;n<=t.length-1;n++){var o=t[n].src.indexOf(s[0])+1||t[n].src.indexOf(s[1])+1;o||t[n].remove()}var a=document.createElement("script"),i=r[0].innerText,c="js/algorithms/";a.src=c+i,document.body.appendChild(a)}),a})),o=get(".algorithms")[0];n.forEach(function(e,t,n){o.appendChild(e)})}function sleep(e,t,n){t||n||setTimeout(function(){css(e,css({opacity:0}))},300),setTimeout(function(){css(e,t)},n)}function awake(e,t,n){t||n||setTimeout(function(){css(e,css({opacity:1}))},300),setTimeout(function(){css(e,t)},n)}function isCorrect(e,t){if(classOf(e)!==t)throw new TypeError("Incoming parameter does not belong to '"+t+"' class!");return!0}function replaceInSleep(e,t,n){return isCorrect(t,"String"),setTimeout(function(){e.value?e.value=t:e.replaceText(t)},n),!0}function addFiles(e){if("XMLHttpRequest"!==classOf(e))throw new TypeError("Incoming parameter is not an 'XMLHttpRequest' object!");try{if(e.responseText){var t=JSON.parse(e.responseText);t.length||t.push("Вы ещё не загрузили ни один алгоритм");var n=encodeURIComponent(t);n!==getCookies().answer&&(deleteCookies(),setCookies("answer",t,1));var o=getCookies(),a=getArr(o.answer);if(arguments[1]){var r=arguments[1];for(var s in r)"exists"===r[s]&&delete a[s]}toHTMLView(a)}}catch(i){console.log(i)}}function removeNotExisting(e){if("XMLHttpRequest"!==classOf(e))throw new TypeError("Incoming parameter is not an 'XMLHttpRequest' object!");try{if(e.responseText){var t=get(".ready-algorithm"),n=get("#upload-file"),o=Array.prototype.forEach,a=[],r=[],s=count(1),i=JSON.parse(e.responseText);o.call(t,function(e,t,n){a.push(get(".algorithm-"+s()));var o=a[t];for(var i in o)if(o.hasOwnProperty(i)){if("length"!==i)var c=o[i].getChildren().getChildren();for(var l in c)c.hasOwnProperty(l)&&r.push(c[l])}}),o.call(n.files,function(e,t,n){var o=e.name;for(var a in r)if(r[a].innerText===o)for(var s in i)i[s]===o&&(i[s]="exists");else"Вы ещё не загрузили ни один алгоритм"===r[a].innerText&&(r[a].parentNode.parentNode.remove(),counter=count(1))})}}catch(c){console.log(c)}return i}function check(e,t,n){e.onclick=function(){var e=(self.list.length,get("#active-algorithm"));e.id="",this.id="active-algorithm"}}function iHide(e,t){if("string"!=typeof t)throw new TypeError("Incoming arguments is not a string");if("object"!=typeof e)throw new TypeError("Incoming arguments is not an object");var n=document.createElement("div"),o=document.createElement("div"),a=document.createElement("input"),r=document.createElement("p");return n.className="snow-wrapper",o.className="snow",a.className=o.className+"-close-it",r.className="snow-paragraph span-10 offset-5",a.type="button",a.value="Отменить",a.onclick=function(){removeBody(".snow-wrapper")},css(n,{position:"absolute",height:"100%",width:"100%",top:0,left:0,borderTop:"3px solid #90ee90"}),css(o,{position:"absolute",top:0,left:0,height:"100%",width:"100%",background:"white",opacity:"0.7","-webkit-filter":"blur(10px)"}),a.appendChild(document.createTextNode("закрыть")),t=document.createTextNode(t),e.parentOf(n.parentOf(o,a,r.parentOf(t))),1}function removeBody(e){var t=get(e);t.length&&(css(t[0],{opacity:0}),setTimeout(function(){t[0].remove()},300))}function drawCircle(e,t,n,o,a,r,s,i,c,l){e.beginPath(),e.arc(t,n,o,a,r),e.lineWidth=c,s&&i?(e.fillStyle=i,e.strokeStyle=s,e.stroke(),e.fill()):s?(e.strokeStyle=s,e.stroke()):i&&(e.fillStyle=i,e.fill()),l&&(e.font="18px Tahoma",e.fillStyle=i||s,e.textAlign="left",e.fillText(l,t,n))}function drawText(e,t,n,o){e.beginPath(),e.fillStyle=t,e.font=n;var a=e.measureText(o.length).width,r=e.measureText("w").width;e.fillText(o.length,o[0].base.x-a/2,o[0].base.y+r/2)}function random(e,t){return Math.abs(Math.floor(Math.random()*t-e))}function even(e){return e%2===0}function getDronesData(){var e=[get(".hard-drone-amount"),get(".middle-drone-amount"),get(".light-drone-amount")],t=[],n=Array.prototype.forEach;return n.call(e,function(e,o,a){n.call(e,function(e,n,o){if(e.value){var a=e.parentNode,r="";a=a.getChildren();for(var s in a)if("function"!=typeof a[s]&&a.hasOwnProperty(s)){var i=a[s];i.className.indexOf("drone-name")+1&&(r=i.innerText)}var c=e.cutClassTo("-",!0);c=c.slice(c.indexOf("2")+2);var l=e.parentNode.parentNode,d={},p=l.getChildren().getChildren().getChildren(),u=[];for(var h in p)"function"!=typeof p[h]&&p.hasOwnProperty(h)&&"article"===p[h].localName&&u.push(p[h]);var f=u.getChildren().findByClass("chars-values");u.forEach(function(e,t,n){var o=e.className;o=o.slice(o.lastIndexOf(" ")+1,o.lastIndexOf("-")),d[o]=parseInt(f[t].innerText)});for(var g=parseInt(e.value),m=[],v=0;g-1>=v;v++)m.push(colorIs(30,200));t.push({name:r,type:c,amount:g,specification:d,colors:m})}})}),t}function numberMask(e){e.value=e.value.replace(/[^\d]/g,"")}function colorIs(e,t){var n=Math.abs(Math.floor(Math.random()*t-e)),o=Math.abs(Math.floor(Math.random()*t-e)),a=Math.abs(Math.floor(Math.random()*t-e)),r=.6;return"rgba("+n+", "+o+", "+a+", "+r+")"}function toPage(e){isCorrect(e,"Array");var t=count(1),n=t(),o={"hard-drone":"Тяжелый БПЛА","middle-drone":"Средний БПЛА","light-drone":"Лёгкий БПЛА"},a=(Array.prototype.forEach,document.createElement("section")),r=document.createElement("input"),s=document.createElement("section"),i=document.createElement("header"),c=document.createElement("h1"),l=document.createTextNode("Беспилотники на месте базирования!"),d=get("#planes-section");d.parentNode;a.id="drones-colors",a.className="span-18 offset-1",s.id="drones-subsection-colors",s.className="span-20",r.type="button",r.id="close-"+a.id,r.className="span-10 offset-5",i.className="span-20 color-header",a.parentOf(i.parentOf(c.parentOf(l)));for(var p=0;p<=e.length-1;p++)for(var u=e[p],h=0;h<=u.amount-1;h++){var f=document.createElement("article"),g=document.createElement("header"),m=document.createElement("h2"),v=document.createElement("h5"),y=document.createElement("div"),b=document.createTextNode(u.name),w=get("#control-additional");for(var x in o)if(x===u.type)var T=document.createTextNode(o[x]);f.className="drones-information drone-info-"+n,g.className="drone-info-headers",y.className="drone-trace trace-"+n,css(f,{width:"13.5%","float":"left",marginTop:"2%"}),css(y,{backgroundColor:u.colors[h],height:"6px",width:"18px",margin:"0 auto"}),s.parentOf(f.parentOf(y,g.parentOf(v.parentOf(T),m.parentOf(b)))),n=t(),w.insertBefore(a.parentOf(s),d)}}function parseDrones(e){isCorrect(e,"Array");for(var t=[],n=0;n<=e.length-1;n++)for(var o=e[n],a=0;a<=o.amount-1;a++){var r={};for(var s in o)"amount"!==s&&("colors"===s?r[s]=o[s][a]:r[s]=o[s]);t.push(r)}return t}function MapInteraction(e){if(void 0===e&&(e={}),"object"!=typeof e)throw new TypeError("Incoming arguments is not an object");for(var t in e)"string"!=typeof e[t]?this[t]=e[t]:this[t]=get(e[t])}function Planes(){return this}function init(){myMap=new ymaps.Map("dynamic-map",{center:[55.76,37.64],zoom:5,controls:["rulerControl","zoomControl"]}),myCollection=new ymaps.GeoObjectCollection({},{preset:"twirl#redIcon",draggable:!1}),dotesTargets=new ymaps.GeoObjectCollection({},{preset:"twirl#redIcon",draggable:!1})}Planes.prototype.computeDistance=function(){var e=new MapInteraction;console.log(e())},Object.defineProperties(Object.prototype,{replaceText:{value:function(e,t){var n="There are no any text.";if(!e)throw new TypeError(n);if(n="It is not a string","string"!=typeof e)throw new TypeError(n);return this.removeChild(this.childNodes[0]),this.appendChild(document.createTextNode(e)),this},writable:!0,enumerable:!1,configurable:!0},getText:{value:function(){var e="Apply this method to object.";if("object"!=typeof this)throw new TypeError(e);return this.childNodes[0].nodeValue},writable:!0,enumerable:!1,configurable:!0}}),HTMLElement.prototype.getChildren=function(){var e,t=[];if("Array"===classOf(this))this.forEach(function(n,o,a){if(n.children&&n.children.length){e=n.children;for(var o in e)e.hasOwnProperty(o)&&t.push(e[o])}});else if("HTMLElement"===classOf(this)){if(this.children.length){e=this.children;for(var n in e)e.hasOwnProperty(n)&&t.push(e[n])}}else if("HTMLTableRowElement"===classOf(this)){if(this.children.length){e=this.children;for(var n in e)e.hasOwnProperty(n)&&t.push(e[n])}}else if("HTMLTableSectionElement"===classOf(this)&&this.children.length){e=this.children;for(var n in e)e.hasOwnProperty(n)&&t.push(e[n])}return t},Array.prototype.getChildren=HTMLElement.prototype.getChildren,HTMLElement.prototype.parentOf=parentOf,HTMLElement.prototype.cutClassTo=cutClassTo,Function.prototype.getName=function(){return"name"in this?this.name:this.name=this.toString().match(/function\s*([^(]*)\(/)[1]},function(){var e=get("#container"),t=e.clientHeight;if(screen.availHeight){var n=(screen.availHeight-t)/6;css(e,{marginTop:n+"px"})}}();var counter=count(1);Array.prototype.findByClass=function(e){isCorrect(this,"Array")&&isCorrect(e,"String");var t=[];for(var n in this)"function"!=typeof this[n]&&this.hasOwnProperty(n)&&this[n].className.indexOf(e)+1&&t.push(this[n]);return t},function(){function e(e){if("object"!=typeof e)throw new TypeError("Incoming arguments is not an object");for(var t in e)"string"!=typeof e[t]?this[t]=e[t]:this[t]=get(e[t])}e.prototype.active=function(){if(this.list){this.list instanceof Array?this.list.forEach(check):Array.prototype.forEach.call(this.list,check)}},e.prototype.toServer=function(e){function t(e){var t=new FormData(e),n=xhr();return n.open("POST",e.action,!0),n.onload=function(e){4===this.readyState&&200===this.status&&addFiles(this,removeNotExisting(this))},n.send(t),!1}var n=get("#upload-form");t(n)},e.prototype.file=function(){var e=this;this.button.onchange=function(){e.file=this.files[0],e.toServer();var t=[];Array.prototype.forEach.call(this.files,function(e,n,o){t.push(e.name)});var n=e.fileName[0];css(n,{opacity:0}),setTimeout(function(){t=t.length>=2?" Алгоритмы были загружены":"Алгоритм "+t[0]+" был загружен",n.replaceText(t),css(n,{opacity:1,color:"#336f94"}),n.className=n.className+" chose"},e.transitions),sleep(n,{opacity:0},5*e.transitions),setTimeout(function(){css(n,{opacity:0,color:"rgba(108,104,116, 0.5)"}),n.className=n.className.slice(0,n.className.lastIndexOf(" ")),n.replaceText("Загружать только файлы с расширением '.js'!")},6*e.transitions),sleep(n,{opacity:1},6*e.transitions)}};var t=new e({section:"#loading-scripts",list:".ready-algorithm",button:"#upload-file",fileName:".file-name",transitions:300,timeOffset:100});t.active(),t.file()}(),function(){var e,t=get(document),n=Date.now();t.addEventListener("DOMContentLoaded",function(){e=Date.now(),n=(e-n)/6e4;var t=xhr(),o=new FormData;get(".ready-algorithm"),Array.prototype.forEach;return o.append("load","true"),t.open("POST","/search",!0),t.onload=function(e){4===this.readyState&&200===this.status&&addFiles(this)},t.send(o),!1})}(),function(){for(var e=get(".hard-drone-amount"),t=get(".middle-drone-amount"),n=get(".light-drone-amount"),o=Array.prototype.forEach,a=count(0),r=[e,t,n],s=[],i=0,c=0;c<=r.length-1;c++)for(var l=0;l<=r[c].length-1;l++)s[i++]=r[c][l];for(var l=0;l<=r.length-1;l++)o.call(r[l],function(e,t,n){e.onchange=function(){numberMask(this)},e.onkeyup=function(){var e=get(".planes-amount")[0],t=parseInt(e.innerText),n=parseInt(this.value),r=0,i=0,c=this,l=0;if(o.call(s,function(e,t,n){e!==c&&e.value&&(r+=parseInt(e.value))}),i=n,n+=r,n>t){this.value="",this.placeholder="БПЛА осталось: "+(t-r),css(this,{border:"1px solid red"});var d=setInterval(function(){l>=900&&clearInterval(d),css(c,{border:"1px solid transparent"}),setTimeout(function(){css(c,{border:"1px solid red"})},300),l+=300},300)}else this.placeholder="Количество БПЛА.";if(n===t){var p=a();if(1>p){var u=getDronesData();toPage(u),Planes.prototype.all=parseDrones(u)}}return numberMask(this)},e.onfocus=function(){css(this,{border:"1px solid #778899"})}})}(),function(){var e=get(".hard-drone-hide"),t=get(".chars"),n=Array.prototype.forEach;n.call(e,function(e,n,o){e.onclick=function(){console.log(t[n].id),"active"===t[n].id?t[n].id="":t[n].id="active"}});var o=get(".middle-drone-hide"),a=get(".chars"),r=Array.prototype.slice;a=r.call(a,e.length),n.call(o,function(e,t,n){e.onclick=function(){"active"===a[t].id?a[t].id="":a[t].id="active"}});var s=get(".light-drone-hide"),i=get(".chars");i=r.call(i,e.length+o.length),n.call(s,function(e,t,n){e.onclick=function(){"active"===i[t].id?i[t].id="":i[t].id="active"}})}(),MapInteraction.prototype.setDotes=function(){var e=this,t=(parseInt(e.dotes.amount.innerText),count(1));e.dotes.button.onclick=function(){function n(n){var o=parseInt(e.dotes.amount.innerText);dotesTargets.get(o-1)&&(e.dotesCoordinates.length=0,dotesTargets.removeAll(),t=count(1));var a=n.get("coords"),a=n.get("coords"),r=(get(".lon-base"),get(".lat-base"),get(".snow-close-it")[0]),i=get(".snow-paragraph")[0];r&&i&&e.dotesCoordinates.length+1===parseInt(e.dotes.amount.innerText)&&(css(r,{opacity:0}),css(i,{opacity:0}),r.className=r.className+" confirm-base",replaceInSleep(r,"Подтвердить",300),replaceInSleep(i,"Установка базы произошла успешно, командир!",300),css(r,{top:"20%"}),awake(r),awake(i),s=!0);var c=myMap.geoObjects,l=new ymaps.Placemark([a[0],a[1]],{iconContent:t()+"D.",balloonContent:"<strong> Точечные цели </strong>"},{preset:"islands#circleIcon",iconColor:"red"});dotesTargets.add(l),e.dotesCoordinates.push(l),c.add(dotesTargets)}var o=get(".snow"),a=e.dotes.amount.innerText,r="";r=a>1?" точечных целей!":" точечную цель!",o.length||iHide(e.panel,"Кликните на карту и определите "+a+r);var s=!1;myMap.events.add("click",n);var i=setInterval(function(){s&&(clearInterval(i),myMap.events.remove("click",n))},10)}},MapInteraction.prototype.setBase=function(){var e=this;this.button.onclick=function(){function t(t){e.baseBalloon.length&&myCollection.remove(myCollection.get(0));var n=t.get("coords"),a=get(".lon-base"),r=get(".lat-base"),s=get(".snow-close-it")[0],i=get(".snow-paragraph")[0];s&&i&&(css(s,{opacity:0}),css(i,{opacity:0}),s.className=s.className+" confirm-base",replaceInSleep(s,"Подтвердить",300),replaceInSleep(i,"Установка базы произошла успешно, командир!",300),css(s,{top:"20%"}),awake(s),awake(i),o=!0);var c=myMap.geoObjects,l=new ymaps.Placemark([n[0],n[1]],{iconContent:"B",balloonContent:"<strong> Место базирования </strong>"},{preset:"islands#circleIcon",iconColor:"#336f94"});myCollection.add(l),e.baseBalloon.push(l),c.add(myCollection),a[0].replaceText(n[0].toPrecision(6)),r[0].replaceText(n[1].toPrecision(6)),r[0].className.indexOf("not-choosen")&&a[0].className.indexOf("not-choosen")&&(a[0].className=a[0].cutClassTo("not-choosen")+"choosen-base",r[0].className=r[0].cutClassTo("not-choosen")+"choosen-base");for(var d=0;d<=n.length-1;d++)e.baseCoordinates.push(n[d])}var n=get(".snow");n.length||iHide(e.panel,"Кликните на карту и выбирете место базирования");var o=!1;myMap.events.add("click",t);var a=setInterval(function(){o&&(clearInterval(a),myMap.events.remove("click",t))},10)}},MapInteraction.prototype.canvas={},MapInteraction.prototype.canvas.setBase=function(e){var t=e.canvasMap.getContext("2d");e.base.button.onclick=function(){var n=e.base.coordinates.x,o=e.base.coordinates.y,a=e.base.radius,r=2*a*2,s=get(".snow"),i=e.dotes.amount.innerText,c="";c=i>1?" точечных целей!":" точечную цель!";var l=!1,d=setInterval(function(){l&&(clearInterval(d),e.canvasMap.onclick=null)},10);s.length||iHide(e.panel,"Кликните на карту и определите место базирования беспилотников"),e.canvasMap.onmousemove=function(a){this.onclick=function(){n&&o&&t.clearRect(n-r,o-r,2*r,2*r);var s=e.canvasMap.getBoundingClientRect(),i=a.clientX-s.left,c=a.clientY-s.top,d=6,p=0,u=2*Math.PI,h="rgba(93, 138, 168, 1)";drawCircle(t,i,c,d,p,u,0,h,2),drawCircle(t,i,c,d+6,p,u,h,0,2),MapInteraction.prototype.baseCoordinates={x:i,y:c},e.canvasMap.onmousemove=null;var f=get(".snow-close-it")[0],g=get(".snow-paragraph")[0];css(f,{opacity:0}),css(g,{opacity:0}),f.className=f.className+" confirm-base",replaceInSleep(f,"Подтвердить",300),replaceInSleep(g,"Установка базы произошла успешно!",300),css(f,{top:"20%"}),awake(f),awake(g),l=!0,MapInteraction.prototype.baseCoordinates.x=i,MapInteraction.prototype.baseCoordinates.y=c,MapInteraction.prototype.baseRadius=d;var m=e.base.values;m.xV.replaceText(i.toString()),m.yV.replaceText(c.toString());var v=get(".drones")[0],y=window.getComputedStyle(v);"none"===y.display&&css(v,{display:"block"});for(var b in m)m[b].className=m[b].cutClassTo("not-choosen")+"choosen"}}}},MapInteraction.prototype.canvas.setDotes=function(e){var t=e.canvasMap.getContext("2d"),n=count(1);e.dotes.button.onclick=function(){var o=parseInt(e.dotes.amount.innerText),a=e.dotes.coordinates.length,r=e.dotes.radius,s=2*r*2;if(a>=o){for(var i=e.dotes.coordinates,c=0;c<=i.length-1;c++)t.clearRect(i[c].x-2*s*2,i[c].y-2*s*2.65,2*s*2*5,2*s*2*2);n=count(1),i.length=0}var l=get(".snow"),d=e.dotes.amount.innerText,p="rgba(255,64,64, 1)",u="",h=!1;u=d>1?" точечных целей!":" точечную цель!";var f=setInterval(function(){function t(){for(var t=e.dotesCoordinates,n=[],o=0;o<=t.length-1;o++){var a=get(".dotes-coords-row")[0],r=a.cloneNode(!0);r.className=r.cutClassTo("-",!0)+"-"+(o+1);for(var s=r.getChildren(),i=1;i<=s.length-1;i++)s[i].className=s[i].cutClassTo("not-choosen",!0),s[i].className=s[i].cutClassTo("-",!0),s[i].className+="-"+(o+1)+" choosen",s[0].replaceText(o+1+"D.");s[1].replaceText(e.dotesCoordinates[o].x.toString()),s[2].replaceText(e.dotesCoordinates[o].y.toString()),n.push(r)}for(var c=get(".dotes-body")[0],l=c.getChildren(),d=0;d<=l.length-1;d++)l[d].remove();for(var p=0;p<=n.length-1;p++)c.parentOf(n[p]);return!0}h&&(clearInterval(f),e.canvasMap.onmousemove=null,e.canvasMap.onclick=null,t())},10);l.length||iHide(e.panel,"Кликните на карту и определите "+o+u),e.canvasMap.onmousemove=function(a){this.onclick=function(){var s=e.dotesCoordinates.length;if(s+1===o){var i=get(".snow-close-it")[0],c=get(".snow-paragraph")[0];css(i,{opacity:0}),css(c,{opacity:0}),i.className=i.className+" confirm-base",replaceInSleep(i,"Подтвердить",300),replaceInSleep(c,"Задание целей произошло успешно!",300),css(i,{top:"20%"}),awake(i),awake(c),h=!0;var l=new Planes;l.computeDistance("dotes")}var d=e.canvasMap.getBoundingClientRect(),u=a.clientX-d.left,f=a.clientY-d.top,g=0,m=2*Math.PI;drawCircle(t,u,f,r,g,m,0,p,2,"  "+n()+"D"),drawCircle(t,u,f,r+6,g,m,p,0,2,0),MapInteraction.prototype.dotesCoordinates.push({x:u,y:f})}}}},MapInteraction.prototype.canvas.setTrajectory=function(e){var t=e.canvasMap.getContext("2d"),n=e.trajectory.radius,o=2*n*2,a=count(1),r=count(0),s=count(1),i=s(),c=[];e.trajectory.button.onclick=function(){var l=get(".snow"),d="",p=!1,u=parseInt(e.trajectory.amount.innerText),h=e.trajectoryCoordinates.length;if(d=u>1?" траекторных целей!":" тректорную цель!",l.length||iHide(e.panel,"Кликните на карту и определите "+u+d),h>=u){for(var f=e.trajectoryCoordinates,g=0;g<=f.length-1;g++){coordinate=f[g];var m=coordinate[0].x,v=coordinate[0].y,y=coordinate[1].x,b=coordinate[1].y;t.clearRect(m-2*o*2,v-2*o*2.65,2*o*2*5,2*o*2*2),t.clearRect(y-2*o*2,b-2*o*2.65,2*o*2*5,2*o*2*2),t.clearRect(m,v,y-m,b-v)}a=count(1),r=count(0),s=count(1),i=s(),f.length=0}var w=setInterval(function(){function t(){for(var t=e.trajectoryCoordinates,n=[],o=0;o<=t.length-1;o++)for(var a=t[o],r=0;r<=a.length-1;r++){var s=get(".trajectory-coords-row")[0],i=s.cloneNode(!0);i.className=i.cutClassTo("coordinate-1",!0)+"coordinate-"+(o+1)+"-"+(r+1);for(var c=i.getChildren(),l=1;l<=c.length-1;l++)c[l].className=c[l].cutClassTo("not-choosen",!0),c[l].className=c[l].cutClassTo("thla-",!0),c[l].className+="thla-"+(r+1)+"-"+l+" choosen";c[0].replaceText(o+1+"T."+(r+1)),c[1].replaceText(e.trajectoryCoordinates[o][r].x.toString()),c[2].replaceText(e.trajectoryCoordinates[o][r].y.toString()),n.push(i)}for(var d=get(".trajectory-table-body")[0],p=d.getChildren(),u=0;u<=p.length-1;u++)p[u].remove();for(var h=0;h<=n.length-1;h++)d.parentOf(n[h]);return!0}p&&(clearInterval(w),e.canvasMap.onmousemove=null,e.canvasMap.onclick=null,t())},10);e.canvasMap.onmousemove=function(o){this.onclick=function(){var l=e.canvasMap.getBoundingClientRect(),d=o.clientX-l.left,h=o.clientY-l.top,f="rgba(73, 121, 107, 1)",g=0,m=2*Math.PI;c.push({x:d,y:h});var v=r();if(1===v){r=count(0),MapInteraction.prototype.trajectoryCoordinates.push(c);var y=c[0].x,b=c[0].y,w=c[1].x,x=c[1].y;if(t.beginPath(),t.moveTo(y,b),t.lineTo(w,x),t.strokeStyle="rgba(73, 121, 107, .5)",t.stroke(),c=[],e.trajectoryCoordinates.length===u){var T=get(".snow-close-it")[0],C=get(".snow-paragraph")[0];css(T,{opacity:0}),css(C,{opacity:0}),T.className=T.className+" confirm-base",replaceInSleep(T,"Подтвердить",300),replaceInSleep(C,"Задание целей произошло успешно!",300),css(T,{top:"20%"}),awake(T),awake(C),p=!0;var M=new Planes;M.computeDistance("trajectory")}}drawCircle(t,d,h,n+2,g,m,0,f,2,"  "+i+"T."+a()),1===v&&(i=s(),a=count(1))}}}},MapInteraction.prototype.replaceHeaders=function(e,t){return this.base.headers.xH.replaceText(e),this.base.headers.yH.replaceText(t),this.dotes.headers.xH.replaceText(e),this.dotes.headers.yH.replaceText(t),this.trajectory.headers.xH.replaceText(e),this.trajectory.headers.yH.replaceText(t),this.area.headers.xH.replaceText(e),this.area.headers.yH.replaceText(t),this},MapInteraction.prototype.canvas.initialize=function(e){return e.replaceHeaders("x","y"),this.setBase(e),this.setDotes(e),this.setTrajectory(e),this},MapInteraction.prototype.baseBalloon=[],MapInteraction.prototype.baseCoordinates=[],MapInteraction.prototype.dotesCoordinates=[],MapInteraction.prototype.areaCoordinates=[],MapInteraction.prototype.trajectoryCoordinates=[],function(){function e(){function r(){if(s){var t=get("#polygon"),n=get("#static-map");sleep(t,n),css(t,{zIndex:1}),css(n,{zIndex:0,background:"rgba(255, 255, 255, .4)"}),awake(t,n),this.value="Переключиться на холст",s=!1}else this.onclick=e,this.onclick()}if(s)this.onclick=r,this.onclick();else{var i=get("#polygon"),c=get("#static-map");sleep(i,c),css(i,{zIndex:5}),css(c,{zIndex:4,background:"rgba(255, 255, 255, .4)"}),awake(i,c),this.value="Переключиться на карту",s=!0}s?a.initialize(o):(o.replaceHeaders("Долгота","Широта"),t.setBase(),n.setDotes())}var t=new MapInteraction({map:"#dynamic-map",panel:"#control-additional",button:"#set-base",longitude:".lon-base",latitude:".lat-base"});t.setBase();var n=new MapInteraction({map:"#dynamic-map",panel:"#control-additional",dotes:{longitude:get(".lon-dhla-1")[0],latitude:get(".lat-dhla-1")[0],amount:get(".dotes-amount")[0],button:get("#set-dotes")},trajectory:{pointA:{lontitude:get(".lon-thla-1-1")[0],latitude:get(".lat-thla-1-1")[0]},pointB:{lontitude:get(".lon-thla-1-2")[0],latitude:get(".lat-thla-1-2")[0]},amount:get(".trajectory-amount")[0],button:get("#set-trajectory")},area:{pointA:{longitude:get(".lon-ahla-1-1")[0],latitude:get(".lat-ahla-1-1")[0]},pointB:{longitude:get(".lon-ahla-1-2")[0],latitude:get(".lat-ahla-1-2")[0]},pointC:{longitude:get(".lon-ahla-1-3")[0],latitude:get(".lat-ahla-1-3")[0]},pointD:{longitude:get(".lon-ahla-1-4")[0],latitude:get(".lat-ahla-1-4")[0]},amount:get(".area-amount")[0],button:get("#set-area")}});n.setDotes();var o=new MapInteraction({canvasMap:"#polygon",panel:"#control-additional",base:{coordinates:{x:0,y:0},radius:3,button:get("#set-base"),values:{xV:get(".lon-base")[0],yV:get(".lat-base")[0]},headers:{xH:get(".lon-base-headers")[0],yH:get(".lat-base-headers")[0]}},dotes:{coordinates:[],values:{xV:get(".lon-dotes-hla")[0],yV:get(".lat-dotes-hla")[0]},headers:{xH:get(".lon-dotes-headers")[0],yH:get(".lat-dotes-headers")[0]},amount:get(".dotes-amount")[0],button:get("#set-dotes"),radius:2},trajectory:{coordinates:[],values:{xV:get(".lon-trajectory-hla")[0],yV:get(".lat-trajectory-hla")[0]},headers:{xH:get(".lon-trajectory-headers")[0],yH:get(".lat-trajectory-headers")[0]},amount:get(".trajectory-amount")[0],button:get("#set-trajectory"),radius:1.5},area:{coordinates:[[{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0}]],values:{xV:get(".lon-area-hla")[0],yV:get(".lat-area-hla")[0]},headers:{xH:get(".lon-area-headers")[0],yH:get(".lat-area-headers")[0]},amount:get(".area-amount")[0],button:get("#set-area")}}),a=o.canvas,r=get("#switch"),s=!1;r.onclick=e}(),function(){function e(){var e=new MapInteraction,t=e.dotesCoordinates,n=e.baseCoordinates,o=[];return isCorrect(t,"Array")&&t.forEach(function(e,t,a){var r=e.x,s=e.y,i=n.x,c=n.y,l={};l.x=r-i,l.y=s-c,l.result=Math.sqrt(Math.pow(l.x,2)+Math.pow(l.y,2)),o.push(l.result)}),o}function t(){var e=new MapInteraction,t=e.trajectoryCoordinates,n=e.baseCoordinates,o=[];return isCorrect(t,"Array")&&t.forEach(function(e,t,a){o.push([]),e.forEach(function(e,a,r){var s=e.x,i=e.y,c=n.x,l=n.y,d={},p=o[t][a-1];d.x=s-c,d.y=i-l,d.result=Math.sqrt(Math.pow(d.x,2)+Math.pow(d.y,2)),p&&(d.result<=p?MapInteraction.prototype.trajectoryCoordinates[t][a].entry=!0:MapInteraction.prototype.trajectoryCoordinates[t][a-1].entry=!0),o[t].push(d.result)})}),o}Planes.prototype.atBase=function(){isCorrect(this,"Object");for(var e=new MapInteraction,t=0;t<=this.all.length-1;t++)this.all[t].base=e.baseCoordinates},Planes.prototype.toCanvas=function(){isCorrect(this,"Object");var e=new MapInteraction,t=get("#polygon").getContext("2d"),n=e.baseRadius,o=2*n*2,a=0,r=2*Math.PI,s="rgba(30,199,115, 1)",i=this.all[0],c=this.all;i.base.x&&t.clearRect(i.base.x-(o+n),i.base.y-(o+n),2.5*o,2.5*o),drawCircle(t,i.base.x,i.base.y,n,a,r,0,s,2),drawText(t,"white","9px serif",c),drawCircle(t,i.base.x,i.base.y,n+6,a,r,s,0,2)},Planes.prototype.computeDistance=function(n){var o=this,a=setInterval(function(){if(o.all){var r=[];"dotes"===n&&r.push({distanceToDotes:e()}),"trajectory"===n&&r.push({distanceToTrajectories:t()}),"area"===n&&r.push({distanceToAreas:computeDistanceToAreas()}),clearInterval(a)}})};var n=new Planes,o=setInterval(function(){n.all&&(n.atBase(),n.toCanvas(),clearInterval(o))},10)}(),function(){function e(e){if("object"!=typeof e)throw new TypeError("Incoming parameter is not an object");for(var t in e){var n=e[t];this[t]={};for(var o in n)"string"==typeof n[o]?this[t][o]=get(n[o])[0]:this[t][o]=n[o]}}e.prototype.defineSegments=function(e){var t=e.getBoundingClientRect();return e.segments={start:t.left,end:t.right,width:t.right-t.left},this},e.prototype.breaks=function(e){var t=e.segments;t.each=t.width/this.options.divisions,t.coords=new Array(this.options.divisions),t.coords[this.options.divisions]=t.end;for(var n=this.options.divisions-1;n>=0;n--)t.coords[n]=Math.round(t.coords[n+1]-t.each);return delete t.coords[t.coords.length-1],this},e.prototype.resize=function(){window.onresize=function(){t.defineSegments(t.dom.line),t.breaks(t.dom.line);var e=parseInt(t.dom.amount.getText());t.dom.tongle.style.left=t.dom.line.segments.coords[e-1]-t.dom.line.segments.start+"px"}},e.prototype.action=function(){var e=this;this.dom.tongle.onmousedown=function(t){function n(t){var n=e.dom.line.segments;e.dom.tongle.style.cursor="pointer",t.clientX>=n.start&&t.clientX<=n.end&&(e.dom.tongle.style.left=t.clientX-n.start-e.dom.tongle.offsetWidth/2+"px")}function o(t){var n=e.dom.tongle.segments;e.defineSegments(e.dom.tongle),e.breaks(e.dom.line),e.dom.line.segments.coords.forEach(function(t,o,a){n.start<=t&&n.start>=t-10&&e.dom.amount.replaceText((o+1).toString())})}n(t),document.onmousemove=function(e){n(e),o(e)},document.onmouseup=function(){document.onmousemove=null,e.dom.tongle.onmouseup=null},e.dom.tongle.ondragstart=function(){return!1}}},e.prototype.create=function(){this.defineSegments(this.dom.line),this.defineSegments(this.dom.tongle),this.breaks(this.dom.line),this.resize(),this.action()};var t=new e({dom:{slider:".planes-slider",line:".planes-toddler-line",tongle:".planes-toddle",amount:".planes-amount"},options:{divisions:20}});t.create();var n=new e({dom:{slider:".defence-slider",line:".defence-toddler-line",tongle:".defence-toddle",amount:".defence-amount"},options:{divisions:10}});n.create();var o=new e({dom:{slider:".dotes-slider",line:".dotes-toddler-line",tongle:".dotes-toddle",amount:".dotes-amount"},options:{divisions:10}});o.create();var a=new e({dom:{slider:".area-slider",line:".area-toddler-line",tongle:".area-toddle",amount:".area-amount"
-},options:{divisions:10}});a.create();var r=new e({dom:{slider:".trajectory-slider",line:".trajectory-toddler-line",tongle:".trajectory-toddle",amount:".trajectory-amount"},options:{divisions:10}});r.create()}(),function(){for(var e=get(".hard-drone-cls"),t=get(".middle-drone-cls"),n=get(".light-drone-cls"),o=get(".hard-drone-checks"),a=get(".middle-drone-checks"),r=get(".light-drone-checks"),s=get(".hard-drone-amount"),i=get(".middle-drone-amount"),c=get(".light-drone-amount"),l=Array.prototype.forEach,d=[e,t,n],p=[o,a,r],u=[s,i,c],h=[],f=[],g=[],m=0;m<=d.length-1;m++){var v=d[m];l.call(v,function(e,t,n){h.push(e)})}for(var y=0;y<=p.length-1;y++){var b=p[y];l.call(b,function(e,t,n){f.push(e)})}for(var w=0;w<=u.length-1;w++){var x=u[w];l.call(x,function(e,t,n){g.push(e)})}l.call(h,function(e,t,n){e.onclick=function(){f[t].checked&&(f[t].checked=!1,g[t].value="",css(g[t],{border:"1px solid transparent"}))}})}();var myMap,myCollection,dotesTargets,areaTargets,trajectoryTargets;ymaps.ready(init);
+function get(o) {
+    if (!o) throw new TypeError();
+    var attr;
+    typeof o === "object" ? attr = o : attr = o.slice(0, 1);
+    if (attr === ".") {
+        return document.getElementsByClassName(o.slice(1, o.length));
+    } else if (attr === "#") {
+        return document.getElementById(o.slice(1, o.length));
+    } else if (typeof attr === "object") {
+        return o;
+    }
+}
+
+function log() {
+    console.log(arguments);
+}
+
+function css(o, p) {
+    if (!o && !p) throw new TypeError();
+    for (var i in p) {
+        o.style[i] = p[i];
+    }
+    return o;
+}
+
+function isArray(a) {
+    if (a && a.length && a.length >= 0 && isFinite(a.length) && a.length <= Math.pow(2, 32)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+Object.defineProperties(Object.prototype, {
+    replaceText: {
+        value: function(t, n) {
+            var mes = "There are no any text.";
+            if (!t) throw new TypeError(mes);
+            mes = "It is not a string";
+            if (typeof t !== "string") throw new TypeError(mes);
+            this.removeChild(this.childNodes[0]);
+            this.appendChild(document.createTextNode(t));
+            return this;
+        },
+        writable: true,
+        enumerable: false,
+        configurable: true
+    },
+    getText: {
+        value: function() {
+            var mes = "Apply this method to object.";
+            if (typeof this !== "object") throw new TypeError(mes);
+            return this.childNodes[0].nodeValue;
+        },
+        writable: true,
+        enumerable: false,
+        configurable: true
+    }
+});
+
+HTMLElement.prototype.getChildren = function() {
+    var children = [], child;
+    if (classOf(this) === "Array") {
+        this.forEach(function(x, i, a) {
+            if (x.children && x.children.length) {
+                child = x.children;
+                for (var i in child) {
+                    if (child.hasOwnProperty(i)) {
+                        children.push(child[i]);
+                    }
+                }
+            }
+        });
+    } else if (classOf(this) === "HTMLElement") {
+        if (this.children.length) {
+            child = this.children;
+            for (var i in child) {
+                if (child.hasOwnProperty(i)) {
+                    children.push(child[i]);
+                }
+            }
+        }
+    } else if (classOf(this) === "HTMLTableRowElement") {
+        if (this.children.length) {
+            child = this.children;
+            for (var i in child) {
+                if (child.hasOwnProperty(i)) {
+                    children.push(child[i]);
+                }
+            }
+        }
+    } else if (classOf(this) === "HTMLTableSectionElement") {
+        if (this.children.length) {
+            child = this.children;
+            for (var i in child) {
+                if (child.hasOwnProperty(i)) {
+                    children.push(child[i]);
+                }
+            }
+        }
+    }
+    return children;
+};
+
+Array.prototype.getChildren = HTMLElement.prototype.getChildren;
+
+function parentOf() {
+    var each = Array.prototype.forEach;
+    var self = this;
+    each.call(arguments, function(x) {
+        self.appendChild(x);
+    });
+    return self;
+}
+
+HTMLElement.prototype.parentOf = parentOf;
+
+function cutClassTo(str) {
+    isCorrect(str, "String");
+    try {
+        isCorrect(this, "HTMLElement");
+    } catch (e1) {
+        try {
+            isCorrect(this, "HTMLTableCellElement");
+        } catch (e2) {
+            try {
+                isCorrect(this, "HTMLTableRowElement");
+            } catch (e3) {
+                try {
+                    isCorrect(this, "HTMLInputElement");
+                } catch (e4) {
+                    console.log("Incoming parameter doesn't belong to HTMLElement, HTMLInputElement, HTMLTableRowElement, HTMLTableCellElement");
+                }
+            }
+        }
+    }
+    if (arguments[1]) {
+        return this.className.slice(0, this.className.lastIndexOf(str));
+    } else {
+        return this.className.slice(0, this.className.indexOf(str));
+    }
+}
+
+HTMLElement.prototype.cutClassTo = cutClassTo;
+
+function typeAndValue(x) {
+    if (x == null) return "";
+    switch (x.constructor) {
+      case Number:
+        return "Number: " + x;
+
+      case String:
+        return "String: '" + x + "'";
+
+      case Date:
+        return "Date: " + x;
+
+      case Boolean:
+        return "Boolean: " + x;
+
+      case RegExp:
+        return "RegExp: " + x;
+
+      case List:
+        return "List: " + x;
+    }
+}
+
+function type(o) {
+    var c, t, n;
+    if (o === null) return "null";
+    if (o !== o) return "nan";
+    if ((t = typeof o) !== "object") return t;
+    if ((c = classOf(o)) !== "Object") return c;
+    if (n = o.constructor.getName()) return n;
+    return "Object";
+}
+
+function classOf(o) {
+    return Object.prototype.toString.call(o).slice(8, -1);
+}
+
+Function.prototype.getName = function() {
+    if ("name" in this) return this.name;
+    return this.name = this.toString().match(/function\s*([^(]*)\(/)[1];
+};
+
+function quacks(o) {
+    for (var i = 1; i <= arguments.length - 1; i++) {
+        var arg = arguments[i];
+        switch (typeof arg) {
+          case "string":
+            if (o[arg] !== "function") return false;
+            continue;
+
+          case "function":
+            arg = arg.prototype;
+
+          case "object":
+            for (var j in arg) {
+                if (typeof arg[j] !== "function") continue;
+                if (typeof o[j] !== "function") return false;
+            }
+        }
+    }
+    return true;
+}
+
+(function() {
+    var container = get("#container"), cHeight = container.clientHeight;
+    if (screen.availHeight) {
+        var m = (screen.availHeight - cHeight) / 6;
+        css(container, {
+            marginTop: m + "px"
+        });
+    }
+})();
+
+function xhr() {
+    if (window.XMLHttpRequest === undefined) {
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+        } catch (e1) {
+            try {
+                return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+            } catch (e2) {
+                throw new Error("XMLHttpRequest doesn't support");
+            }
+        }
+    } else {
+        return new XMLHttpRequest();
+    }
+}
+
+function isString(str) {
+    if (typeof str !== "string") throw new TypeError("Incoming parameter is not an object. It is " + typeof str);
+}
+
+function parseToArr(str) {
+    isString(str);
+    var arr = [];
+    for (i = 0; i < str.length - 1; i++) {
+        if (str[i] !== " " && typeof parseInt(str[i]) === "number") {
+            arr.push(!!parseInt(str[i]));
+        }
+    }
+    return arr;
+}
+
+function getArr(str) {
+    isString(str);
+    var arr = [], p = 0, n = 1;
+    while (n > 0) {
+        n = str.indexOf(",", n);
+        n += 1;
+        if (n !== 0) {
+            arr.push(str.slice(p, n - 1));
+        } else {
+            arr.push(str.slice(p, str.length));
+        }
+        p = n;
+    }
+    return arr;
+}
+
+function parseLogic(arr) {
+    if (!arr) throw new TypeError("Incoming parameter is not an object. It is " + typeof arr);
+    var obj = {}, logicName, logicValue;
+    for (var i = 0; i < arr.length; i++) {
+        var str = arr[i];
+        logicName = str.slice(0, str.indexOf("-") - 1);
+        logicValue = str.slice(str.indexOf("-") + 2);
+        obj[i] = {};
+        obj[i].name = logicName;
+        obj[i].value = logicValue;
+    }
+    return obj;
+}
+
+function count(i) {
+    i == undefined ? i = 0 : i;
+    return function() {
+        return i++;
+    };
+}
+
+var counter = count(1);
+
+function setCookies(name, value, daysToLive) {
+    var cookie = name + "=" + encodeURIComponent(value);
+    if (typeof daysToLive === "number") {
+        cookie += "; max-age=" + daysToLive * 60 * 60 * 24;
+    }
+    document.cookie = cookie;
+}
+
+function getCookies() {
+    var cookies = {};
+    var all = document.cookie;
+    if (all === "") return cookies;
+    var list = all.split("; ");
+    for (var i = 0; i <= list.length - 1; i++) {
+        var cookie = list[i];
+        var p = cookie.indexOf("=");
+        var name = cookie.slice(0, p);
+        var value = cookie.slice(p + 1);
+        value = decodeURIComponent(value);
+        cookies[name] = value;
+    }
+    return cookies;
+}
+
+function deleteCookies(name) {
+    document.cookie = name + "=" + "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+}
+
+function toHTMLView(obj) {
+    if (typeof obj !== "object" && classOf(obj) !== "Array") throw new TypeError("Incoming parameter doesn't have 'object' type");
+    var layout = get(".ready-algorithm")[0], title = layout.getChildren().getChildren();
+    var arr = obj.map(function(x, i, a) {
+        var clone = layout.cloneNode(true), cloneTitle = clone.getChildren().getChildren();
+        clone.removeAttribute("hidden");
+        clone.id = "";
+        clone.className = clone.className.slice(0, clone.className.lastIndexOf("-") + 1) + counter();
+        if (cloneTitle[0]) {
+            cloneTitle[0].replaceText(x);
+        }
+        var existingScripts = [ "all.js", "yandex" ];
+        if (cloneTitle[0]) {
+            if (cloneTitle[0].innerText !== "Вы ещё не загрузили ни один алгоритм") {
+                clone.onclick = function() {
+                    var isActive = get("#active-algorithm");
+                    if (isActive) {
+                        isActive.id = "";
+                    }
+                    this.id = "active-algorithm";
+                    var scripts = document.getElementsByTagName("script");
+                    for (var h = 0; h <= scripts.length - 1; h++) {
+                        var condition = scripts[h].src.indexOf(existingScripts[0]) + 1 || scripts[h].src.indexOf(existingScripts[1]) + 1;
+                        if (!condition) {
+                            scripts[h].remove();
+                        }
+                    }
+                    var script = document.createElement("script"), link = cloneTitle[0].innerText, path = "js/algorithms/";
+                    script.src = path + link;
+                    document.body.appendChild(script);
+                };
+            }
+        }
+        return clone;
+    });
+    var parent = get(".algorithms")[0];
+    arr.forEach(function(x, i, a) {
+        parent.appendChild(x);
+    });
+}
+
+function sleep(element, styles, time) {
+    if (!styles && !time) {
+        setTimeout(function() {
+            css(element, css({
+                opacity: 0
+            }));
+        }, 300);
+    }
+    setTimeout(function() {
+        css(element, styles);
+    }, time);
+}
+
+function awake(element, styles, time) {
+    if (!styles && !time) {
+        setTimeout(function() {
+            css(element, css({
+                opacity: 1
+            }));
+        }, 300);
+    }
+    setTimeout(function() {
+        css(element, styles);
+    }, time);
+}
+
+function isCorrect(el, type) {
+    if (!(classOf(el) === type)) throw new TypeError("Incoming parameter does not belong to '" + type + "' class!"); else return true;
+}
+
+function replaceInSleep(element, str, time) {
+    isCorrect(str, "String");
+    setTimeout(function() {
+        if (element.value) {
+            element.value = str;
+        } else {
+            element.replaceText(str);
+        }
+    }, time);
+    return true;
+}
+
+function addFiles(s) {
+    if (!(classOf(s) === "XMLHttpRequest")) throw new TypeError("Incoming parameter is not an 'XMLHttpRequest' object!");
+    try {
+        if (s.responseText) {
+            var answer = JSON.parse(s.responseText);
+            if (!answer.length) {
+                answer.push("Вы ещё не загрузили ни один алгоритм");
+            }
+            var toURIView = encodeURIComponent(answer);
+            if (toURIView !== getCookies().answer) {
+                deleteCookies();
+                setCookies("answer", answer, 1);
+            }
+            var resultCookies = getCookies();
+            var cookiesArr = getArr(resultCookies.answer);
+            if (arguments[1]) {
+                var exist = arguments[1];
+                for (var k in exist) {
+                    if (exist[k] === "exists") {
+                        delete cookiesArr[k];
+                    }
+                }
+            }
+            toHTMLView(cookiesArr);
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function removeNotExisting(s) {
+    if (!(classOf(s) === "XMLHttpRequest")) throw new TypeError("Incoming parameter is not an 'XMLHttpRequest' object!");
+    try {
+        if (s.responseText) {
+            var exist = get(".ready-algorithm"), choosenFiles = get("#upload-file"), each = Array.prototype.forEach, parts = [], titles = [], c = count(1), answer = JSON.parse(s.responseText);
+            each.call(exist, function(x, i, a) {
+                parts.push(get(".algorithm-" + c()));
+                var part = parts[i];
+                for (var p in part) {
+                    if (part.hasOwnProperty(p)) {
+                        if (p !== "length") {
+                            var title = part[p].getChildren().getChildren();
+                        }
+                        for (var j in title) {
+                            if (title.hasOwnProperty(j)) {
+                                titles.push(title[j]);
+                            }
+                        }
+                    }
+                }
+            });
+            each.call(choosenFiles.files, function(x, i, a) {
+                var name = x.name;
+                for (var n in titles) {
+                    if (titles[n].innerText === name) {
+                        for (var t in answer) {
+                            if (answer[t] === name) {
+                                answer[t] = "exists";
+                            }
+                        }
+                    } else if (titles[n].innerText === "Вы ещё не загрузили ни один алгоритм") {
+                        titles[n].parentNode.parentNode.remove();
+                        counter = count(1);
+                    }
+                }
+            });
+        }
+    } catch (e) {
+        console.log(e);
+    }
+    return answer;
+}
+
+function check(x, i, a) {
+    x.onclick = function() {
+        var len = self.list.length;
+        var isActive = get("#active-algorithm");
+        isActive.id = "";
+        this.id = "active-algorithm";
+    };
+}
+
+function iHide(place, txt) {
+    if (typeof txt !== "string") throw new TypeError("Incoming arguments is not a string");
+    if (typeof place !== "object") throw new TypeError("Incoming arguments is not an object");
+    var wraps = document.createElement("div"), snow = document.createElement("div"), close = document.createElement("input"), par = document.createElement("p");
+    wraps.className = "snow-wrapper";
+    snow.className = "snow";
+    close.className = snow.className + "-close-it";
+    par.className = "snow-paragraph span-10 offset-5";
+    close.type = "button";
+    close.value = "Отменить";
+    close.onclick = function() {
+        removeBody(".snow-wrapper");
+    };
+    css(wraps, {
+        position: "absolute",
+        height: "100%",
+        width: "100%",
+        top: 0,
+        left: 0,
+        borderTop: "3px solid #90ee90"
+    });
+    css(snow, {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: "100%",
+        width: "100%",
+        background: "white",
+        opacity: "0.7",
+        "-webkit-filter": "blur(10px)"
+    });
+    close.appendChild(document.createTextNode("закрыть"));
+    txt = document.createTextNode(txt);
+    place.parentOf(wraps.parentOf(snow, close, par.parentOf(txt)));
+    return 1;
+}
+
+function removeBody(element) {
+    var snowball = get(element);
+    if (snowball.length) {
+        css(snowball[0], {
+            opacity: 0
+        });
+        setTimeout(function() {
+            snowball[0].remove();
+        }, 300);
+    }
+}
+
+Array.prototype.findByClass = function(cls) {
+    isCorrect(this, "Array") && isCorrect(cls, "String");
+    var tmpArr = [];
+    for (var i in this) {
+        if (typeof this[i] !== "function") {
+            if (this.hasOwnProperty(i)) {
+                if (this[i].className.indexOf(cls) + 1) {
+                    tmpArr.push(this[i]);
+                }
+            }
+        }
+    }
+    return tmpArr;
+};
+
+function drawCircle(can, x, y, r, s, e, sc, fc, lw, tx) {
+    can.beginPath();
+    can.arc(x, y, r, s, e);
+    can.lineWidth = lw;
+    if (sc && fc) {
+        can.fillStyle = fc;
+        can.strokeStyle = sc;
+        can.stroke();
+        can.fill();
+    } else if (sc) {
+        can.strokeStyle = sc;
+        can.stroke();
+    } else if (fc) {
+        can.fillStyle = fc;
+        can.fill();
+    }
+    if (tx) {
+        can.font = "18px Tahoma";
+        can.fillStyle = fc || sc;
+        can.textAlign = "left";
+        can.fillText(tx, x, y);
+    }
+}
+
+function drawText(p, c, f, t) {
+    p.beginPath();
+    p.fillStyle = c;
+    p.font = f;
+    var width = p.measureText(t.length).width, height = p.measureText("w").width;
+    p.fillText(t.length, t[0].base.x - width / 2, t[0].base.y + height / 2);
+}
+
+function random(a, b) {
+    return Math.abs(Math.floor(Math.random() * b - a));
+}
+
+function even(a) {
+    if (a % 2 === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function summ(a, b) {
+    return a + b;
+}
+
+function getDistance(start, end) {
+    isCorrect(start, "Array");
+    isCorrect(end, "Array");
+    var x = end[0] - start[0], y = end[1] - start[1];
+    var doubleX = Math.pow(x, 2), doubleY = Math.pow(y, 2);
+    if (arguments.length === 2) {
+        return parseInt(Math.sqrt(doubleX + doubleY).toFixed(arguments[arguments.length - 1]));
+    } else {
+        return Math.sqrt(doubleX + doubleY);
+    }
+}
+
+(function() {
+    function List(elements) {
+        if (typeof elements !== "object") throw new TypeError("Incoming arguments is not an object");
+        for (var i in elements) {
+            if (typeof elements[i] !== "string") {
+                this[i] = elements[i];
+            } else {
+                this[i] = get(elements[i]);
+            }
+        }
+    }
+    List.prototype.active = function() {
+        if (this.list) {
+            var self = this;
+            if (this.list instanceof Array) {
+                this.list.forEach(check);
+            } else {
+                Array.prototype.forEach.call(this.list, check);
+            }
+        }
+    };
+    List.prototype.toServer = function(file) {
+        var form = get("#upload-form"), self = this;
+        function sendForm(form) {
+            var formData = new FormData(form);
+            var request = xhr();
+            request.open("POST", form.action, true);
+            request.onload = function(e) {
+                if (this.readyState === 4 && this.status === 200) {
+                    addFiles(this, removeNotExisting(this));
+                }
+            };
+            request.send(formData);
+            return false;
+        }
+        sendForm(form);
+    };
+    List.prototype.file = function() {
+        var self = this;
+        this.button.onchange = function() {
+            self.file = this.files[0];
+            self.toServer();
+            var fn = [];
+            Array.prototype.forEach.call(this.files, function(x, i, a) {
+                fn.push(x.name);
+            });
+            var fileBlock = self.fileName[0];
+            css(fileBlock, {
+                opacity: 0
+            });
+            setTimeout(function() {
+                if (fn.length >= 2) {
+                    fn = " Алгоритмы были загружены";
+                } else {
+                    fn = "Алгоритм " + fn[0] + " был загружен";
+                }
+                fileBlock.replaceText(fn);
+                css(fileBlock, {
+                    opacity: 1,
+                    color: "#336f94"
+                });
+                fileBlock.className = fileBlock.className + " chose";
+            }, self.transitions);
+            sleep(fileBlock, {
+                opacity: 0
+            }, self.transitions * 5);
+            setTimeout(function() {
+                css(fileBlock, {
+                    opacity: 0,
+                    color: "rgba(108,104,116, 0.5)"
+                });
+                fileBlock.className = fileBlock.className.slice(0, fileBlock.className.lastIndexOf(" "));
+                fileBlock.replaceText("Загружать только файлы с расширением '.js'!");
+            }, self.transitions * 6);
+            sleep(fileBlock, {
+                opacity: 1
+            }, self.transitions * 6);
+        };
+    };
+    var loadingList = new List({
+        section: "#loading-scripts",
+        list: ".ready-algorithm",
+        button: "#upload-file",
+        fileName: ".file-name",
+        transitions: 300,
+        timeOffset: 100
+    });
+    loadingList.active();
+    loadingList.file();
+})();
+
+(function() {
+    var doc = get(document), moment = Date.now(), momentLater;
+    doc.addEventListener("DOMContentLoaded", function() {
+        momentLater = Date.now();
+        moment = (momentLater - moment) / (1e3 * 60);
+        var request = xhr(), formData = new FormData(), algorithms = get(".ready-algorithm"), each = Array.prototype.forEach, names = [];
+        formData.append("load", "true");
+        request.open("POST", "/search", true);
+        request.onload = function(e) {
+            if (this.readyState === 4 && this.status === 200) {
+                addFiles(this);
+            }
+        };
+        request.send(formData);
+        return false;
+    });
+})();
+
+(function() {
+    var hardInput = get(".hard-drone-amount"), middleInput = get(".middle-drone-amount"), lightInput = get(".light-drone-amount"), each = Array.prototype.forEach, counting = count(0);
+    var inputs = [ hardInput, middleInput, lightInput ], allInputs = [], am = 0;
+    for (var j = 0; j <= inputs.length - 1; j++) {
+        for (var k = 0; k <= inputs[j].length - 1; k++) {
+            allInputs[am++] = inputs[j][k];
+        }
+    }
+    for (var k = 0; k <= inputs.length - 1; k++) {
+        each.call(inputs[k], function(x, i, a) {
+            x.onchange = function() {
+                numberMask(this);
+            };
+            x.onkeyup = function() {
+                var amount = get(".planes-amount")[0], maxValue = parseInt(amount.innerText), currentValue = parseInt(this.value), allValues = 0, earlier = 0, self = this, time = 0;
+                each.call(allInputs, function(x, i, a) {
+                    if (x !== self) {
+                        if (x.value) {
+                            allValues += parseInt(x.value);
+                        }
+                    }
+                });
+                earlier = currentValue;
+                currentValue += allValues;
+                if (currentValue > maxValue) {
+                    this.value = "";
+                    this.placeholder = "БПЛА осталось: " + (maxValue - allValues);
+                    css(this, {
+                        border: "1px solid red"
+                    });
+                    var interval = setInterval(function() {
+                        if (time >= 900) {
+                            clearInterval(interval);
+                        }
+                        css(self, {
+                            border: "1px solid transparent"
+                        });
+                        setTimeout(function() {
+                            css(self, {
+                                border: "1px solid red"
+                            });
+                        }, 300);
+                        time += 300;
+                    }, 300);
+                } else {
+                    this.placeholder = "Количество БПЛА.";
+                }
+                if (currentValue === maxValue) {
+                    var c = counting();
+                    if (c < 1) {
+                        var drones = getDronesData();
+                        toPage(drones);
+                        parseDrones(drones);
+                    }
+                }
+                return numberMask(this);
+            };
+            x.onfocus = function() {
+                css(this, {
+                    border: "1px solid #778899"
+                });
+            };
+        });
+    }
+})();
+
+function getDronesData() {
+    var toParse = [ get(".hard-drone-amount"), get(".middle-drone-amount"), get(".light-drone-amount") ];
+    var dronesData = [], each = Array.prototype.forEach;
+    each.call(toParse, function(x, i, a) {
+        each.call(x, function(y, j, b) {
+            if (y.value) {
+                var iParent = y.parentNode, droneName = "";
+                iParent = iParent.getChildren();
+                for (var m in iParent) {
+                    if (typeof iParent[m] !== "function") {
+                        if (iParent.hasOwnProperty(m)) {
+                            var child = iParent[m];
+                            if (child.className.indexOf("drone-name") + 1) {
+                                droneName = child.innerText;
+                            }
+                        }
+                    }
+                }
+                var classes = y.cutClassTo("-", true);
+                classes = classes.slice(classes.indexOf("2") + 2);
+                var grandma = y.parentNode.parentNode, specifications = {}, greatGrandson = grandma.getChildren().getChildren().getChildren(), grandchildren = [];
+                for (var t in greatGrandson) {
+                    if (typeof greatGrandson[t] !== "function") {
+                        if (greatGrandson.hasOwnProperty(t)) {
+                            if (greatGrandson[t].localName === "article") {
+                                grandchildren.push(greatGrandson[t]);
+                            }
+                        }
+                    }
+                }
+                var values = grandchildren.getChildren().findByClass("chars-values");
+                grandchildren.forEach(function(z, q, c) {
+                    var tempClass = z.className;
+                    tempClass = tempClass.slice(tempClass.lastIndexOf(" ") + 1, tempClass.lastIndexOf("-"));
+                    specifications[tempClass] = parseInt(values[q].innerText);
+                });
+                var a = parseInt(y.value), clr = [];
+                for (var c = 0; c <= a - 1; c++) {
+                    clr.push(colorIs(30, 200));
+                }
+                dronesData.push({
+                    name: droneName,
+                    type: classes,
+                    amount: a,
+                    specification: specifications,
+                    colors: clr
+                });
+            }
+        });
+    });
+    return dronesData;
+}
+
+function numberMask(obj) {
+    obj.value = obj.value.replace(/[^\d]/g, "");
+}
+
+function colorIs(from, to) {
+    var r = Math.abs(Math.floor(Math.random() * to - from)), b = Math.abs(Math.floor(Math.random() * to - from)), g = Math.abs(Math.floor(Math.random() * to - from)), o = .7;
+    return "rgba(" + r + ", " + b + ", " + g + ", " + o + ")";
+}
+
+function toPage(obj) {
+    isCorrect(obj, "Array");
+    var c = count(1), counter = c();
+    var types = {
+        "hard-drone": "Тяжелый БПЛА",
+        "middle-drone": "Средний БПЛА",
+        "light-drone": "Лёгкий БПЛА"
+    }, each = Array.prototype.forEach, section = document.createElement("section"), close = document.createElement("input"), subsection = document.createElement("section"), head = document.createElement("header"), headH1 = document.createElement("h1"), h1Text = document.createTextNode("Беспилотники на месте базирования!"), planesBlock = get("#planes-section"), planesParent = planesBlock.parentNode;
+    section.id = "drones-colors";
+    section.className = "span-18 offset-1";
+    subsection.id = "drones-subsection-colors";
+    subsection.className = "span-20";
+    close.type = "button";
+    close.id = "close-" + section.id;
+    close.className = "span-10 offset-5";
+    head.className = "span-20 color-header";
+    section.parentOf(head.parentOf(headH1.parentOf(h1Text)));
+    for (var i = 0; i <= obj.length - 1; i++) {
+        var aDrone = obj[i];
+        for (var j = 0; j <= aDrone.amount - 1; j++) {
+            var article = document.createElement("article"), header = document.createElement("header"), h2 = document.createElement("h2"), h5 = document.createElement("h5"), div = document.createElement("div"), droneName = document.createTextNode(aDrone.name), control = get("#control-additional");
+            for (var q in types) {
+                if (q === aDrone.type) {
+                    var droneType = document.createTextNode(types[q]);
+                }
+            }
+            article.className = "drones-information drone-info-" + counter;
+            header.className = "drone-info-headers";
+            div.className = "drone-trace trace-" + counter;
+            css(article, {
+                width: "13.5%",
+                "float": "left",
+                marginTop: "2%"
+            });
+            css(div, {
+                backgroundColor: aDrone.colors[j],
+                height: "6px",
+                width: "18px",
+                margin: "0 auto"
+            });
+            subsection.parentOf(article.parentOf(div, header.parentOf(h5.parentOf(droneType), h2.parentOf(droneName))));
+            counter = c();
+            control.insertBefore(section.parentOf(subsection), planesBlock);
+        }
+    }
+}
+
+function parseDrones(obj, callback) {
+    isCorrect(obj, "Array");
+    var tempObj = [], band = new Planes();
+    for (var i = 0; i <= obj.length - 1; i++) {
+        var current = obj[i];
+        for (var j = 0; j <= current.amount - 1; j++) {
+            var props = {};
+            for (var k in current) {
+                if (k === "amount") {
+                    continue;
+                } else if (k === "colors") {
+                    props[k] = current[k][j];
+                } else {
+                    props[k] = current[k];
+                }
+            }
+            props.iAm = j + 1;
+            tempObj.push(props);
+        }
+    }
+    Planes.prototype.all = tempObj;
+    band.initialize();
+}
+
+(function() {
+    var hardButtons = get(".hard-drone-hide"), hardContent = get(".chars"), each = Array.prototype.forEach;
+    each.call(hardButtons, function(x, i, a) {
+        x.onclick = function() {
+            console.log(hardContent[i].id);
+            if (hardContent[i].id === "active") {
+                hardContent[i].id = "";
+            } else {
+                hardContent[i].id = "active";
+            }
+        };
+    });
+    var middleButtons = get(".middle-drone-hide"), middleContent = get(".chars"), slicy = Array.prototype.slice;
+    middleContent = slicy.call(middleContent, hardButtons.length);
+    each.call(middleButtons, function(x, i, a) {
+        x.onclick = function() {
+            if (middleContent[i].id === "active") {
+                middleContent[i].id = "";
+            } else {
+                middleContent[i].id = "active";
+            }
+        };
+    });
+    var lightButtons = get(".light-drone-hide"), lightContent = get(".chars");
+    lightContent = slicy.call(lightContent, hardButtons.length + middleButtons.length);
+    each.call(lightButtons, function(x, i, a) {
+        x.onclick = function() {
+            if (lightContent[i].id === "active") {
+                lightContent[i].id = "";
+            } else {
+                lightContent[i].id = "active";
+            }
+        };
+    });
+})();
+
+function MapInteraction(elements) {
+    if (elements === undefined) {
+        elements = {};
+    }
+    if (typeof elements !== "object") throw new TypeError("Incoming arguments is not an object");
+    for (var i in elements) {
+        if (typeof elements[i] !== "string") {
+            this[i] = elements[i];
+        } else {
+            this[i] = get(elements[i]);
+        }
+    }
+}
+
+MapInteraction.prototype.setDotes = function() {
+    var self = this, oldDotesAmount = parseInt(self.dotes.amount.innerText);
+    var counter = count(1);
+    self.dotes.button.onclick = function() {
+        var snowball = get(".snow"), dotesAmount = self.dotes.amount.innerText, ending = "";
+        dotesAmount > 1 ? ending = " точечных целей!" : ending = " точечную цель!";
+        if (!snowball.length) {
+            iHide(self.panel, "Кликните на карту и определите " + dotesAmount + ending);
+        }
+        var wasChanged = false;
+        myMap.events.add("click", installDotes);
+        var interval = setInterval(function() {
+            if (wasChanged) {
+                clearInterval(interval);
+                myMap.events.remove("click", installDotes);
+            }
+        }, 10);
+        function installDotes(e) {
+            var updatedDotesAmount = parseInt(self.dotes.amount.innerText);
+            if (dotesTargets.get(updatedDotesAmount - 1)) {
+                self.dotesCoordinates.length = 0;
+                dotesTargets.removeAll();
+                counter = count(1);
+            }
+            var coords = e.get("coords");
+            var coords = e.get("coords"), lon = get(".lon-base"), lat = get(".lat-base"), closeSnow = get(".snow-close-it")[0], par = get(".snow-paragraph")[0];
+            if (closeSnow && par && self.dotesCoordinates.length + 1 === parseInt(self.dotes.amount.innerText)) {
+                css(closeSnow, {
+                    opacity: 0
+                });
+                css(par, {
+                    opacity: 0
+                });
+                closeSnow.className = closeSnow.className + " confirm-base";
+                replaceInSleep(closeSnow, "Подтвердить", 300);
+                replaceInSleep(par, "Установка базы произошла успешно, командир!", 300);
+                css(closeSnow, {
+                    top: "20%"
+                });
+                awake(closeSnow);
+                awake(par);
+                wasChanged = true;
+            }
+            var baloon = myMap.geoObjects;
+            var placemark = new ymaps.Placemark([ coords[0], coords[1] ], {
+                iconContent: counter() + "D.",
+                balloonContent: "<strong> Точечные цели </strong>"
+            }, {
+                preset: "islands#circleIcon",
+                iconColor: "red"
+            });
+            dotesTargets.add(placemark);
+            self.dotesCoordinates.push(placemark);
+            baloon.add(dotesTargets);
+        }
+    };
+};
+
+MapInteraction.prototype.setBase = function() {
+    var self = this;
+    this.button.onclick = function() {
+        var snowball = get(".snow");
+        if (!snowball.length) {
+            iHide(self.panel, "Кликните на карту и выбирете место базирования");
+        }
+        var wasChanged = false;
+        myMap.events.add("click", getCenter);
+        var interval = setInterval(function() {
+            if (wasChanged) {
+                clearInterval(interval);
+                myMap.events.remove("click", getCenter);
+            }
+        }, 10);
+        function getCenter(e) {
+            if (self.baseBalloon.length) {
+                myCollection.remove(myCollection.get(0));
+            }
+            var coords = e.get("coords"), lon = get(".lon-base"), lat = get(".lat-base"), closeSnow = get(".snow-close-it")[0], par = get(".snow-paragraph")[0];
+            if (closeSnow && par) {
+                css(closeSnow, {
+                    opacity: 0
+                });
+                css(par, {
+                    opacity: 0
+                });
+                closeSnow.className = closeSnow.className + " confirm-base";
+                replaceInSleep(closeSnow, "Подтвердить", 300);
+                replaceInSleep(par, "Установка базы произошла успешно, командир!", 300);
+                css(closeSnow, {
+                    top: "20%"
+                });
+                awake(closeSnow);
+                awake(par);
+                wasChanged = true;
+            }
+            var baloon = myMap.geoObjects;
+            var placemark = new ymaps.Placemark([ coords[0], coords[1] ], {
+                iconContent: "B",
+                balloonContent: "<strong> Место базирования </strong>"
+            }, {
+                preset: "islands#circleIcon",
+                iconColor: "#336f94"
+            });
+            myCollection.add(placemark);
+            self.baseBalloon.push(placemark);
+            baloon.add(myCollection);
+            lon[0].replaceText(coords[0].toPrecision(6));
+            lat[0].replaceText(coords[1].toPrecision(6));
+            if (lat[0].className.indexOf("not-choosen") && lon[0].className.indexOf("not-choosen")) {
+                lon[0].className = lon[0].cutClassTo("not-choosen") + "choosen-base";
+                lat[0].className = lat[0].cutClassTo("not-choosen") + "choosen-base";
+            }
+            for (var i = 0; i <= coords.length - 1; i++) {
+                self.baseCoordinates.push(coords[i]);
+            }
+        }
+    };
+};
+
+MapInteraction.prototype.canvas = {};
+
+MapInteraction.prototype.canvas.setBase = function(sample) {
+    var polygon = sample.canvasMap.getContext("2d");
+    sample.base.button.onclick = function() {
+        var x = sample.base.coordinates.x, y = sample.base.coordinates.y, r = sample.base.radius, d = r * 2 * 2;
+        var snowball = get(".snow"), dotesAmount = sample.dotes.amount.innerText, ending = "";
+        dotesAmount > 1 ? ending = " точечных целей!" : ending = " точечную цель!";
+        if (!snowball.length) {
+            iHide(sample.panel, "Кликните на карту и определите место базирования беспилотников");
+        }
+        sample.canvasMap.onmousemove = function(e) {
+            this.onclick = function() {
+                if (x && y) {
+                    polygon.clearRect(x - d, y - d, d * 2, d * 2);
+                }
+                var offset = sample.canvasMap.getBoundingClientRect(), x0 = e.clientX - offset.left, y0 = e.clientY - offset.top, r = 6, startAngle = 0, endAngle = 2 * Math.PI, color = "rgba(93, 138, 168, 1)";
+                drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2);
+                drawCircle(polygon, x0, y0, r + 6, startAngle, endAngle, color, 0, 2);
+                MapInteraction.prototype.baseCoordinates = {
+                    x: x0,
+                    y: y0
+                };
+                sample.canvasMap.onmousemove = null;
+                var closeSnow = get(".snow-close-it")[0], par = get(".snow-paragraph")[0];
+                css(closeSnow, {
+                    opacity: 0
+                });
+                css(par, {
+                    opacity: 0
+                });
+                closeSnow.className = closeSnow.className + " confirm-base";
+                replaceInSleep(closeSnow, "Подтвердить", 300);
+                replaceInSleep(par, "Установка базы произошла успешно!", 300);
+                css(closeSnow, {
+                    top: "20%"
+                });
+                awake(closeSnow);
+                awake(par);
+                sample.canvasMap.onclick = null;
+                MapInteraction.prototype.baseCoordinates.x = x0;
+                MapInteraction.prototype.baseCoordinates.y = y0;
+                MapInteraction.prototype.baseRadius = r;
+                var values = sample.base.values;
+                values.xV.replaceText(x0.toString());
+                values.yV.replaceText(y0.toString());
+                var drones = get(".drones")[0], styles = window.getComputedStyle(drones);
+                if (styles.display === "none") {
+                    css(drones, {
+                        display: "block"
+                    });
+                }
+                for (var i in values) {
+                    values[i].className = values[i].cutClassTo("not-choosen") + "choosen";
+                }
+            };
+        };
+    };
+};
+
+MapInteraction.prototype.canvas.createPolygons = function(sample) {
+    var mainPolygon = get("#polygon"), control = get("#controls"), controlParent = control.parentNode, each = Array.prototype.forEach, dotesAmount = parseInt(get(".dotes-amount")[0].innerText), trajectoryAmount = parseInt(get(".trajectory-amount")[0].innerText), areaAmount = parseInt(get(".area-amount")[0].innerText), amount = [ {
+        dotes: dotesAmount
+    }, {
+        trajectory: trajectoryAmount
+    }, {
+        area: areaAmount
+    } ], canvases = [], groups = [], max = -Infinity, inds = 5;
+    amount.forEach(function(x, i, a) {
+        for (var e in x) {
+            if (x.hasOwnProperty(e)) {
+                if (x[e] >= max) {
+                    max = x[e];
+                }
+            }
+        }
+    });
+    amount.forEach(function(x, i, a) {
+        for (var p in x) {
+            if (x.hasOwnProperty(p)) {
+                var arr = [];
+                for (var j = 0; j <= x[p] - 1; j++) {
+                    var polygon = document.createElement("canvas");
+                    polygon.width = mainPolygon.width;
+                    polygon.height = mainPolygon.height;
+                    polygon.id = j + 1 + p.slice(0, 1).toUpperCase();
+                    polygon.className = p + "-polygon";
+                    css(polygon, {
+                        zIndex: inds += 1
+                    });
+                    arr.push(polygon);
+                }
+                groups.push(p);
+                canvases.push(arr);
+            }
+        }
+    });
+    groups.forEach(function(x, i, a) {
+        var existed = get("." + x + "-polygons"), elements = get("." + x + "-polygon");
+        console.log(x);
+        if (existed.length) {
+            if (amount[i][x] <= elements.length) {
+                existed[0].remove();
+                var group = document.createElement("div");
+                group.className = x + "-polygons common-polygons";
+                for (var t in canvases) {
+                    if (canvases.hasOwnProperty(t)) {
+                        if (t === x) {
+                            var can = canvases[t];
+                            group.appendChild(can);
+                        }
+                    }
+                }
+                controlParent.insertBefore(group, control);
+            } else {}
+        }
+    });
+    canvases.forEach(function(x, i, a) {
+        var group = document.createElement("div");
+        group.className = groups[i] + "-polygons common-polygons";
+        x.forEach(function(y, j, b) {
+            group.appendChild(y);
+        });
+        controlParent.insertBefore(group, control);
+    });
+};
+
+MapInteraction.prototype.canvas.setDotes = function(sample) {
+    var mainPolygon = get("#polygon"), polygon = sample.canvasMap.getContext("2d"), counter = count(1);
+    sample.dotes.button.onclick = function() {
+        var amount = parseInt(sample.dotes.amount.innerText), dotesLen = sample.dotesCoordinates.length, r = sample.dotes.radius, d = r * 2 * 2;
+        if (amount <= dotesLen - 1) {
+            var coords = sample.dotesCoordinates;
+            for (var i = 0; i <= coords.length - 1; i++) {
+                polygon.clearRect(coords[i].x - d * 2 * 2, coords[i].y - d * 2 * 2.65, d * 2 * 2 * 5, d * 2 * 2 * 2);
+            }
+            counter = count(1);
+            coords.length = 0;
+        }
+        var snowball = get(".snow"), dotesAmount = sample.dotes.amount.innerText, color = "rgba(255,64,64, 1)", ending = "";
+        dotesAmount > 1 ? ending = " точечных целей!" : ending = " точечную цель!";
+        if (!snowball.length) {
+            iHide(sample.panel, "Кликните на карту и определите " + amount + ending);
+        }
+        sample.canvasMap.onmousemove = function(e) {
+            this.onclick = function() {
+                var len = sample.dotesCoordinates.length;
+                var offset = sample.canvasMap.getBoundingClientRect(), x0 = e.clientX - offset.left, y0 = e.clientY - offset.top, startAngle = 0, endAngle = 2 * Math.PI, val = counter();
+                drawCircle(polygon, x0, y0, r, startAngle, endAngle, 0, color, 2, "  " + val + "D");
+                drawCircle(polygon, x0, y0, r + 6, startAngle, endAngle, color, 0, 2, 0);
+                MapInteraction.prototype.dotesCoordinates.push({
+                    name: val + "D",
+                    x: x0,
+                    y: y0
+                });
+                if (len + 1 === amount) {
+                    var closeSnow = get(".snow-close-it")[0], par = get(".snow-paragraph")[0];
+                    css(closeSnow, {
+                        opacity: 0
+                    });
+                    css(par, {
+                        opacity: 0
+                    });
+                    closeSnow.className = closeSnow.className + " confirm-base";
+                    replaceInSleep(closeSnow, "Подтвердить", 300);
+                    replaceInSleep(par, "Задание целей произошло успешно!", 300);
+                    css(closeSnow, {
+                        top: "20%"
+                    });
+                    awake(closeSnow);
+                    awake(par);
+                    sample.canvasMap.onmousemove = null;
+                    sample.canvasMap.onclick = null;
+                    addToTable(sample);
+                    sample.computeDistance("dotes");
+                }
+            };
+        };
+    };
+    function addToTable(s) {
+        var existedDotes = s.dotesCoordinates, clones = [];
+        for (var j = 0; j <= existedDotes.length - 1; j++) {
+            var dotesRow = get(".dotes-coords-row")[0], dotesClone = dotesRow.cloneNode(true);
+            dotesClone.className = dotesClone.cutClassTo("-", true) + "-" + (j + 1);
+            var children = dotesClone.getChildren();
+            for (var i = 1; i <= children.length - 1; i++) {
+                children[i].className = children[i].cutClassTo("not-choosen", true);
+                children[i].className = children[i].cutClassTo("-", true);
+                children[i].className += "-" + (j + 1) + " choosen";
+                children[0].replaceText(j + 1 + "D.");
+            }
+            children[1].replaceText(s.dotesCoordinates[j].x.toString());
+            children[2].replaceText(s.dotesCoordinates[j].y.toString());
+            clones.push(dotesClone);
+        }
+        var tbody = get(".dotes-body")[0], tbodyChildren = tbody.getChildren();
+        for (var b = 0; b <= tbodyChildren.length - 1; b++) {
+            tbodyChildren[b].remove();
+        }
+        for (var k = 0; k <= clones.length - 1; k++) {
+            tbody.parentOf(clones[k]);
+        }
+        return true;
+    }
+};
+
+MapInteraction.prototype.canvas.setTrajectory = function(sample) {
+    var polygon = sample.canvasMap.getContext("2d"), r = sample.trajectory.radius, d = r * 2 * 2;
+    var counter = count(1), evenCounter = count(0), dotesID = count(1), evDotes = dotesID();
+    var lineCoords = [];
+    sample.trajectory.button.onclick = function() {
+        var snowball = get(".snow"), ending = "", amount = parseInt(sample.trajectory.amount.innerText), trajectoryLen = sample.trajectoryCoordinates.length;
+        amount > 1 ? ending = " траекторных целей!" : ending = " тректорную цель!";
+        if (!snowball.length) {
+            iHide(sample.panel, "Кликните на карту и определите " + amount + ending);
+        }
+        if (amount <= trajectoryLen) {
+            var coords = sample.trajectoryCoordinates;
+            for (var i = 0; i <= coords.length - 1; i++) {
+                coordinate = coords[i];
+                var xc1 = coordinate[0].x, yc1 = coordinate[0].y, xc2 = coordinate[1].x, yc2 = coordinate[1].y;
+                polygon.clearRect(xc1 - d * 2 * 2, yc1 - d * 2 * 2.65, d * 2 * 2 * 5, d * 2 * 2 * 2);
+                polygon.clearRect(xc2 - d * 2 * 2, yc2 - d * 2 * 2.65, d * 2 * 2 * 5, d * 2 * 2 * 2);
+                polygon.clearRect(xc1, yc1, xc2 - xc1, yc2 - yc1);
+            }
+            counter = count(1);
+            evenCounter = count(0);
+            dotesID = count(1);
+            evDotes = dotesID();
+            coords.length = 0;
+        }
+        sample.canvasMap.onmousemove = function(e) {
+            this.onclick = function() {
+                var offset = sample.canvasMap.getBoundingClientRect(), x0 = e.clientX - offset.left, y0 = e.clientY - offset.top, color = "rgba(73, 121, 107, 1)", startAngle = 0, endAngle = 2 * Math.PI;
+                lineCoords.push({
+                    x: x0,
+                    y: y0
+                });
+                var ev = evenCounter();
+                if (ev === 1) {
+                    evenCounter = count(0);
+                    MapInteraction.prototype.trajectoryCoordinates.push(lineCoords);
+                    var x1 = lineCoords[0].x, y1 = lineCoords[0].y, x2 = lineCoords[1].x, y2 = lineCoords[1].y;
+                    polygon.beginPath();
+                    polygon.moveTo(x1, y1);
+                    polygon.lineTo(x2, y2);
+                    polygon.strokeStyle = "rgba(73, 121, 107, .5)";
+                    polygon.stroke();
+                    lineCoords = [];
+                    if (sample.trajectoryCoordinates.length === amount) {
+                        var closeSnow = get(".snow-close-it")[0], par = get(".snow-paragraph")[0];
+                        css(closeSnow, {
+                            opacity: 0
+                        });
+                        css(par, {
+                            opacity: 0
+                        });
+                        closeSnow.className = closeSnow.className + " confirm-base";
+                        replaceInSleep(closeSnow, "Подтвердить", 300);
+                        replaceInSleep(par, "Задание целей произошло успешно!", 300);
+                        css(closeSnow, {
+                            top: "20%"
+                        });
+                        awake(closeSnow);
+                        awake(par);
+                        sample.canvasMap.onmousemove = null;
+                        sample.canvasMap.onclick = null;
+                        addToTrajectoryTable(sample);
+                        sample.computeDistance("trajectory");
+                    }
+                }
+                drawCircle(polygon, x0, y0, r + 2, startAngle, endAngle, 0, color, 2, "  " + evDotes + "T." + counter());
+                if (ev === 1) {
+                    evDotes = dotesID();
+                    counter = count(1);
+                }
+            };
+        };
+    };
+    function addToTrajectoryTable(s) {
+        var existedTrajectory = s.trajectoryCoordinates, clones = [];
+        for (var j = 0; j <= existedTrajectory.length - 1; j++) {
+            var element = existedTrajectory[j];
+            for (var l = 0; l <= element.length - 1; l++) {
+                var trajectoryRow = get(".trajectory-coords-row")[0], trajectoryClone = trajectoryRow.cloneNode(true);
+                trajectoryClone.className = trajectoryClone.cutClassTo("coordinate-1", true) + "coordinate-" + (j + 1) + "-" + (l + 1);
+                var children = trajectoryClone.getChildren();
+                for (var h = 1; h <= children.length - 1; h++) {
+                    children[h].className = children[h].cutClassTo("not-choosen", true);
+                    children[h].className = children[h].cutClassTo("thla-", true);
+                    children[h].className += "thla-" + (l + 1) + "-" + h + " choosen";
+                }
+                children[0].replaceText(j + 1 + "T." + (l + 1));
+                children[1].replaceText(s.trajectoryCoordinates[j][l].x.toString());
+                children[2].replaceText(s.trajectoryCoordinates[j][l].y.toString());
+                clones.push(trajectoryClone);
+            }
+        }
+        var tbody = get(".trajectory-table-body")[0];
+        var tbodyChildren = tbody.getChildren();
+        for (var e = 0; e <= tbodyChildren.length - 1; e++) {
+            tbodyChildren[e].remove();
+        }
+        for (var q = 0; q <= clones.length - 1; q++) {
+            tbody.parentOf(clones[q]);
+        }
+        return true;
+    }
+};
+
+MapInteraction.prototype.computeDistance = function(kind) {
+    var map = new MapInteraction();
+    MapInteraction.prototype.kInP = 2.84210526315789;
+    if (kind === "dotes") MapInteraction.prototype.distances.toDotes = computeDistanceToDotes();
+    if (kind === "trajectory") MapInteraction.prototype.distances.toTrajectories = computeDistanceToTrajectories();
+    if (kind === "area") MapInteraction.prototype.distances.toAreas = computeDistanceToAreas();
+    function computeDistanceToDotes() {
+        var mapCanvas = new MapInteraction(), dotes = mapCanvas.dotesCoordinates, base = mapCanvas.baseCoordinates, result = [];
+        if (isCorrect(dotes, "Array")) {
+            dotes.forEach(function(element, ind, arr) {
+                var dotX = element.x, dotY = element.y, baseX = base.x, baseY = base.y, distance = {}, obj = {}, k = mapCanvas.kInP;
+                distance.x = dotX - baseX;
+                distance.y = dotY - baseY;
+                distance.result = Math.sqrt(Math.pow(distance.x, 2) + Math.pow(distance.y, 2));
+                distance.result = parseInt(distance.result.toFixed(3));
+                obj = {
+                    name: element.name,
+                    pixels: distance.result,
+                    coords: {
+                        x: dotX,
+                        y: dotY
+                    },
+                    kilometers: distance.result * k,
+                    to: {}
+                };
+                dotes.forEach(function(dot, i, a) {
+                    var distance = {};
+                    if (i !== ind) {
+                        distance.x = dot.x - dotX;
+                        distance.y = dot.y - dotY;
+                        distance.result = Math.sqrt(Math.pow(distance.x, 2) + Math.pow(distance.y, 2));
+                        distance.result = parseInt(distance.result.toFixed(3));
+                        obj.to[dot.name] = {
+                            pixels: distance.result,
+                            kilometers: distance.result * k,
+                            name: dot.name
+                        };
+                    }
+                });
+                result.push(obj);
+            });
+        }
+        return result;
+    }
+    function computeDistanceToTrajectories() {
+        var mapCanvas = new MapInteraction(), trajectory = mapCanvas.trajectoryCoordinates, base = mapCanvas.baseCoordinates, result = [], k = mapCanvas.kInP;
+        if (isCorrect(trajectory, "Array")) trajectory.forEach(function(element, ind, arr) {
+            result.push([]);
+            element.forEach(function(oneDot, j, b) {
+                var dotX = oneDot.x, dotY = oneDot.y, baseX = base.x, baseY = base.y, distance = {}, previous = result[ind][j - 1], data = {};
+                distance.x = dotX - baseX;
+                distance.y = dotY - baseY;
+                distance.result = Math.sqrt(Math.pow(distance.x, 2) + Math.pow(distance.y, 2));
+                distance.result = parseInt(distance.result.toFixed(3));
+                data.pixels = distance.result;
+                data.kilometers = distance.result * k;
+                if (previous) {
+                    if (distance.result <= previous.pixels) {
+                        data.entry = true;
+                    } else {
+                        result[ind][j - 1].entry = true;
+                    }
+                }
+                result[ind].push(data);
+            });
+        });
+        return result;
+    }
+};
+
+MapInteraction.prototype.replaceHeaders = function(lon, lat) {
+    this.base.headers.xH.replaceText(lon);
+    this.base.headers.yH.replaceText(lat);
+    this.dotes.headers.xH.replaceText(lon);
+    this.dotes.headers.yH.replaceText(lat);
+    this.trajectory.headers.xH.replaceText(lon);
+    this.trajectory.headers.yH.replaceText(lat);
+    this.area.headers.xH.replaceText(lon);
+    this.area.headers.yH.replaceText(lat);
+    return this;
+};
+
+MapInteraction.prototype.canvas.initialize = function(sp) {
+    sp.replaceHeaders("x", "y");
+    this.setBase(sp);
+    this.setDotes(sp);
+    this.setTrajectory(sp);
+    return this;
+};
+
+MapInteraction.prototype.baseBalloon = [];
+
+MapInteraction.prototype.baseCoordinates = [];
+
+MapInteraction.prototype.dotesCoordinates = [];
+
+MapInteraction.prototype.areaCoordinates = [];
+
+MapInteraction.prototype.trajectoryCoordinates = [];
+
+MapInteraction.prototype.distances = {};
+
+(function() {
+    var baseMap = new MapInteraction({
+        map: "#dynamic-map",
+        panel: "#control-additional",
+        button: "#set-base",
+        longitude: ".lon-base",
+        latitude: ".lat-base"
+    });
+    baseMap.setBase();
+    var targetsMap = new MapInteraction({
+        map: "#dynamic-map",
+        panel: "#control-additional",
+        dotes: {
+            longitude: get(".lon-dhla-1")[0],
+            latitude: get(".lat-dhla-1")[0],
+            amount: get(".dotes-amount")[0],
+            button: get("#set-dotes")
+        },
+        trajectory: {
+            pointA: {
+                lontitude: get(".lon-thla-1-1")[0],
+                latitude: get(".lat-thla-1-1")[0]
+            },
+            pointB: {
+                lontitude: get(".lon-thla-1-2")[0],
+                latitude: get(".lat-thla-1-2")[0]
+            },
+            amount: get(".trajectory-amount")[0],
+            button: get("#set-trajectory")
+        },
+        area: {
+            pointA: {
+                longitude: get(".lon-ahla-1-1")[0],
+                latitude: get(".lat-ahla-1-1")[0]
+            },
+            pointB: {
+                longitude: get(".lon-ahla-1-2")[0],
+                latitude: get(".lat-ahla-1-2")[0]
+            },
+            pointC: {
+                longitude: get(".lon-ahla-1-3")[0],
+                latitude: get(".lat-ahla-1-3")[0]
+            },
+            pointD: {
+                longitude: get(".lon-ahla-1-4")[0],
+                latitude: get(".lat-ahla-1-4")[0]
+            },
+            amount: get(".area-amount")[0],
+            button: get("#set-area")
+        }
+    });
+    targetsMap.setDotes();
+    var mapData = new MapInteraction({
+        canvasMap: "#polygon",
+        panel: "#control-additional",
+        base: {
+            coordinates: {
+                x: 0,
+                y: 0
+            },
+            radius: 3,
+            button: get("#set-base"),
+            values: {
+                xV: get(".lon-base")[0],
+                yV: get(".lat-base")[0]
+            },
+            headers: {
+                xH: get(".lon-base-headers")[0],
+                yH: get(".lat-base-headers")[0]
+            }
+        },
+        dotes: {
+            coordinates: [],
+            values: {
+                xV: get(".lon-dotes-hla")[0],
+                yV: get(".lat-dotes-hla")[0]
+            },
+            headers: {
+                xH: get(".lon-dotes-headers")[0],
+                yH: get(".lat-dotes-headers")[0]
+            },
+            amount: get(".dotes-amount")[0],
+            button: get("#set-dotes"),
+            radius: 2
+        },
+        trajectory: {
+            coordinates: [],
+            values: {
+                xV: get(".lon-trajectory-hla")[0],
+                yV: get(".lat-trajectory-hla")[0]
+            },
+            headers: {
+                xH: get(".lon-trajectory-headers")[0],
+                yH: get(".lat-trajectory-headers")[0]
+            },
+            amount: get(".trajectory-amount")[0],
+            button: get("#set-trajectory"),
+            radius: 1.5
+        },
+        area: {
+            coordinates: [ [ {
+                x: 0,
+                y: 0
+            }, {
+                x: 0,
+                y: 0
+            }, {
+                x: 0,
+                y: 0
+            }, {
+                x: 0,
+                y: 0
+            } ] ],
+            values: {
+                xV: get(".lon-area-hla")[0],
+                yV: get(".lat-area-hla")[0]
+            },
+            headers: {
+                xH: get(".lon-area-headers")[0],
+                yH: get(".lat-area-headers")[0]
+            },
+            amount: get(".area-amount")[0],
+            button: get("#set-area")
+        }
+    });
+    var cv = mapData.canvas;
+    var button = get("#switch"), flag = false;
+    button.onclick = showCanvas;
+    function showCanvas() {
+        if (!flag) {
+            var canvas = get("#polygon"), static = get("#static-map");
+            sleep(canvas, static);
+            css(canvas, {
+                zIndex: 200
+            });
+            css(static, {
+                zIndex: 4,
+                background: "rgba(255, 255, 255, .4)"
+            });
+            awake(canvas, static);
+            this.value = "Переключиться на карту";
+            flag = true;
+        } else {
+            this.onclick = showMap;
+            this.onclick();
+        }
+        function showMap() {
+            if (flag) {
+                var canvas = get("#polygon"), static = get("#static-map");
+                sleep(canvas, static);
+                css(canvas, {
+                    zIndex: 1
+                });
+                css(static, {
+                    zIndex: 0,
+                    background: "rgba(255, 255, 255, .4)"
+                });
+                awake(canvas, static);
+                this.value = "Переключиться на холст";
+                flag = false;
+            } else {
+                this.onclick = showCanvas;
+                this.onclick();
+            }
+        }
+        if (flag) {
+            cv.initialize(mapData);
+        } else {
+            mapData.replaceHeaders("Долгота", "Широта");
+            baseMap.setBase();
+            targetsMap.setDotes();
+        }
+    }
+})();
+
+function Planes() {
+    return this;
+}
+
+(function() {
+    Planes.prototype.atBase = function() {
+        isCorrect(this, "Object");
+        var map = new MapInteraction();
+        for (var i = 0; i <= this.all.length - 1; i++) {
+            this.all[i].base = map.baseCoordinates;
+        }
+    };
+    Planes.prototype.toCanvas = function() {
+        isCorrect(this, "Object");
+        var map = new MapInteraction();
+        var polygon = get("#polygon").getContext("2d"), x0, y0, r = map.baseRadius, d = r * 2 * 2, startAngle = 0, endAngle = Math.PI * 2, color = "rgba(30,199,115, 1)", drone = this.all[0], allDrones = this.all;
+        if (drone.base.x) {
+            polygon.clearRect(drone.base.x - (d + r), drone.base.y - (d + r), d * 2.5, d * 2.5);
+        }
+        drawCircle(polygon, drone.base.x, drone.base.y, r, startAngle, endAngle, 0, color, 2);
+        drawText(polygon, "white", "9px serif", allDrones);
+        drawCircle(polygon, drone.base.x, drone.base.y, r + 6, startAngle, endAngle, color, 0, 2);
+        var planesPolygon = get(".actions"), each = Array.prototype.forEach;
+        if (planesPolygon.length) {
+            each.call(planesPolygon, function(action, ind, arr) {
+                css(action, {
+                    zIndex: ind + 5
+                });
+            });
+        }
+        var pol = get("#polygon");
+        css(pol, {
+            zIndex: 26
+        });
+    };
+    Planes.prototype.initialize = function() {
+        var self = this, map = new MapInteraction();
+        self.atBase();
+        self.dronesCanvases();
+        self.toCanvas();
+        self.flyToTarget();
+    };
+})();
+
+(function() {
+    Planes.prototype.flyToTarget = function() {
+        var self = this, map = new MapInteraction(), distances = map.distances, each = Array.prototype.forEach, sort = Array.prototype.sort, drones = self.all;
+        each.call(drones, function(y, j, b) {
+            y.watch = [];
+        });
+        if (classOf(distances) === "Object") {
+            for (var i in distances) {
+                var aDistance = distances[i];
+                if (classOf(aDistance) === "Array" && typeof aDistance !== "function") {
+                    if (i === "toDotes") {
+                        sort.call(aDistance, function(a, b) {
+                            if (a.kilometers < b.kilometers) {
+                                return 1;
+                            } else if (a.kilometers > b.kilometers) {
+                                return -1;
+                            } else {
+                                return 0;
+                            }
+                        });
+                        for (var j in aDistance) {
+                            if (typeof aDistance[j] !== "function") {
+                                var dot = aDistance[j];
+                                each.call(drones, function(x, i, a) {
+                                    targetsToDrones(x, dot);
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            var simulate = get("#simulate");
+            simulate.onclick = function() {
+                if ("move" in self) {
+                    console.log("Starting simulation!");
+                    self.move();
+                    this.onclick = null;
+                } else {
+                    alert("Вы не загрузили или не активировали алгоритм движения!");
+                }
+            };
+        }
+    };
+    function targetsToDrones(dr, tg) {
+        var sps = dr.specification, range = sps.range / 2;
+        if (!dr.watch.length && !tg.watched) {
+            if (range >= tg.kilometers) {
+                dr.leftRange = sps.range - tg.kilometers;
+                dr.watch.push(tg);
+                tg.watched = true;
+            } else {
+                dr.leftRange = sps.range;
+                dr.watch = [];
+                tg.watched = null;
+            }
+        }
+    }
+    Planes.prototype.dronesCanvases = function() {
+        var self = this;
+        var controlPanel = get("#controls"), parent = controlPanel.parentNode;
+        self.all.forEach(function(drone, ind, arr) {
+            var canvas = document.createElement("canvas");
+            canvas.height = 600;
+            canvas.width = 1300;
+            canvas.className = "actions";
+            canvas.id = drone.name + "-" + drone.iAm;
+            parent.insertBefore(canvas, controlPanel);
+        });
+    };
+    Planes.prototype.move = function() {
+        var self = this;
+        var container = get(".actions");
+        var map = new MapInteraction(), each = Array.prototype.forEach, step = 10, radius = 4, startAngle = 0, endAngle = Math.PI * 2, assignmentTime = 0, done = count();
+        Planes.prototype.all.coordinates = [];
+        self.all.forEach(function(drone, id, arr) {
+            drone.path = [];
+            drone.completed = [];
+            if (drone.watch.length) {
+                droneWay(drone, [ drone.base.x, drone.base.y ], [ drone.watch[0].coords.x, drone.watch[0].coords.y ], [ assignmentTime, done ]);
+            }
+        });
+    };
+    function dotIsAchieved(d) {
+        var map = new MapInteraction();
+        var dotes = get("#polygon").getContext("2d"), r = 2.5, c = d.colors.slice(0, d.colors.lastIndexOf(",") + 1) + "1)", startAngle = 0, endAngle = Math.PI * 2;
+        var dotX = d.watch[0].coords.x, dotY = d.watch[0].coords.y;
+        var nm = "  " + d.watch[0].name;
+        dotes.beginPath();
+        dotes.font = "20px Tahoma";
+        var nmWidth = dotes.measureText(nm).width;
+        dotes.closePath();
+        dotes.clearRect(dotX - r * 5, dotY - r * 6, r * r * 2 + nmWidth, r * r * r * r - 5);
+        drawCircle(dotes, dotX, dotY, r + 6, startAngle, endAngle, c, 0, 2, nm);
+    }
+    function drawStroke(p, s, e, c) {
+        p.beginPath();
+        p.setLineDash([ 5, 2, 2, 2 ]);
+        p.moveTo(s[0], s[1]);
+        p.lineTo(e[0], e[1]);
+        p.strokeStyle = c;
+        p.stroke();
+    }
+    function droneWay(d, start, end, options) {
+        isCorrect(start, "Array") && isCorrect(end, "Array") && isCorrect(options, "Array");
+        var dWay = arguments;
+        var polygon = get("#" + d.name + "-" + d.iAm).getContext("2d"), container = get(".actions"), map = new MapInteraction(), x1 = start[0], y1 = start[1], x2 = end[0], y2 = end[1], distance = getDistance(start, end, 3), speed = d.specification.speed * 10 / map.kInP / 3600, color = d.colors, circle = color.slice(0, color.lastIndexOf(",") + 1) + "1)", simulate = distance / speed, angle = Math.atan2(y2 - y1, x2 - x1), codedX = [], codedY = [], radius = 4, startAngle = 0, endAngle = Math.PI * 2, step = 10;
+        var simulating = setInterval(function() {
+            polygon.clearRect(0, 0, container[0].width, container[0].height);
+            x1 += speed * Math.cos(angle);
+            y1 += speed * Math.sin(angle);
+            drawCircle(polygon, x1, y1, radius, startAngle, endAngle, 0, circle, 2);
+            drawStroke(polygon, start, [ x1, y1 ], color);
+            if (d.completed.length) {
+                d.completed.forEach(function(cmp, ind, c) {
+                    if (ind === 0) {
+                        drawStroke(polygon, [ d.base.x, d.base.y ], [ cmp.coords.x, cmp.coords.y ], color);
+                    } else {
+                        drawStroke(polygon, [ c[ind - 1].coords.x, c[ind - 1].coords.y ], [ c[ind].coords.x, c[ind].coords.y ], color);
+                    }
+                });
+            }
+            codedX.push(btoa(x1));
+            codedY.push(btoa(y1));
+            options[0]++;
+            simulate--;
+            if (simulate <= 0) {
+                d.path.push([ codedX, codedY ]);
+                dotIsAchieved(d);
+                d.completed.push(d.watch[0]);
+                for (var k in map.distances) {
+                    if (map.distances.hasOwnProperty(k)) notWatched(map.distances[k], d.watch[0]);
+                }
+                clearInterval(simulating);
+                var completed = d.completed;
+                if (start[0] !== end[0]) {
+                    dWay.callee(d, [ completed[completed.length - 1].coords.x, completed[completed.length - 1].coords.y ], [ d.watch[0].coords.x, d.watch[0].coords.y ], [ options[0], options[1] ]);
+                } else {
+                    var cmp = options[1]();
+                    console.log(map.canvas, cmp);
+                    if (cmp === parseInt(map.canvas.dotes.amount.innerText())) {
+                        console.log("Simulating has been completed.");
+                    }
+                }
+            }
+        }, step);
+    }
+    function notWatched(dotes, drone) {
+        isCorrect(dotes, "Array");
+        var toWatch = [];
+        for (var i in dotes) {
+            if (dotes.hasOwnProperty(i)) {
+                var dot = dotes[i];
+                if (!dot.watched) {
+                    toWatch.push(dot);
+                }
+            }
+        }
+        setDroneWay(toWatch, drone);
+    }
+    function setDroneWay(watch, dr) {
+        isCorrect(watch, "Array");
+        isCorrect(dr, "Object");
+        var map = new MapInteraction(), each = Array.prototype.forEach, droneCanWatch = dr.to, min = Infinity, rightDot = {}, drs = new Planes(), dotty = 0, doneIsDone = false;
+        if (!watch.length) {
+            dotty = {
+                coords: {
+                    x: drs.all[0].base.x,
+                    y: drs.all[0].base.y
+                },
+                distances: dr.kilometers || 0,
+                name: "Done!"
+            };
+            transferDot(drs.all, dr, dotty);
+        } else {
+            for (var j in droneCanWatch) {
+                if (droneCanWatch.hasOwnProperty(j)) {
+                    var dot = droneCanWatch[j];
+                    watch.forEach(function(w, t, a) {
+                        if (dot.name === w.name) {
+                            if (dot.pixels <= min) {
+                                min = dot.pixels;
+                                rightDot = dot;
+                            }
+                        }
+                    });
+                }
+            }
+            for (var k in map.distances) {
+                if (map.distances.hasOwnProperty(k)) {
+                    var type = map.distances[k];
+                    for (var t in type) {
+                        if (type.hasOwnProperty(t)) {
+                            var mapDot = type[t];
+                            if (mapDot.name === rightDot.name) {
+                                mapDot.watched = true;
+                                dotty = mapDot;
+                            }
+                        }
+                    }
+                }
+            }
+            transferDot(drs.all, dr, dotty, rightDot);
+        }
+        function transferDot(ad, curDrone, dot) {
+            for (var m in ad) {
+                if (classOf(ad[m]) === "Object") {
+                    var tempDrone = ad[m];
+                    if (tempDrone.watch[0] && tempDrone.watch[0].name === curDrone.name) {
+                        var leftDistance = 0;
+                        if (arguments.length === 4) {
+                            leftDistance = dot.kilometers + arguments[arguments.length - 1].kilometers;
+                        } else {
+                            leftDistance = dot.distances;
+                        }
+                        if (tempDrone.leftRange / 2 >= leftDistance) {
+                            tempDrone.watch[0] = dot;
+                            if (arguments.length === 4) {
+                                tempDrone.leftRange -= arguments[arguments.length - 1].kilometers;
+                            } else {
+                                tempDrone.leftRange -= arguments[arguments.length - 1].distances;
+                            }
+                        } else {
+                            tempDrone.watch[0] = {
+                                coords: {
+                                    x: tempDrone.base.x,
+                                    y: tempDrone.base.y
+                                },
+                                distances: dot.kilometers || 0,
+                                name: "Done!"
+                            };
+                            dotty.watched = null;
+                        }
+                    } else {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+            }
+        }
+    }
+})();
+
+(function() {
+    function Toddle(elements) {
+        if (typeof elements !== "object") throw new TypeError("Incoming parameter is not an object");
+        for (var i in elements) {
+            var arr = elements[i];
+            this[i] = {};
+            for (var j in arr) {
+                if (typeof arr[j] === "string") this[i][j] = get(arr[j])[0]; else this[i][j] = arr[j];
+            }
+        }
+    }
+    Toddle.prototype.defineSegments = function(el) {
+        var coords = el.getBoundingClientRect();
+        el.segments = {
+            start: coords.left,
+            end: coords.right,
+            width: coords.right - coords.left
+        };
+        return this;
+    };
+    Toddle.prototype.breaks = function(el) {
+        var segment = el.segments;
+        segment.each = segment.width / this.options.divisions;
+        segment.coords = new Array(this.options.divisions);
+        segment.coords[this.options.divisions] = segment.end;
+        for (var i = this.options.divisions - 1; i >= 0; i--) {
+            segment.coords[i] = Math.round(segment.coords[i + 1] - segment.each);
+        }
+        delete segment.coords[segment.coords.length - 1];
+        return this;
+    };
+    Toddle.prototype.resize = function() {
+        window.onresize = function() {
+            tod.defineSegments(tod.dom.line);
+            tod.breaks(tod.dom.line);
+            var index = parseInt(tod.dom.amount.getText());
+            tod.dom.tongle.style.left = tod.dom.line.segments.coords[index - 1] - tod.dom.line.segments.start + "px";
+        };
+    };
+    Toddle.prototype.action = function() {
+        var self = this;
+        this.dom.tongle.onmousedown = function(e) {
+            moveAt(e);
+            function moveAt(e) {
+                var line = self.dom.line.segments;
+                self.dom.tongle.style.cursor = "pointer";
+                if (e.clientX >= line.start && e.clientX <= line.end) {
+                    self.dom.tongle.style.left = e.clientX - line.start - self.dom.tongle.offsetWidth / 2 + "px";
+                }
+            }
+            function atCheckPoint(e) {
+                var tonglePos = self.dom.tongle.segments;
+                self.defineSegments(self.dom.tongle);
+                self.breaks(self.dom.line);
+                self.dom.line.segments.coords.forEach(function(x, i, a) {
+                    if (tonglePos.start <= x && tonglePos.start >= x - 10) {
+                        self.dom.amount.replaceText((i + 1).toString());
+                    }
+                });
+            }
+            document.onmousemove = function(e) {
+                moveAt(e);
+                atCheckPoint(e);
+            };
+            document.onmouseup = function() {
+                document.onmousemove = null;
+                self.dom.tongle.onmouseup = null;
+            };
+            self.dom.tongle.ondragstart = function() {
+                return false;
+            };
+        };
+    };
+    Toddle.prototype.create = function() {
+        this.defineSegments(this.dom.line);
+        this.defineSegments(this.dom.tongle);
+        this.breaks(this.dom.line);
+        this.resize();
+        this.action();
+    };
+    var tod = new Toddle({
+        dom: {
+            slider: ".planes-slider",
+            line: ".planes-toddler-line",
+            tongle: ".planes-toddle",
+            amount: ".planes-amount"
+        },
+        options: {
+            divisions: 20
+        }
+    });
+    tod.create();
+    var def = new Toddle({
+        dom: {
+            slider: ".defence-slider",
+            line: ".defence-toddler-line",
+            tongle: ".defence-toddle",
+            amount: ".defence-amount"
+        },
+        options: {
+            divisions: 10
+        }
+    });
+    def.create();
+    var dotes = new Toddle({
+        dom: {
+            slider: ".dotes-slider",
+            line: ".dotes-toddler-line",
+            tongle: ".dotes-toddle",
+            amount: ".dotes-amount"
+        },
+        options: {
+            divisions: 30
+        }
+    });
+    dotes.create();
+    var area = new Toddle({
+        dom: {
+            slider: ".area-slider",
+            line: ".area-toddler-line",
+            tongle: ".area-toddle",
+            amount: ".area-amount"
+        },
+        options: {
+            divisions: 10
+        }
+    });
+    area.create();
+    var trajectory = new Toddle({
+        dom: {
+            slider: ".trajectory-slider",
+            line: ".trajectory-toddler-line",
+            tongle: ".trajectory-toddle",
+            amount: ".trajectory-amount"
+        },
+        options: {
+            divisions: 10
+        }
+    });
+    trajectory.create();
+})();
+
+(function() {
+    var hard = get(".hard-drone-cls"), middle = get(".middle-drone-cls"), light = get(".light-drone-cls"), hardCheckboxes = get(".hard-drone-checks"), middleCheckboxes = get(".middle-drone-checks"), lightCheckboxes = get(".light-drone-checks"), hardAmount = get(".hard-drone-amount"), middleAmount = get(".middle-drone-amount"), lightAmount = get(".light-drone-amount"), each = Array.prototype.forEach;
+    var commonCls = [ hard, middle, light ], commonChecks = [ hardCheckboxes, middleCheckboxes, lightCheckboxes ], commonAmount = [ hardAmount, middleAmount, lightAmount ];
+    var closeButtons = [], checkboxes = [], am = [];
+    for (var n = 0; n <= commonCls.length - 1; n++) {
+        var inputs = commonCls[n];
+        each.call(inputs, function(x, i, a) {
+            closeButtons.push(x);
+        });
+    }
+    for (var k = 0; k <= commonChecks.length - 1; k++) {
+        var checkbox = commonChecks[k];
+        each.call(checkbox, function(x, i, a) {
+            checkboxes.push(x);
+        });
+    }
+    for (var r = 0; r <= commonAmount.length - 1; r++) {
+        var input = commonAmount[r];
+        each.call(input, function(x, i, a) {
+            am.push(x);
+        });
+    }
+    each.call(closeButtons, function(x, i, a) {
+        x.onclick = function() {
+            if (checkboxes[i].checked) {
+                checkboxes[i].checked = false;
+                am[i].value = "";
+                css(am[i], {
+                    border: "1px solid transparent"
+                });
+            }
+        };
+    });
+})();
+
+var myMap, myCollection, dotesTargets, areaTargets, trajectoryTargets;
+
+ymaps.ready(init);
+
+function init() {
+    myMap = new ymaps.Map("dynamic-map", {
+        center: [ 55.76, 37.64 ],
+        zoom: 5,
+        controls: [ "rulerControl", "zoomControl" ]
+    });
+    myCollection = new ymaps.GeoObjectCollection({}, {
+        preset: "twirl#redIcon",
+        draggable: false
+    });
+    dotesTargets = new ymaps.GeoObjectCollection({}, {
+        preset: "twirl#redIcon",
+        draggable: false
+    });
+}

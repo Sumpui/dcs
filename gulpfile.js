@@ -45,7 +45,11 @@ gulp.task('concat', function(){
 
 gulp.task('compress', ['concat'], function(){
   return gulp.src('assets/js/template/*.js')
-            .pipe(uglify())
+            .pipe(uglify({
+              mangle: false,
+              compress: false,
+              output: {beautify: true}
+            }))
             .pipe(gulp.dest('public/js'))
             .pipe(connect.reload());
 });

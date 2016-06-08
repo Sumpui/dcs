@@ -2,6 +2,13 @@
   var express = require('express')
     , multer = require('multer')
     , fs = require('fs')
+    , https = require('https')
+    , key = fs.readFileSync('./key.pem')
+    , cert = fs.readFileSync('./cert.pem')
+    , httpsOptions = {
+      key: key,
+      cert: cert
+    }
     , multiparty = require('multiparty')
     , crypto = require('crypto')
     , bodyParser = require('body-parser')
@@ -113,6 +120,10 @@
 
   server = app.listen(port, function(){
     console.log('Listening ' + port + ' port');
-  })
+  });
+
+   https.createServer(httpsOptions, app).listen(8443, function(){
+    console.log('Listening 8443 port');
+   });
 
 }())

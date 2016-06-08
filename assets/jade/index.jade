@@ -2,19 +2,20 @@
 html(lang="en")
   head
     meta(charset="UTF-8")
-    title Document
+    title DCS
     link(rel="stylesheet", href="css/main.css")
   body(onselectstart="return false;")
-    include ./icons/sprite/svg/symbols.svg
+    //- include ./icons/sprite/svg/symbols.svg
     #container
       #dynamic-map
       #static-map
-      canvas(width="1300" height="600")#polygon
+      canvas(width="1300" height="600")#polygon.canvases
       #controls.span-20
         //- button.fix-map.span-3.offset-17 Зафиксировать
       //- Empty block with fixed height
       #footing.span-20
       #control-additional.span-20
+        include switches.jade
         include plane.jade
         include target.jade
         include loading-scripts.jade
@@ -26,7 +27,6 @@ html(lang="en")
             include dotes-coords.jade
             include trajectory-coords.jade
             include area-coords.jade
-        include switches.jade
         include drones.jade
     script(src="https://api-maps.yandex.ru/2.1/?lang=ru_RU")
     script(src="js/all.js")
