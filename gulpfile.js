@@ -19,7 +19,7 @@ gulp.task('connect', function(){
 
 gulp.task('jade', function(){
   return gulp.src('./assets/jade/*.jade')
-      .pipe(jade({pretty: false}))
+      .pipe(jade({pretty: true}))
       .pipe(gulp.dest('public'))
       .pipe(connect.reload());
 });

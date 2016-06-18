@@ -817,7 +817,7 @@ function iHide(place, txt) {
    * Setting up some styles for our snowball
    *
    */
-  css(wraps, {position: 'absolute', height: '100%', width: '100%', top: 0, left: 0, borderTop: '3px solid #90ee90'});
+  css(wraps, {position: 'absolute', height: '100%', width: '100%', top: 0, left: 0});
   css(snow, {position: 'absolute', top: 0, left: 0, height: '100%', width: '100%', background: 'white', opacity: '0.7', '-webkit-filter': 'blur(10px)'});
   close.appendChild(document.createTextNode('закрыть'));
 
@@ -893,13 +893,13 @@ function drawCircle(can, x, y, r, s, e, sc, fc, lw, tx){
   }
 }
 
-function drawText(p, c, f, t){
+function drawText(p, c, f, t, prop){
   p.beginPath();
   p.fillStyle = c;
   p.font = f;
   var width = p.measureText(t.length).width
     , height = p.measureText('w').width;
-  p.fillText(t.length, t[0].base.x - width/2, t[0].base.y + height/2);
+  p.fillText(t, prop[0] - width/2, prop[1] + height/2);
 }
 
 /**

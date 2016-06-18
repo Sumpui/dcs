@@ -1,1 +1,762 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><title>DCS</title><link rel="stylesheet" href="css/main.css"/></head><body onselectstart="return false;"><div id="container"><div id="dynamic-map"></div><div id="static-map"></div><canvas width="1300" height="600" id="polygon" class="canvases"></canvas><div id="controls" class="span-20"></div><div id="footing" class="span-20"></div><div id="control-additional" class="span-20"><section id="switches" onselectstart="return false" class="span-20 row"><input id="switch" type="button" value="Переключиться на холст" class="span-5 offset-5"/><input id="simulate" type="button" value="Моделировать" class="span-5"/></section><section id="planes-section" onselectstart="return false;" class="span-8 offset-2"><header class="planes-main-title main-titles span-16 offset-2"><h1>Беспилотники и ПВО</h1></header><article class="span-10 planes"><div class="amount-slider span-16 offset-2"><p onselectstart="return false;" title="Беспилотники" class="planes-icons span-12 offset-4"><svg class="planes-icon svg-blocks span-20 offset-1"><use xlink:href="#planes" class="planes-in-use"></use></svg></p><div class="toddler-slider planes-slider span-16 offset-2"><div class="toddler planes-toddle span-20"></div><div class="toddler-line planes-toddler-line span-20"></div></div><div class="amount planes-amount span-2">1</div></div><header class="plane-title span-16 offset-2">Количество беспилотников</header></article><article class="span-10 defence"><div class="amount-slider span-16 offset-2"><p onselectstart="return false;" title="ПВО" class="defence-icons span-12 offset-4"><svg class="defence-icon svg-blocks span-20 offset-1"><use xlink:href="#defence" class="defence-in-use"></use></svg></p><div class="toddler-slider defence-slider span-16 offset-2"><div class="toddler defence-toddle span-20"></div><div class="toddler-line defence-toddler-line span-20"></div></div><div class="amount defence-amount span-2">1</div></div><header class="defence-title span-16 offset-2">Количество ПВО</header></article></section><section id="targets" onselectstart="return false;" class="span-8"><header class="targets-main-title main-titles span-16 offset-2"><h1>Цели</h1></header><article class="dotes-targets targets span-6"><div class="amount-slider span-16 offset-2"><p onselectstart="return false;" title="Точечные цели" class="planes-icons span-20"><svg class="dotes-icon svg-blocks span-20"><use xlink:href="#dotes" class="dotes-in-use"></use></svg></p><div class="dotes-amount targets-amount span-2">1</div><div class="dotes-slider toddler-slider span-16 offset-2"><div class="dotes-toddle toddler span-20"></div><div class="dotes-toddler-line toddler-line span-20"></div></div></div><header class="dotes-titles targets-title">Точечные цели</header></article><article class="area-targets targets span-6 offset-1"><div class="amount-slider span-16 offset-2"><p onselectstart="return false;" title="Площадные цели" class="planes-icons span-20"><svg class="area-icon svg-blocks span-20"><use xlink:href="#area" class="area-in-use"></use></svg></p><div class="area-slider toddler-slider span-16 offset-2"><div class="area-toddle toddler span-20"></div><div class="area-toddler-line toddler-line span-20"></div></div><div class="area-amount targets-amount span-2">1</div></div><header class="area-titles targets-title">Площадные цели</header></article><article class="trajectory-targets targets span-6 offset-1"><div class="amount-slider span-16 offset-2"><p onselectstart="return false;" title="Траекторные цели" class="planes-icons span-20"><svg class="trajectory-icon svg-blocks span-20"><use xlink:href="#trajectory" class="trajectory-in-use"></use></svg></p><div class="trajectory-slider toddler-slider span-16 offset-2"><div class="trajectory-toddle toddler span-20"></div><div class="trajectory-toddler-line toddler-line span-20"></div></div><div class="trajectory-amount targets-amount span-2">1</div></div><header class="trajectory-titles targets-title">Траекторные цели</header></article></section><section id="loading-scripts" onselectstart="return false" class="span-8 offset-2 row"><header class="span-16 offset-2 algorithm-main-title"><h1>Алгоритмы</h1></header><section class="algorithms span-20"><article hidden="true" id="active-algorithm" class="ready-algorithm span-20 algorithm-0 hidden"><header class="algorithm-script span-16 offset-1"><h3 class="algorithm-title span-18 offset-1">111</h3></header><div class="state span-2 offset-2"></div></article></section><header class="load-scripts-title span-20"><form action="/upload" enctype="multipart/form-data" method="POST" id="upload-form" class="span-20"><input type="file" id="upload-file" accept="application/x-javascript,application/javascript,application/ecmascript,text/javascript,text/ecmascript" multiple="multiple" name="file"/></form><label for="upload-file" class="input-file-trigger span-4 offset-8"><h2 class="load-title span-12 offset-4"></h2><p onselectstart="return false;" title="Загрузка алгоритмов" class="load-icons span-20"><svg class="load-icon svg-blocks span-20"><use xlink:href="#load" class="load-in-use"></use></svg></p></label></header><div class="choosen-file span-20"><p class="file-name span-20">Загружать только файлы с расширением '.js\!</p><!-- input(type="button" onclick="start()" value="test" id='test-button')--></div></section><section class="wrapp-coords span-8"><header class="span-16 offset-2 main-title-coordinates"><h1>Установка координат</h1></header><section class="main-coordinates span-20 row"><section id="polygon-base" onselectstart="return false" class="span-20 row"><header class="span-16 offset-2 base-main-title"><h1>Координаты базирования</h1></header><div class="base-coords span-20"><table cellpadding="5" class="base-coords-table span-20"><tbody class="span-20"><tr class="span-20 coords"><td class="base-coordinates-id span-2">B.</td><td class="lon-base span-9 not-choosen">-</td><td class="lat-base span-9 not-choosen">-</td></tr></tbody></table><table cellpadding="5" class="base-headers-table span-20"><tbody class="span-20"><tr class="span-20 coords-headers"><td class="lon-base-headers span-9 offset-2">Долгота</td><td class="lat-base-headers span-9">Широта</td></tr></tbody></table><input id="set-base" type="button" value="" class="set-coords"/><label for="set-base" class="set-place span-4 offset-9"><p onselectstart="return false;" title="Установить координаты" class="place-based-icons span-20"><svg class="place-based-icon svg-blocks span-20"><use xlink:href="#place-based" class="place-based-in-use"></use></svg></p></label></div></section><section id="dotes-coordinates" onselectstart="return false" class="span-20 row"><header class="span-16 offset-2 dotes-coordinates-main-title"><h1>Координаты точечных целей</h1></header><div class="dotes-coords span-20"><table cellpadding="5" class="dotes-coords-table span-20"><tbody class="span-20 dotes-body"><tr class="span-20 dotes-coords-row dotes-coordinate-1"><td class="dotes-coordinates-id span-2">1D.</td><td class="lon-dotes-hla span-9 lon-dhla-1 not-choosen">-</td><td class="lat-dotes-hla span-9 lat-dhla-1 not-choosen">-</td></tr></tbody></table><table cellpadding="5" class="dotes-headers-table span-20"><tbody class="span-20"><tr class="span-20 dotes-coords-headers"><td class="lon-dotes-headers span-9 offset-2">Долгота</td><td class="lat-dotes-headers span-9 ">Широта</td></tr></tbody></table><input id="set-dotes" type="button" value="" class="set-coords"/><label for="set-dotes" class="set-dotes span-4 offset-9"><p title="Установить координаты" class="dotes-tip">⦁⦁⦁</p></label></div></section><section id="trajectory-coordinates" onselectstart="return false" class="span-20 row"><header class="span-16 offset-2 base-main-title"><h1>Координаты траекторных целей</h1></header><div class="trajectory-coords span-20"><table cellpadding="5" class="trajectory-coords-table span-20"><tbody class="span-20 trajectory-table-body"><tr class="span-20 coords trajectory-coords-row trajectory-coordinate-1-1"><td class="trajectory-coordinates-id span-2">1T.1</td><td class="lon-trajectory-hla span-9 lon-thla-1-1 not-choosen">-</td><td class="lat-trajectory-hla span-9 lat-thla-1-1 not-choosen">-</td></tr><tr class="span-20 coords trajectory-coords-row trajectory-coordinate-1-2 "><td class="trajectory-coordinates-id span-2">1T.2</td><td class="lon-trajectory-hla span-9 lon-thla-1-2 not-choosen">-</td><td class="lat-trajectory-hla span-9 lat-thla-1-2 not-choosen">-</td></tr></tbody></table><table cellpadding="5" class="trajectory-headers-table span-20"><tbody class="span-20"><tr class="span-20 trajectory-coords-headers"><td class="lon-trajectory-headers span-9 offset-2">Долгота</td><td class="lat-trajectory-headers span-9">Широта</td></tr></tbody></table><input id="set-trajectory" type="button" value="" class="set-coords"/><label for="set-trajectory" class="set-trajectory span-4 offset-9"><p title="Установить координаты" class="trajectory-tip">&#8594</p></label></div></section><section id="area-coordinates" onselectstart="return false" class="span-20 row"><header class="span-16 offset-2 area-main-title"><h1>Координаты площадных целей</h1></header><div class="area-coords span-20"><table cellpadding="5" class="area-coords-table span-20"><tbody class="span-20"><tr class="span-20 area-coordinate-1-1 area-coords-row"><td class="area-coordinates-id span-2">1A.1</td><td class="lon-area-hla span-9 lon-ahla-1-1 not-choosen">-</td><td class="lat-area-hla span-9 lat-ahla-1-1 not-choosen">-</td></tr><tr class="span-20 coords area-coordinate-1-2 area-coords-row"><td class="area-coordinates-id span-2">1A.2</td><td class="lon-area-hla span-9 lon-ahla-1-2 not-choosen">-</td><td class="lat-area-hla span-9 lat-ahla-1-2 not-choosen">-</td></tr><tr class="span-20 coords area-coordinate-1-3 area-coords-row"><td class="area-coordinates-id span-2">1A.3</td><td class="lon-area-hla span-9 lon-ahla-1-3 not-choosen">-</td><td class="lat-area-hla span-9 lat-ahla-1-3 not-choosen">-</td></tr><tr class="span-20 coords area-coordinate-1-4 area-coords-row"><td class="area-coordinates-id span-2">1A.4</td><td class="lon-area-hla span-9 lon-ahla-1-4 not-choosen">-</td><td class="lat-area-hla span-9 lat-ahla-1-4 not-choosen">-</td></tr></tbody></table><table cellpadding="5" class="area-headers-table span-20"><tbody class="span-20"><tr class="span-20 area-coords-headers"><td class="lon-area-headers span-9 offset-2">Долгота</td><td class="lat-area-headers span-9">Широта</td></tr></tbody></table><input id="set-area" type="button" value="" class="set-coords"/><label for="set-area" class="set-area span-4 offset-9"><p title="Установить координаты" class="area-tip">&#8983;</p></label></div></section></section></section><section class="row span-20 drones"><header class="drones-main-head span-16 offset-2"><h1>Выбрать типы беспилотников</h1></header><section class="span-10 offset-5 drone-types"><article class="span-20 row hard-drones"><header class="span-20 hd-header"><h1>Тяжелые</h1></header><input type="checkbox" name="hard" id="hard-drone-1" class="hard-drone-checks"/><article class="span-20 sub-drones sdr-1"><header class="span-20 sub-headers"><div class="span-1 offset-1 usa-icon country-icons"><p onselectstart="return false;" title="usa" class="usa-icons span-20"><svg class="usa-icon svg-blocks span-20"><use xlink:href="#usa" class="usa-in-use"></use></svg></p></div><h2 class="drone-name span-8">RQ Global Hawk</h2><input type="button" id="hard-drone-more-1" class="hard-drone-hide"/><label for="hard-drone-more-1" class="hard-drone-buttons span-4">Подробнее</label><label for="hard-drone-1" class="span-4 drones-names">Выбрать</label><input type="text" id="hard-drone-amount-1" placeholder="Количество беспилотников" class="span-2 hard-drone-amount"/><input type="button" id="hard-drone-close-1" class="hard-drone-cls"/><label for="hard-drone-close-1" class="hard-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-1"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">22779</p></article><article class="span-20 common-chars speed-1"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">575</p></article><article class="span-20 common-chars endurance-1"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">32</p></article><article class="span-20 common-chars detection-1"><header class="span-13 common-chars-title"><h3>Радиус обнаружения</h3></header><p class="span-7 chars-values">100</p></article></div></article></article><input type="checkbox" name="hard" id="hard-drone-2" class="hard-drone-checks"/><article class="span-20 sub-drones sdr-2"><header class="span-20 sub-headers"><div class="span-1 offset-1 isr-icon country-icons"><p onselectstart="return false;" title="isr" class="isr-icons span-20"><svg class="isr-icon svg-blocks span-20"><use xlink:href="#isr" class="isr-in-use"></use></svg></p></div><h2 class="drone-name span-8">Hermes</h2><input type="button" id="hard-drone-more-2" class="hard-drone-hide"/><label for="hard-drone-more-2" class="hard-drone-buttons span-4">Подробнее</label><label for="hard-drone-2" class="span-4 drones-names">Выбрать</label><input type="text" id="hard-drone-amount-2" placeholder="Количество беспилотников" class="span-2 hard-drone-amount"/><input type="button" id="hard-drone-close-2" class="hard-drone-cls"/><label for="hard-drone-close-2" class="hard-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-2"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">4000</p></article><article class="span-20 common-chars speed-2"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">222</p></article><article class="span-20 common-chars endurance-2"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">36</p></article><article class="span-20 common-chars detection-2"><header class="span-13 common-chars-title"><h3>Радиус обнаружения</h3></header><p class="span-7 chars-values">50</p></article></div></article></article><input type="checkbox" name="hard" id="hard-drone-3" class="hard-drone-checks"/><article class="span-20 sub-drones sdr-3"><header class="span-20 sub-headers"><div class="span-1 offset-1 rus-icon country-icons"><p onselectstart="return false;" title="rus" class="rus-icons span-20"><svg class="rus-icon svg-blocks span-20"><use xlink:href="#rus" class="rus-in-use"></use></svg></p></div><h2 class="drone-name span-8">Альтиус-М</h2><input type="button" id="hard-drone-more-3" class="hard-drone-hide"/><label for="hard-drone-more-3" class="hard-drone-buttons span-4">Подробнее</label><label for="hard-drone-3" class="span-4 drones-names">Выбрать</label><input type="text" id="hard-drone-amount-3" placeholder="Количество беспилотников" class="span-2 hard-drone-amount"/><input type="button" id="hard-drone-close-3" class="hard-drone-cls"/><label for="hard-drone-close-3" class="hard-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-3"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">10000</p></article><article class="span-20 common-chars speed-3"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">300</p></article><article class="span-20 common-chars endurance-3"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">48</p></article><article class="span-20 common-chars detection-3"><header class="span-13 common-chars-title"><h3>Радиус обнаружения</h3></header><p class="span-7 chars-values">80</p></article></div></article></article></article><article class="span-20 row middle-drones"><header class="span-20 md-header"><h1>Средние</h1></header><input type="checkbox" name="middle" id="middle-drone-1" class="middle-drone-checks"/><article class="span-20 sub-drones sdr-1"><header class="span-20 sub-headers"><div class="span-1 offset-1 usa-icon country-icons"><p onselectstart="return false;" title="usa" class="usa-icons span-20"><svg class="usa-icon svg-blocks span-20"><use xlink:href="#usa" class="usa-in-use"></use></svg></p></div><h2 class="drone-name span-8">GA ALTUS</h2><input type="button" id="middle-drone-more-1" class="middle-drone-hide"/><label for="middle-drone-more-1" class="middle-drone-buttons span-4">Подробнее</label><label for="middle-drone-1" class="span-4 drones-names">Выбрать</label><input type="text" id="middle-drone-amount-1" placeholder="Количество беспилотников" class="span-2 middle-drone-amount"/><input type="button" id="middle-drone-close-1" class="middle-drone-cls"/><label for="middle-drone-close-1" class="middle-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-1"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">735</p></article><article class="span-20 common-chars speed-1"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">130</p></article><article class="span-20 common-chars endurance-1"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">24</p></article></div></article></article><input type="checkbox" name="middle" id="middle-drone-2" class="middle-drone-checks"/><article class="span-20 sub-drones sdr-2"><header class="span-20 sub-headers"><div class="span-1 offset-1 isr-icon country-icons"><p onselectstart="return false;" title="isr" class="isr-icons span-20"><svg class="isr-icon svg-blocks span-20"><use xlink:href="#isr" class="isr-in-use"></use></svg></p></div><h2 class="drone-name span-8">Harpy</h2><input type="button" id="middle-drone-more-2" class="middle-drone-hide"/><label for="middle-drone-more-2" class="middle-drone-buttons span-4">Подробнее</label><label for="middle-drone-2" class="span-4 drones-names">Выбрать</label><input type="text" id="middle-drone-amount-2" placeholder="Количество беспилотников" class="span-2 middle-drone-amount"/><input type="button" id="middle-drone-close-2" class="middle-drone-cls"/><label for="middle-drone-close-2" class="middle-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-2"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">400</p></article><article class="span-20 common-chars speed-2"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">250</p></article><article class="span-20 common-chars endurance-2"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">3</p></article></div></article></article><input type="checkbox" name="middle" id="middle-drone-3" class="middle-drone-checks"/><article class="span-20 sub-drones sdr-3"><header class="span-20 sub-headers"><div class="span-1 offset-1 rus-icon country-icons"><p onselectstart="return false;" title="rus" class="rus-icons span-20"><svg class="rus-icon svg-blocks span-20"><use xlink:href="#rus" class="rus-in-use"></use></svg></p></div><h2 class="drone-name span-8">Дозор-85</h2><input type="button" id="middle-drone-more-3" class="middle-drone-hide"/><label for="middle-drone-more-3" class="middle-drone-buttons span-4">Подробнее</label><label for="middle-drone-3" class="span-4 drones-names">Выбрать</label><input type="text" id="middle-drone-amount-3" placeholder="Количество беспилотников" class="span-2 middle-drone-amount"/><input type="button" id="middle-drone-close-3" class="middle-drone-cls"/><label for="middle-drone-close-3" class="middle-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-3"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">900</p></article><article class="span-20 common-chars speed-3"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">150</p></article><article class="span-20 common-chars endurance-3"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">8</p></article></div></article></article></article><article class="span-20 row light-drones"><header class="span-20 lt-header"><h1>Малые</h1></header><input type="checkbox" name="light" id="light-drone-1" class="light-drone-checks"/><article class="span-20 sub-drones sdr-1"><header class="span-20 sub-headers"><div class="span-1 offset-1 usa-icon country-icons"><p onselectstart="return false;" title="usa" class="usa-icons span-20"><svg class="usa-icon svg-blocks span-20"><use xlink:href="#usa" class="usa-in-use"></use></svg></p></div><h2 class="drone-name span-8">RQ-11 Raven</h2><input type="button" id="light-drone-more-1" class="light-drone-hide"/><label for="light-drone-more-1" class="light-drone-buttons span-4">Подробнее</label><label for="light-drone-1" class="span-4 drones-names">Выбрать</label><input type="text" id="light-drone-amount-1" placeholder="Количество беспилотников" class="span-2 light-drone-amount"/><input type="button" id="light-drone-close-1" class="light-drone-cls"/><label for="light-drone-close-1" class="light-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-1"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">10</p></article><article class="span-20 common-chars speed-1"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">95</p></article><article class="span-20 common-chars endurance-1"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">1</p></article></div></article></article><input type="checkbox" name="light" id="light-drone-2" class="light-drone-checks"/><article class="span-20 sub-drones sdr-2"><header class="span-20 sub-headers"><div class="span-1 offset-1 isr-icon country-icons"><p onselectstart="return false;" title="isr" class="isr-icons span-20"><svg class="isr-icon svg-blocks span-20"><use xlink:href="#isr" class="isr-in-use"></use></svg></p></div><h2 class="drone-name span-8">MicroB</h2><input type="button" id="light-drone-more-2" class="light-drone-hide"/><label for="light-drone-more-2" class="light-drone-buttons span-4">Подробнее</label><label for="light-drone-2" class="span-4 drones-names">Выбрать</label><input type="text" id="light-drone-amount-2" placeholder="Количество беспилотников" class="span-2 light-drone-amount"/><input type="button" id="light-drone-close-2" class="light-drone-cls"/><label for="light-drone-close-2" class="light-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-2"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">10</p></article><article class="span-20 common-chars speed-2"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">85</p></article><article class="span-20 common-chars endurance-2"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">1</p></article></div></article></article><input type="checkbox" name="light" id="light-drone-3" class="light-drone-checks"/><article class="span-20 sub-drones sdr-3"><header class="span-20 sub-headers"><div class="span-1 offset-1 rus-icon country-icons"><p onselectstart="return false;" title="rus" class="rus-icons span-20"><svg class="rus-icon svg-blocks span-20"><use xlink:href="#rus" class="rus-in-use"></use></svg></p></div><h2 class="drone-name span-8">Типчак</h2><input type="button" id="light-drone-more-3" class="light-drone-hide"/><label for="light-drone-more-3" class="light-drone-buttons span-4">Подробнее</label><label for="light-drone-3" class="span-4 drones-names">Выбрать</label><input type="text" id="light-drone-amount-3" placeholder="Количество беспилотников" class="span-2 light-drone-amount"/><input type="button" id="light-drone-close-3" class="light-drone-cls"/><label for="light-drone-close-3" class="light-drone-close-buttons span-4">⨯</label></header><article class="span-14 offset-3 chars"><header class="span-20 chars-header"><h2>Технические характеристики</h2></header><div class="chars-group span-16 offset-2"><article class="span-20 common-chars range-3"><header class="span-13 common-chars-title"><h3>Дальность, км</h3></header><p class="span-7 chars-values">40</p></article><article class="span-20 common-chars speed-3"><header class="span-13 common-chars-title"><h3>Скорость, км/ч</h3></header><p class="span-7 chars-values">198</p></article><article class="span-20 common-chars endurance-3"><header class="span-13 common-chars-title"><h3>Продолжительность полёта, ч</h3></header><p class="span-7 chars-values">2</p></article></div></article></article></article></section></section></div></div><script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script><script src="js/all.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>DCS</title>
+    <link rel="stylesheet" href="css/main.css"/>
+  </head>
+  <body onselectstart="return false;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="position:absolute">
+
+<symbol id="area" viewBox="0 0 128 128">
+        <path fill="none" stroke="#A4CFF0" stroke-miterlimit="10" d="M18.6 27.5L55.8 6.3c5.3-3 11.9-3 17.2.1L109.8 28c5.3 3.1 8.5 8.8 8.5 14.9l-.3 42.7c0 6.1-3.4 11.8-8.7 14.8l-37.2 21.1c-5.3 3-11.9 3-17.2-.1L18.2 100c-5.3-3.1-8.5-8.8-8.5-14.9l.3-42.7c0-6.3 3.3-11.9 8.6-14.9z"/><path fill="#A4CFF0" d="M25.2 32.7L57 14.6c4.6-2.6 10.2-2.6 14.7.1l31.6 18.5c4.5 2.7 7.3 7.5 7.3 12.8l-.2 36.6c0 5.3-2.9 10.1-7.4 12.7l-32 18.1c-4.6 2.6-10.2 2.6-14.7-.1L24.8 94.8c-4.5-2.7-7.3-7.5-7.3-12.8l.2-36.6c.1-5.3 2.9-10.1 7.5-12.7z"/><g fill="#46A7DE" stroke="#A4CFF0" stroke-width=".5" stroke-linecap="round" stroke-miterlimit="10"><path d="M65.9 74.4L51.5 94.7c.4.2.9.5 1.3.7l15.5-21.7c-.8.2-1.6.5-2.4.7z"/><path d="M63.6 75.1L50.2 93.9c.4.3.9.5 1.3.8L66 74.4c-.8.3-1.6.5-2.4.7zM43 84.5c-.1.4 0 .8 0 1.2l3.3-4.6c-2.4 1.3-3.1 2.3-3.3 3.4zm18.2-8.6L48.9 93.1c.4.3.8.6 1.2.8l13.4-18.8c-.7.3-1.5.5-2.3.8zM73 72.3L55.6 96.7c.5.2 1 .4 1.5.5l18.3-25.6c-.8.2-1.6.5-2.4.7zm-2.3.7L54.2 96.1c.5.2.9.4 1.4.6L73 72.3c-.7.2-1.5.5-2.3.7z"/><path d="M68.3 73.7L52.8 95.4c.5.2.9.4 1.4.7L70.7 73c-.8.2-1.6.5-2.4.7zM49 79.9l-5.4 7.6c.2.5.5.9.9 1.4l7.1-9.9c-1 .3-1.8.6-2.6.9z"/><path d="M51.6 79l-7.1 9.9c.3.4.6.8 1 1.2l8.5-12c-.9.3-1.7.6-2.4.9zm8.6-2.8c-.5.1-.9.3-1.3.4L47.7 92.1l1.2.9 12.3-17.2c-.3.2-.7.3-1 .4zm-13.9 4.9L43 85.7c.1.6.3 1.2.6 1.8l5.4-7.6c-1.1.5-2 .9-2.7 1.2z"/><path d="M54 78.1L45.5 90c.3.4.7.7 1.1 1.1l9.9-13.8c-.9.3-1.7.6-2.5.8z"/><path d="M56.4 77.3l-9.9 13.8c.4.3.7.7 1.1 1l11.1-15.6c-.7.4-1.5.6-2.3.8zm21.3-6.4L58.6 97.7c.5.1 1 .3 1.6.4L80 70.3c-.7.2-1.5.4-2.3.6zM98 68.4L78.5 95.8c1.1-.5 2.1-1.1 3.1-1.8l16.9-23.7c0-.7-.2-1.4-.5-1.9z"/><path d="M98 68.4c-.2-.4-.6-.6-1.2-.8L75.7 97l2.7-1.2L98 68.4zm-4.7-1.1L71.1 98.4c.8-.1 1.5-.3 2.2-.5l21.9-30.6c-.6-.1-1.2 0-1.9 0z"/><path d="M95.2 67.3L73.3 97.9c.8-.2 1.6-.5 2.4-.8l21.1-29.5c-.4-.2-1-.3-1.6-.3zm2.9 6.3c.3-1.2.5-2.3.5-3.2L81.6 94c1.4-.9 2.7-1.8 3.9-2.9l12.6-17.5z"/><path d="M98.1 73.6L85.5 91.1c6.5-5.3 11.2-12.5 12.6-17.5zm-11.2-5.1L65.2 98.8H67L89.1 68c-.7.1-1.4.3-2.2.5zm-4.5 1.1L61.8 98.4c.6.1 1.1.2 1.7.2L84.6 69c-.7.2-1.5.4-2.2.6zm-2.4.7L60.1 98.1c.5.1 1.1.2 1.6.3l20.6-28.8c-.7.2-1.5.4-2.3.7zm11.2-2.7L69 98.7l2.1-.3 22.2-31.1c-.7.1-1.3.2-2.1.3z"/><path d="M84.6 69L63.4 98.7c.6.1 1.2.1 1.8.1l21.7-30.3c-.7.1-1.5.3-2.3.5zm-9.2 2.6L57.1 97.2c.5.2 1 .3 1.5.5l19.1-26.8c-.7.2-1.5.5-2.3.7zM89.1 68L67 98.9h.1c.6 0 1.2-.1 1.8-.1l22.3-31.1c-.6 0-1.3.1-2.1.3z"/></g><circle fill="#4E98D3" stroke="#A4CFF0" stroke-miterlimit="10" cx="96.8" cy="68" r="2.6"/><circle fill="#4E98D3" stroke="#A4CFF0" stroke-miterlimit="10" cx="43.6" cy="84.4" r="2.6"/><circle fill="#4E98D3" stroke="#A4CFF0" stroke-miterlimit="10" cx="73.3" cy="96.7" r="2.6"/><circle fill="#4E98D3" stroke="#A4CFF0" stroke-miterlimit="10" cx="87.7" cy="87.5" r="2.6"/><circle fill="#4E98D3" stroke="#A4CFF0" stroke-miterlimit="10" cx="55.6" cy="96.1" r="2.6"/><circle fill="#4E98D3" stroke="#A4CFF0" stroke-miterlimit="10" cx="68.3" cy="74.4" r="2.6"/><g fill="#45A7DE" stroke="#A4CFF0" stroke-miterlimit="10"><path d="M62.3 30.1l-23.6 34c.5.5 1.1.9 1.7 1.3l24.5-35.2c-.8-.1-1.7-.1-2.6-.1z"/><path d="M64.9 30.1L40.5 65.3c.6.4 1.2.7 1.9 1l25-36c-.8-.1-1.7-.2-2.5-.2zm4.8.6L44.5 67c.7.2 1.5.3 2.3.4l25.1-36.1c-.7-.3-1.5-.4-2.2-.6zm-10.1-.4L37.3 62.4c.4.6.8 1.1 1.3 1.6 0 0 .1 0 .1.1l23.6-34c-.9 0-1.8.1-2.7.2z"/><path d="M67.4 30.3l-25 36c.7.3 1.4.5 2.2.6l25.2-36.3c-.9-.1-1.7-.2-2.4-.3zm4.5 1L46.8 67.4c.8.1 1.6.1 2.5.2L74 32c-.7-.3-1.4-.5-2.1-.7zm-26 3.8l-10 14.3c-.3 1.4-.5 3-.6 4.5l14.7-21c-1.4.6-2.8 1.4-4.1 2.2z"/><path d="M50 32.9L35.3 54c0 1.2 0 2.3.2 3.5l18-25.9c-1.2.3-2.3.8-3.5 1.3zM37.2 45.3c-.5 1.2-.9 2.6-1.3 4.1l10-14.3c-3.9 2.6-7 6-8.7 10.2zm19.5-14.6L36.2 60.2c.3.8.6 1.5 1.1 2.2l22.3-32.1c-1 .1-2 .2-2.9.4z"/><path d="M53.5 31.5l-18 25.9c.1.9.4 1.9.7 2.7l20.4-29.4c-1 .3-2 .5-3.1.8zm31.3 7.4L67.6 63.6c1.3-.5 2.5-1.1 3.7-1.6l14.8-21.4c-.3-.6-.8-1.2-1.3-1.7zm1.4 1.7L71.4 62c1.4-.7 2.8-1.4 4.1-2.2l11.8-17.1c-.3-.7-.6-1.4-1.1-2.1zm-10.9-8.1c-.4-.2-.9-.4-1.3-.5L49.3 67.5c.9 0 1.7 0 2.7-.1l24-34.6c-.3-.1-.5-.2-.7-.3zm12.5 13c0-1-.2-1.9-.5-2.8L75.5 59.8c1.8-1 3.4-2.1 4.9-3.3l7.4-10.7v-.3z"/><path d="M87.8 45.8l-7.4 10.7c4.3-3.4 7.2-7.1 7.4-10.7zm-4.6-8.4L64.1 64.9c1.2-.4 2.3-.8 3.5-1.3l17.2-24.8c-.5-.5-1-1-1.6-1.4zm-5.3-3.6L54.8 67.1c1-.1 2-.3 3-.5l22-31.8c-.7-.3-1.3-.7-1.9-1z"/><path d="M76 32.8L52 67.4c.9-.1 1.8-.1 2.8-.3L78 33.7c-.8-.3-1.5-.7-2-.9zm5.6 3.2L60.8 65.9c1.1-.3 2.2-.6 3.3-1l19.1-27.5c-.5-.5-1.1-.9-1.6-1.4z"/><path d="M79.8 34.9l-22 31.8c1-.2 2.1-.5 3.1-.7l20.7-30c-.6-.4-1.2-.8-1.8-1.1z"/></g><circle fill="#4D97D2" stroke="#A4CFF0" stroke-miterlimit="10" cx="85" cy="50.7" r="2.6"/><circle fill="#4D97D2" stroke="#A4CFF0" stroke-miterlimit="10" cx="36.2" cy="49.7" r="2.6"/><circle fill="#4D97D2" stroke="#A4CFF0" stroke-miterlimit="10" cx="56.7" cy="65.3" r="2.6"/><circle fill="#4D97D2" stroke="#A4CFF0" stroke-miterlimit="10" cx="64.2" cy="30.7" r="2.6"/>
+</symbol>
+
+<symbol id="defence" viewBox="0 0 128 128">
+        <path fill="none" stroke="#A3C1AD" stroke-miterlimit="10" d="M17.8 27.5L54.9 6.3c5.3-3 11.9-3 17.2.1L109 28c5.3 3.1 8.5 8.8 8.5 14.9l-.3 42.7c0 6.1-3.4 11.8-8.7 14.8l-37.2 21.1c-5.3 3-11.9 3-17.2-.1L17.3 100c-5.3-3.1-8.5-8.8-8.5-15l.3-42.7c0-6.2 3.4-11.8 8.7-14.8z"/><path fill="#A3C1AD" d="M24.3 33.5l31.8-18.1c4.6-2.6 10.2-2.6 14.7.1L102.4 34c4.5 2.7 7.3 7.5 7.3 12.8l-.2 36.6c0 5.3-2.9 10.1-7.4 12.7l-31.8 18.1c-4.6 2.6-10.2 2.6-14.7-.1L23.9 95.5c-4.5-2.7-7.3-7.5-7.3-12.8l.2-36.6c.1-5.2 3-10 7.5-12.6z"/><path fill="none" stroke="#5D8AA8" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" d="M66.6 54.9c2.7-1.4 4.5-4.2 4.5-7.4 0-4.6-3.8-8.4-8.4-8.4-4.6 0-8.4 3.8-8.4 8.4 0 3.2 1.8 6 4.5 7.4"/><path fill="none" stroke="#5D8AA8" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" d="M68.5 60.8c5.1-2.2 8.7-7.3 8.7-13.2 0-8-6.5-14.4-14.4-14.4s-14.4 6.5-14.4 14.4c0 5.9 3.6 11 8.7 13.2"/><path fill="none" stroke="#5D8AA8" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" d="M70.1 66.6c7.6-3 13-10.4 13-19.1C83.2 36.2 74 27 62.7 27s-20.5 9.2-20.5 20.5c0 8.7 5.4 16.1 13 19.1"/><path fill="none" stroke="#848482" stroke-width="3" stroke-miterlimit="10" d="M70.7 70.3l-18.1 9.9m3.1-9.9l17.6 9.9"/><path fill="none" stroke="#848482" stroke-width="4" stroke-miterlimit="10" d="M80 100L52.6 80.2"/><path fill="none" stroke="#848482" stroke-width="2" stroke-miterlimit="10" d="M55.7 70.3l10.5-11.4M70 70.3L59.6 58.7"/><path fill="none" stroke="#848482" stroke-width="4" stroke-miterlimit="10" d="M46.5 100l27.4-19.8"/><path fill="none" stroke="#848482" stroke-width="3" stroke-miterlimit="10" d="M46 101.3l16.7-53m17.7 53l-17.7-53"/><circle fill="#848482" cx="62.7" cy="46.8" r="3.8"/>
+</symbol>
+
+<symbol id="dotes" viewBox="0 0 128 128">
+        <path fill="none" stroke="#C8E3D4" stroke-miterlimit="10" d="M18.6 27.5L55.8 6.3c5.3-3 11.9-3 17.2.1L109.8 28c5.3 3.1 8.5 8.8 8.5 14.9l-.3 42.7c0 6.1-3.4 11.8-8.7 14.8l-37.2 21.1c-5.3 3-11.9 3-17.2-.1L18.2 100c-5.3-3.1-8.5-8.8-8.5-14.9l.3-42.7c0-6.3 3.3-11.9 8.6-14.9z"/><path fill="#C8E3D4" d="M25.2 32.7L57 14.6c4.6-2.6 10.2-2.6 14.7.1l31.6 18.5c4.5 2.7 7.3 7.5 7.3 12.8l-.2 36.6c0 5.3-2.9 10.1-7.4 12.7l-32 18.1c-4.6 2.6-10.2 2.6-14.7-.1L24.8 94.8c-4.5-2.7-7.3-7.5-7.3-12.8l.2-36.6c.1-5.3 2.9-10.1 7.5-12.7z"/><circle fill="#7EC6B4" cx="43.2" cy="64.5" r="7.3"/><circle fill="#7EC6B4" cx="55.7" cy="41.5" r="3.7"/><circle fill="#7EC6B4" cx="75.9" cy="36.8" r="2.3"/><circle fill="#7EC6B4" cx="93.1" cy="36.8" r="1.2"/><circle fill="#7EC6B4" cx="67.2" cy="88.4" r="13.1"/>
+</symbol>
+
+<symbol id="isr" viewBox="0 0 128 128">
+        <circle fill="#1185E9" cx="64" cy="64" r="60"/><path fill="#FFF" d="M64 44.6l6.3 12.8 14.1 2-10.2 10 2.4 14L64 76.8l-12.6 6.6 2.4-14-10.2-10 14.1-2z"/>
+</symbol>
+
+<symbol id="load" viewBox="0 0 128 128">
+        <circle class="load-circle" stroke="currentColor" stroke-width="7" stroke-miterlimit="10" cx="64" cy="64" r="58.4"/><path class="load-triangles lt-1" d="M83.9 73.5H89c3.8 0 6-4.4 3.7-7.5L67.8 32.8c-1.9-2.5-5.6-2.5-7.5 0L35.3 66c-2.3 3.1-.1 7.5 3.7 7.5h5.1"/><path class="load-triangles lt-2" d="M88.9 93.3H39.1c-3.8 0-6-4.4-3.7-7.5l25-33.3c1.9-2.5 5.6-2.5 7.5 0l24.9 33.3c2.2 3.2 0 7.5-3.9 7.5z"/>
+</symbol>
+
+<symbol id="place-based" viewBox="0 0 128 128">
+        <path fill="#336f94" stroke="#336f94" stroke-miterlimit="10" d="M121.6 35.5l-55-27.7c-.8-.4-1.7-.6-2.6-.6s-1.8.2-2.6.6l-55 27.7c-2 1-3.2 3-3.2 5.2v14.5c0 3.2 2.5 6.2 5.9 5.9h.2L9 115c0 1.6.6 3.1 1.7 4.2s2.6 1.7 4.2 1.7h98.2c1.6 0 3.1-.6 4.2-1.7s1.7-2.6 1.7-4.2l-.2-53.9h.2c3.2 0 5.9-2.6 5.9-5.9V40.7c-.1-2.2-1.3-4.2-3.3-5.2zm-1 18.3c0 1.7-1.4 3.1-3.1 3.1-1.7 0-3.1 1.4-3.1 3.1l.2 53.6c0 1.7-1.4 3.1-3.1 3.1H16.4c-1.7 0-3.1-1.4-3.1-3.1l.2-53.6c0-1.8-1.5-3-3.2-3.1-1.6-.1-2.9-1.4-2.9-3.1V41.6c0-1.2.7-2.2 1.7-2.7l53.5-27c.9-.4 1.9-.4 2.8 0l53.5 27c1 .5 1.7 1.6 1.7 2.7v12.2z"/><path d="M47.8 62.7H26.6c-.6 0-1.1-.5-1.1-1.1v-7.9c0-.6.5-1.1 1.1-1.1h21.3c.6 0 1.1.5 1.1 1.1v7.9c-.1.6-.6 1.1-1.2 1.1zm26.8 0H53.3c-.6 0-1.1-.5-1.1-1.1v-7.9c0-.6.5-1.1 1.1-1.1h21.3c.6 0 1.1.5 1.1 1.1v7.9c0 .6-.5 1.1-1.1 1.1zm26.8 0H80.2c-.6 0-1.1-.5-1.1-1.1v-7.9c0-.6.5-1.1 1.1-1.1h21.3c.6 0 1.1.5 1.1 1.1v7.9c0 .6-.5 1.1-1.2 1.1zM99 72.3H32.3c-1.4 0-2.5 1.1-2.5 2.5v41.1c0 1.4 1.1 2.5 2.5 2.5H99c1.4 0 2.5-1.1 2.5-2.5V74.8c0-1.4-1.1-2.5-2.5-2.5zm-9 39H40.2c-2.3 0-4.2-1.6-4.2-3.5s1.9-3.5 4.2-3.5H90c2.3 0 4.2 1.6 4.2 3.5s-1.9 3.5-4.2 3.5zm0-12.4H40.2c-2.3 0-4.2-1.6-4.2-3.5s1.9-3.5 4.2-3.5H90c2.3 0 4.2 1.6 4.2 3.5s-1.9 3.5-4.2 3.5zm1-12.4H41.3c-2.3 0-4.2-1.6-4.2-3.5s1.9-3.5 4.2-3.5H91c2.3 0 4.2 1.6 4.2 3.5s-1.9 3.5-4.2 3.5z" fill="#336f94"/>
+</symbol>
+
+<symbol id="planes" viewBox="0 0 128 128">
+        <path fill="#C9E0D8" d="M25.2 32.5L57 14.4c4.6-2.6 10.2-2.6 14.7.1L103.2 33c4.5 2.7 7.3 7.5 7.3 12.8l-.2 36.6c0 5.3-2.9 10.1-7.4 12.7l-31.9 18c-4.6 2.6-10.2 2.6-14.7-.1L24.8 94.5c-4.5-2.7-7.3-7.5-7.3-12.8l.2-36.6c.1-5.2 2.9-10 7.5-12.6z"/><path fill="none" stroke="#CAE0D9" stroke-miterlimit="10" d="M18.6 27.5L55.8 6.3c5.3-3 11.9-3 17.2.1L109.8 28c5.3 3.1 8.5 8.8 8.5 14.9l-.3 42.7c0 6.1-3.4 11.8-8.7 14.8l-37.2 21.1c-5.3 3-11.9 3-17.2-.1L18.2 100c-5.3-3.1-8.5-8.8-8.5-14.9l.3-42.7c0-6.3 3.3-11.9 8.6-14.9z"/><path fill="#3F3F3F" d="M82.6 66.9c2.3-.3 4.4-.1 6.4.6.9.3 1.8-.3 1.9-1.3.1-.8.1-1.5.1-2.3 0-.7 0-1.5-.1-2.2-.1-.9-1-1.6-1.9-1.3-2.2.7-4.7.9-7.3.4-6.1-1.2-10.8-6.2-11.7-12.3-.4-3.2.2-6.2 1.5-8.8.4-.8 0-1.9-.9-2.1-2.1-.4-4.3-.6-6.6-.6s-4.6.3-6.7.9c-.9.2-1.4 1.3-1 2.1 1.2 2.3 1.8 5.1 1.6 7.9-.6 6.7-5.8 12.3-12.5 13.2-2.2.3-4.4.1-6.3-.5-.9-.3-1.8.3-1.9 1.3-.1.7-.1 1.4-.1 2.1 0 .8 0 1.5.1 2.3.1.9 1 1.5 1.9 1.3 2-.6 4.1-.8 6.3-.5 6.7.9 11.9 6.4 12.5 13.1.3 2.9-.3 5.6-1.5 7.9-.4.8.1 1.8 1 2.1 2.1.5 4.4.8 6.7.8s4.4-.3 6.5-.8c.9-.2 1.4-1.2 1-2.1-1.2-2.3-1.8-5-1.5-7.9.5-6.8 5.8-12.4 12.5-13.3z"/><path fill="none" stroke="#D18A88" stroke-miterlimit="10" d="M57.9 43.6c3.7-.3 8.4-.3 12.2 0"/><path fill="none" stroke="#87B9BD" stroke-miterlimit="10" d="M57.9 45.8c3.7-.2 8.4-.2 12.2 0"/><path fill="none" stroke="#D18A88" stroke-miterlimit="10" d="M83.7 67c.2-1.9.2-4.2 0-6.1"/><path fill="none" stroke="#87B9BD" stroke-miterlimit="10" d="M82.6 67c.1-1.9.1-4.2 0-6.1"/><path fill="none" stroke="#D18A88" stroke-miterlimit="10" d="M44.3 67c-.2-1.9-.2-4.2 0-6.1"/><path fill="none" stroke="#87B9BD" stroke-miterlimit="10" d="M45.4 67c-.1-1.9-.1-4.2 0-6.1"/><path fill="none" stroke="#D18A88" stroke-miterlimit="10" d="M70.1 84c-3.7.3-8.4.3-12.2 0"/><path fill="none" stroke="#87B9BD" stroke-miterlimit="10" d="M70.1 81.7c-3.7.2-8.4.2-12.2 0"/><path fill="none" stroke="#454545" stroke-width=".5" stroke-miterlimit="10" d="M52.4 58.1l-7.8-11.5"/><path fill="none" stroke="#454545" stroke-miterlimit="10" d="M51.4 58.8l-7.8-11.6"/><circle fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" cx="43.8" cy="46.8" r="11.6"/><path fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" d="M46.8 37.7c-4.2-1.8-9 .1-10.8 4.3m3.3-.2c.1-.2 1.2-2 3.1-2.1.6 0 1.1.1 1.4.3"/><circle fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" cx="43.8" cy="46.8" r="2.2"/><circle fill="#585757" cx="43.8" cy="46.8" r="1.3"/><path d="M47.7 51.9c-.1-.2-.1-.4.1-.5.2-.1.4-.1.5.1l.3.4-.6.4-.3-.4zm1.6.9c.1.2.1.4-.1.5-.2.1-.4.1-.5-.1l-.3-.5.6-.4.3.5z" fill="#454545"/><path fill="none" stroke="#454545" stroke-width=".5" stroke-miterlimit="10" d="M75.8 69.6l7.9 11.6"/><path fill="none" stroke="#454545" stroke-miterlimit="10" d="M76.9 69l7.8 11.6"/><circle fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" cx="84.5" cy="80.9" r="11.6"/><path fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" d="M81.5 90.1c4.2 1.8 9-.1 10.8-4.3M89 86c-.1.2-1.2 2-3.1 2.1-.6 0-1.1-.1-1.4-.3"/><circle fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" cx="84.5" cy="80.9" r="2.2"/><circle fill="#585757" cx="84.5" cy="80.9" r="1.3"/><path d="M80.5 75.9c.1.2.1.4-.1.5-.2.1-.4.1-.5-.1l-.3-.4.6-.4.3.4zM79 75c-.1-.2-.1-.4.1-.5.2-.1.4-.1.5.1l.4.4-.6.4-.4-.4z" fill="#454545"/><path fill="none" stroke="#454545" stroke-width=".5" stroke-miterlimit="10" d="M75.6 58.1l7.8-11.5"/><path fill="none" stroke="#454545" stroke-miterlimit="10" d="M76.6 58.8l7.8-11.6"/><circle fill="none" stroke="#575757" stroke-width=".75" stroke-miterlimit="10" cx="84.2" cy="46.8" r="11.6"/><path fill="none" stroke="#585757" stroke-width=".75" stroke-miterlimit="10" d="M81.2 37.7c4.2-1.8 9 .1 10.8 4.3m-3.3-.2c-.1-.2-1.2-2-3.1-2.1-.6 0-1.1.1-1.4.3"/><circle fill="none" stroke="#585757" stroke-width=".75" stroke-miterlimit="10" cx="84.2" cy="46.8" r="2.2"/><circle fill="#585757" cx="84.2" cy="46.8" r="1.3"/><path d="M80.3 51.9c.1-.2.1-.4-.1-.5-.2-.1-.4-.1-.5.1l-.3.4.6.4.3-.4zm-1.6.9c-.1.2-.1.4.1.5.2.1.4.1.5-.1l.3-.5-.6-.4-.3.5z" fill="#454545"/><path fill="none" stroke="#454545" stroke-width=".5" stroke-miterlimit="10" d="M52.2 69.6l-7.9 11.6"/><path fill="none" stroke="#454545" stroke-miterlimit="10" d="M51.1 69l-7.8 11.6"/><path fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" d="M82.5 66.8c2.3-.3 4.4-.1 6.4.6.9.3 1.8-.3 1.9-1.3.1-.8.1-1.5.1-2.3 0-.7 0-1.5-.1-2.2-.1-.9-1-1.6-1.9-1.3-2.2.7-4.7.9-7.3.4-6.1-1.2-10.8-6.2-11.7-12.3-.4-3.2.2-6.2 1.5-8.8.4-.8 0-1.9-.9-2.1-2.1-.5-4.3-.8-6.6-.8s-4.6.3-6.7.9c-.9.2-1.4 1.3-1 2.1 1.2 2.3 1.8 5.1 1.6 7.9-.5 6.8-5.8 12.4-12.5 13.3-2.2.3-4.3.1-6.3-.5-.9-.3-1.8.3-1.9 1.3-.1.7-.1 1.4-.1 2.1 0 .8 0 1.5.1 2.3.1.9 1 1.5 1.9 1.3 2-.6 4.1-.8 6.3-.5 6.7.9 11.9 6.4 12.5 13.1.3 2.9-.3 5.6-1.5 7.9-.4.8.1 1.8 1 2.1 2.1.5 4.4.8 6.7.8s4.4-.3 6.5-.8c.9-.2 1.4-1.2 1-2.1-1.2-2.3-1.8-5-1.5-7.9.5-6.8 5.8-12.3 12.5-13.2z"/><circle fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" cx="43.5" cy="80.9" r="11.6"/><path fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" d="M46.5 90.1c-4.2 1.8-9-.1-10.8-4.3m3.3.2c.1.2 1.2 2 3.1 2.1.6 0 1.1-.1 1.4-.3"/><circle fill="none" stroke="#696969" stroke-width=".75" stroke-miterlimit="10" cx="43.5" cy="80.9" r="2.2"/><circle fill="#585757" cx="43.5" cy="80.9" r="1.3"/><circle fill="#CE7167" cx="60.8" cy="63.8" r=".8"/><circle fill="#89BEA6" cx="67.2" cy="63.8" r=".8"/><path d="M47.5 75.9c-.1.2-.1.4.1.5.2.1.4.1.5-.1l.3-.4-.6-.4-.3.4zM49 75c.1-.2.1-.4-.1-.5-.2-.1-.4-.1-.5.1l-.4.4.6.4.4-.4z" fill="#454545"/><circle fill="#CEDFB6" cx="63.1" cy="63.8" r=".2"/><ellipse transform="matrix(1 -.00375 .00375 1 -.238 .244)" fill="#CEDFB6" cx="64.9" cy="63.8" rx=".2" ry=".2"/><circle fill="#CEDFB5" cx="64" cy="63.8" r=".2"/><path fill="#FFF" d="M75.7 66.1c1.4-.2 2.8-.1 4 .4.6.2 1.2-.3 1.2-1 0-.6.1-1.2.1-1.8 0-.6 0-1.1-.1-1.7 0-.7-.6-1.2-1.2-1-1.4.6-3 .7-4.6.3-3.8-.9-6.8-4.8-7.3-9.6-.3-2.5.1-4.8 1-6.8.3-.6 0-1.4-.6-1.6-1.3-.4-2.7-.6-4.2-.6s-2.9.2-4.3.7c-.6.2-.9 1-.6 1.6.8 1.8 1.1 3.9 1 6.2-.4 5.3-3.7 9.6-7.9 10.3-1.4.2-2.8.1-4-.4-.6-.2-1.1.3-1.2 1 0 .5-.1 1.1-.1 1.6 0 .6 0 1.2.1 1.8 0 .7.6 1.2 1.2 1 1.2-.5 2.6-.6 4-.4 4.2.7 7.5 5 7.9 10.2.2 2.2-.2 4.3-.9 6.2-.3.6 0 1.4.6 1.6 1.3.4 2.8.7 4.2.7 1.4 0 2.8-.2 4.1-.6.6-.2.9-1 .6-1.6-.8-1.8-1.1-3.9-1-6.2.4-5.3 3.8-9.6 8-10.3z" opacity=".1"/>
+</symbol>
+
+<symbol id="rus" viewBox="0 0 128 128">
+        <path fill="none" d="M7.4 44h113.1C112.3 20.7 90.1 4 64 4S15.7 20.7 7.4 44z"/><path fill="#3855CD" d="M4 64c0 7 1.2 13.7 3.4 20h113.1c2.2-6.3 3.4-13 3.4-20s-1.2-13.7-3.4-20H7.4C5.2 50.3 4 57 4 64z"/><path fill="#E3131A" d="M120.6 84H7.4c8.2 23.3 30.5 40 56.6 40s48.3-16.7 56.6-40z"/>
+</symbol>
+
+<symbol id="trajectory" viewBox="0 0 128 128">
+        <path fill="none" stroke="#F09597" stroke-miterlimit="10" d="M18.6 27.5L55.8 6.3c5.3-3 11.9-3 17.2.1L109.8 28c5.3 3.1 8.5 8.8 8.5 14.9l-.3 42.7c0 6.1-3.4 11.8-8.7 14.8l-37.2 21.1c-5.3 3-11.9 3-17.2-.1L18.2 100c-5.3-3.1-8.5-8.8-8.5-14.9l.3-42.7c0-6.3 3.3-11.9 8.6-14.9z"/><path fill="#F09597" d="M25.2 32.7L57 14.6c4.6-2.6 10.2-2.6 14.7.1l31.6 18.5c4.5 2.7 7.3 7.5 7.3 12.8l-.2 36.6c0 5.3-2.9 10.1-7.4 12.7l-32 18.1c-4.6 2.6-10.2 2.6-14.7-.1L24.8 94.8c-4.5-2.7-7.3-7.5-7.3-12.8l.2-36.6c.1-5.3 2.9-10.1 7.5-12.7z"/><circle fill="#DE3854" cx="34.9" cy="60.9" r="3.7"/><path fill="none" stroke="#DF3854" stroke-miterlimit="10" d="M34.9 60c0-16.4 17.4-29.7 38.9-29.7"/><circle fill="#DE3854" cx="73.8" cy="30.4" r="3.7"/><circle fill="#DE3854" cx="95.2" cy="69.5" r="3.7"/><path fill="none" stroke="#DF3854" stroke-miterlimit="10" d="M95.2 69.1c0 16.4-17.4 29.7-38.9 29.7"/><circle fill="#DE3854" cx="58.1" cy="98.8" r="3.7"/><circle fill="none" stroke="#DF3854" stroke-miterlimit="10" cx="64.6" cy="65.2" r="17.1"/><circle fill="#DE3854" cx="81.7" cy="65.8" r="3.7"/><circle fill="#DE3854" cx="64.6" cy="48.1" r="3.7"/><circle fill="#DE3854" cx="47.5" cy="65.8" r="3.7"/><circle fill="#DE3854" cx="65.2" cy="82.3" r="3.7"/>
+</symbol>
+
+<symbol id="usa" viewBox="0 0 128 128">
+        <path fill="none" d="M4 64zm120 1.3V64v1.3z"/><path fill="#006EE7" d="M5 53h59V4C34.6 4 10.2 25.1 5 53z"/><path fill="#E6322B" d="M100.3 16.3C90.2 8.6 77.7 4 64 4v12.3h36.3z"/><path fill="#FFF" d="M64 28.5h48.4c-3.4-4.6-7.5-8.8-12-12.3H64v12.3z"/><path fill="#E6322B" d="M64 40.8h55.3c-1.8-4.4-4.2-8.5-7-12.3H64v12.3z"/><path fill="#FFF" d="M64 53h59c-.8-4.3-2-8.4-3.6-12.3H64V53z"/><path fill="#E6322B" d="M64 53H5c-.7 3.6-1 7.2-1 11v1.3h120V64c0-3.8-.4-7.4-1-11H64z"/><path fill="#FFF" d="M122.5 77.5c.9-3.9 1.4-8 1.5-12.3H4c.1 4.2.6 8.3 1.5 12.3h117z"/><path fill="#E6322B" d="M9.8 89.8h108.4c1.8-3.9 3.3-8 4.3-12.3H5.5c1 4.3 2.5 8.4 4.3 12.3z"/><path fill="#FFF" d="M17.6 102h92.9c3.1-3.7 5.7-7.8 7.8-12.3H9.8c2.1 4.5 4.7 8.6 7.8 12.3zm13.6 12.3c9.4 6.2 20.7 9.8 32.8 9.8s23.3-3.6 32.8-9.8H31.2z"/><path fill="#E6322B" d="M31.2 114.3h65.5c5.2-3.4 9.8-7.5 13.7-12.3H17.6c3.9 4.7 8.5 8.9 13.6 12.3z"/><path d="M35.8 13.3l1.3 2.7 3 .4-2.1 2.2.5 2.9-2.7-1.4-2.7 1.4.5-2.9-2.2-2.2 3-.4zm15.8 0L53 16l3 .4-2.2 2.2.5 2.9-2.7-1.4-2.7 1.4.5-2.9-2.1-2.2 3-.4zM23.7 25.9l1.4 2.8 3 .4-2.2 2.1.5 3-2.7-1.4-2.7 1.4.5-3-2.1-2.1 3-.4zm14.9 0l1.3 2.8 3 .4-2.2 2.1.6 3-2.7-1.4-2.7 1.4.5-3-2.2-2.1 3-.4zm15.8 0l1.3 2.8 3.1.4-2.2 2.1.5 3-2.7-1.4-2.7 1.4.5-3-2.2-2.1 3-.4zM15.3 38.6l1.3 2.7 3 .5-2.1 2.1.5 3-2.7-1.4-2.7 1.4.5-3-2.2-2.1 3-.5zm14.2 0l1.3 2.7 3 .5-2.1 2.1.5 3-2.7-1.4-2.7 1.4.5-3-2.2-2.1 3-.5zm14.2 0l1.3 2.7 3 .5-2.1 2.1.5 3-2.7-1.4-2.7 1.4.5-3-2.2-2.1 3-.5zm14.2 0l1.3 2.7 3.1.5-2.2 2.1.5 3-2.7-1.4-2.7 1.4.5-3-2.2-2.1 3-.5z" fill="#FFF"/>
+</symbol>
+</svg>
+    <div id="container">
+      <div id="dynamic-map"></div>
+      <div id="static-map"></div>
+      <canvas width="1300" height="600" id="polygon" class="canvases"></canvas>
+      <div id="controls" class="span-20">
+      </div>
+      <div id="footing" class="span-20"></div>
+      <div id="control-additional" class="span-20">
+        <section id="switches" onselectstart="return false" class="span-20 row">
+          <input id="switch" type="button" value="Переключиться на холст" class="span-5 offset-5 row"/>
+          <input id="simulate" type="button" value="Моделировать" class="span-5 row"/>
+          <input id="to-defence" type="button" value="Установить ПВО" class="span-4 offset-8"/>
+        </section>
+        <section id="planes-section" onselectstart="return false;" class="span-8 offset-2">
+          <header class="planes-main-title main-titles span-16 offset-2">
+            <h1>Беспилотники и ПВО</h1>
+          </header>
+          <article class="span-10 planes">
+            <div class="amount-slider span-16 offset-2">
+                      <p onselectstart="return false;" title="Беспилотники" class="planes-icons span-12 offset-4">
+                        <svg class="planes-icon svg-blocks span-20 offset-1">
+                          <use xlink:href="#planes" class="planes-in-use"></use>
+                        </svg>
+                      </p>
+              <div class="toddler-slider planes-slider span-16 offset-2">
+                <div class="toddler planes-toddle span-20"></div>
+                <div class="toddler-line planes-toddler-line span-20"></div>
+              </div>
+              <div class="amount planes-amount span-2">1</div>
+            </div>
+            <header class="plane-title span-16 offset-2">Количество беспилотников</header>
+          </article>
+          <article class="span-10 defence">
+            <div class="amount-slider span-16 offset-2">
+                      <p onselectstart="return false;" title="ПВО" class="defence-icons span-12 offset-4">
+                        <svg class="defence-icon svg-blocks span-20 offset-1">
+                          <use xlink:href="#defence" class="defence-in-use"></use>
+                        </svg>
+                      </p>
+              <div class="toddler-slider defence-slider span-16 offset-2">
+                <div class="toddler defence-toddle span-20"></div>
+                <div class="toddler-line defence-toddler-line span-20"></div>
+              </div>
+              <div class="amount defence-amount span-2">1</div>
+            </div>
+            <header class="defence-title span-16 offset-2">Количество ПВО</header>
+          </article>
+        </section>
+        <section id="targets" onselectstart="return false;" class="span-8">
+          <header class="targets-main-title main-titles span-16 offset-2">
+            <h1>Цели</h1>
+          </header>
+          <article class="dotes-targets targets span-6">
+            <div class="amount-slider span-16 offset-2">
+                      <p onselectstart="return false;" title="Точечные цели" class="planes-icons span-20">
+                        <svg class="dotes-icon svg-blocks span-20">
+                          <use xlink:href="#dotes" class="dotes-in-use"></use>
+                        </svg>
+                      </p>
+              <div class="dotes-amount targets-amount span-2">1</div>
+              <div class="dotes-slider toddler-slider span-16 offset-2">
+                <div class="dotes-toddle toddler span-20"></div>
+                <div class="dotes-toddler-line toddler-line span-20"></div>
+              </div>
+            </div>
+            <header class="dotes-titles targets-title">Точечные цели</header>
+          </article>
+          <article class="area-targets targets span-6 offset-1">
+            <div class="amount-slider span-16 offset-2">
+                      <p onselectstart="return false;" title="Площадные цели" class="planes-icons span-20">
+                        <svg class="area-icon svg-blocks span-20">
+                          <use xlink:href="#area" class="area-in-use"></use>
+                        </svg>
+                      </p>
+              <div class="area-slider toddler-slider span-16 offset-2">
+                <div class="area-toddle toddler span-20"></div>
+                <div class="area-toddler-line toddler-line span-20"></div>
+              </div>
+              <div class="area-amount targets-amount span-2">1</div>
+            </div>
+            <header class="area-titles targets-title">Площадные цели</header>
+          </article>
+          <article class="trajectory-targets targets span-6 offset-1">
+            <div class="amount-slider span-16 offset-2">
+                      <p onselectstart="return false;" title="Траекторные цели" class="planes-icons span-20">
+                        <svg class="trajectory-icon svg-blocks span-20">
+                          <use xlink:href="#trajectory" class="trajectory-in-use"></use>
+                        </svg>
+                      </p>
+              <div class="trajectory-slider toddler-slider span-16 offset-2">
+                <div class="trajectory-toddle toddler span-20"></div>
+                <div class="trajectory-toddler-line toddler-line span-20"></div>
+              </div>
+              <div class="trajectory-amount targets-amount span-2">1</div>
+            </div>
+            <header class="trajectory-titles targets-title">Траекторные цели</header>
+          </article>
+        </section>
+        <section id="loading-scripts" onselectstart="return false" class="span-8 offset-2 row">
+          <header class="span-16 offset-2 algorithm-main-title">
+            <h1>Алгоритмы</h1>
+          </header>
+          <section class="algorithms span-20">
+            <article hidden="true" id="active-algorithm" class="ready-algorithm span-20 algorithm-0 hidden">
+              <header class="algorithm-script span-16 offset-1">
+                <h3 class="algorithm-title span-18 offset-1">111</h3>
+              </header>
+              <div class="state span-2 offset-2"></div>
+            </article>
+          </section>
+          <header class="load-scripts-title span-20">
+            <form action="/upload" enctype="multipart/form-data" method="POST" id="upload-form" class="span-20">
+              <input type="file" id="upload-file" accept="application/x-javascript,application/javascript,application/ecmascript,text/javascript,text/ecmascript" multiple="multiple" name="file"/>
+            </form>
+            <label for="upload-file" class="input-file-trigger span-4 offset-8">
+              <h2 class="load-title span-12 offset-4"></h2>
+                      <p onselectstart="return false;" title="Загрузка алгоритмов" class="load-icons span-20">
+                        <svg class="load-icon svg-blocks span-20">
+                          <use xlink:href="#load" class="load-in-use"></use>
+                        </svg>
+                      </p>
+            </label>
+          </header>
+          <div class="choosen-file span-20">
+            <p class="file-name span-20">Загружать только файлы с расширением '.js\!</p>
+            <!-- input(type="button" onclick="start()" value="test" id='test-button')-->
+          </div>
+        </section>
+        <section class="wrapp-coords span-8">
+          <header class="span-16 offset-2 main-title-coordinates">
+            <h1>Установка координат</h1>
+          </header>
+          <section class="main-coordinates span-20 row">
+            <section id="polygon-base" onselectstart="return false" class="span-20 row">
+              <header class="span-16 offset-2 base-main-title">
+                <h1>Координаты базирования</h1>
+              </header>
+              <div class="base-coords span-20">
+                <table cellpadding="5" class="base-coords-table span-20">
+                  <tbody class="span-20">
+                    <tr class="span-20 coords">
+                      <td class="base-coordinates-id span-2">B.</td>
+                      <td class="lon-base span-9 not-choosen">-</td>
+                      <td class="lat-base span-9 not-choosen">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table cellpadding="5" class="base-headers-table span-20">
+                  <tbody class="span-20">
+                    <tr class="span-20 coords-headers">
+                      <td class="lon-base-headers span-9 offset-2">Долгота</td>
+                      <td class="lat-base-headers span-9">Широта</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <input id="set-base" type="button" value="" class="set-coords"/>
+                <label for="set-base" class="set-place span-4 offset-9">
+                              <p onselectstart="return false;" title="Установить координаты" class="place-based-icons span-20">
+                                <svg class="place-based-icon svg-blocks span-20">
+                                  <use xlink:href="#place-based" class="place-based-in-use"></use>
+                                </svg>
+                              </p>
+                </label>
+              </div>
+            </section>
+            <section id="dotes-coordinates" onselectstart="return false" class="span-20 row">
+              <header class="span-16 offset-2 dotes-coordinates-main-title">
+                <h1>Координаты точечных целей</h1>
+              </header>
+              <div class="dotes-coords span-20">
+                <table cellpadding="5" class="dotes-coords-table span-20">
+                  <tbody class="span-20 dotes-body">
+                    <tr class="span-20 dotes-coords-row dotes-coordinate-1">
+                      <td class="dotes-coordinates-id span-2">1D.</td>
+                      <td class="lon-dotes-hla span-9 lon-dhla-1 not-choosen">-</td>
+                      <td class="lat-dotes-hla span-9 lat-dhla-1 not-choosen">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table cellpadding="5" class="dotes-headers-table span-20">
+                  <tbody class="span-20">
+                    <tr class="span-20 dotes-coords-headers">
+                      <td class="lon-dotes-headers span-9 offset-2">Долгота</td>
+                      <td class="lat-dotes-headers span-9 ">Широта</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <input id="set-dotes" type="button" value="" class="set-coords"/>
+                <label for="set-dotes" class="set-dotes span-4 offset-9">
+                  <p title="Установить координаты" class="dotes-tip">⦁⦁⦁</p>
+                </label>
+              </div>
+            </section>
+            <section id="trajectory-coordinates" onselectstart="return false" class="span-20 row">
+              <header class="span-16 offset-2 base-main-title">
+                <h1>Координаты траекторных целей</h1>
+              </header>
+              <div class="trajectory-coords span-20">
+                <table cellpadding="5" class="trajectory-coords-table span-20">
+                  <tbody class="span-20 trajectory-table-body">
+                    <tr class="span-20 coords trajectory-coords-row trajectory-coordinate-1-1">
+                      <td class="trajectory-coordinates-id span-2">1T.1</td>
+                      <td class="lon-trajectory-hla span-9 lon-thla-1-1 not-choosen">-</td>
+                      <td class="lat-trajectory-hla span-9 lat-thla-1-1 not-choosen">-</td>
+                    </tr>
+                    <tr class="span-20 coords trajectory-coords-row trajectory-coordinate-1-2 ">
+                      <td class="trajectory-coordinates-id span-2">1T.2</td>
+                      <td class="lon-trajectory-hla span-9 lon-thla-1-2 not-choosen">-</td>
+                      <td class="lat-trajectory-hla span-9 lat-thla-1-2 not-choosen">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table cellpadding="5" class="trajectory-headers-table span-20">
+                  <tbody class="span-20">
+                    <tr class="span-20 trajectory-coords-headers">
+                      <td class="lon-trajectory-headers span-9 offset-2">Долгота</td>
+                      <td class="lat-trajectory-headers span-9">Широта</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <input id="set-trajectory" type="button" value="" class="set-coords"/>
+                <label for="set-trajectory" class="set-trajectory span-4 offset-9">
+                  <p title="Установить координаты" class="trajectory-tip">&#8594</p>
+                </label>
+              </div>
+            </section>
+            <section id="area-coordinates" onselectstart="return false" class="span-20 row">
+              <header class="span-16 offset-2 area-main-title">
+                <h1>Координаты площадных целей</h1>
+              </header>
+              <div class="area-coords span-20">
+                <table cellpadding="5" class="area-coords-table span-20">
+                  <tbody class="span-20">
+                    <tr class="span-20 area-coordinate-1-1 area-coords-row">
+                      <td class="area-coordinates-id span-2">1A.1</td>
+                      <td class="lon-area-hla span-9 lon-ahla-1-1 not-choosen">-</td>
+                      <td class="lat-area-hla span-9 lat-ahla-1-1 not-choosen">-</td>
+                    </tr>
+                    <tr class="span-20 coords area-coordinate-1-2 area-coords-row">
+                      <td class="area-coordinates-id span-2">1A.2</td>
+                      <td class="lon-area-hla span-9 lon-ahla-1-2 not-choosen">-</td>
+                      <td class="lat-area-hla span-9 lat-ahla-1-2 not-choosen">-</td>
+                    </tr>
+                    <tr class="span-20 coords area-coordinate-1-3 area-coords-row">
+                      <td class="area-coordinates-id span-2">1A.3</td>
+                      <td class="lon-area-hla span-9 lon-ahla-1-3 not-choosen">-</td>
+                      <td class="lat-area-hla span-9 lat-ahla-1-3 not-choosen">-</td>
+                    </tr>
+                    <tr class="span-20 coords area-coordinate-1-4 area-coords-row">
+                      <td class="area-coordinates-id span-2">1A.4</td>
+                      <td class="lon-area-hla span-9 lon-ahla-1-4 not-choosen">-</td>
+                      <td class="lat-area-hla span-9 lat-ahla-1-4 not-choosen">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table cellpadding="5" class="area-headers-table span-20">
+                  <tbody class="span-20">
+                    <tr class="span-20 area-coords-headers">
+                      <td class="lon-area-headers span-9 offset-2">Долгота</td>
+                      <td class="lat-area-headers span-9">Широта</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <input id="set-area" type="button" value="" class="set-coords"/>
+                <label for="set-area" class="set-area span-4 offset-9">
+                  <p title="Установить координаты" class="area-tip">&#8983;</p>
+                </label>
+              </div>
+            </section>
+          </section>
+        </section>
+        <section class="row span-20 drones">
+          <header class="drones-main-head span-16 offset-2">
+            <h1>Выбрать типы беспилотников</h1>
+          </header>
+          <section class="span-10 offset-5 drone-types">
+                    <article class="span-20 row hard-drones">
+                      <header class="span-20 hd-header">
+                        <h1>Тяжелые</h1>
+                      </header>
+                      <input type="checkbox" name="hard" id="hard-drone-1" class="hard-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-1">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 usa-icon country-icons">
+                                    <p onselectstart="return false;" title="usa" class="usa-icons span-20">
+                                      <svg class="usa-icon svg-blocks span-20">
+                                        <use xlink:href="#usa" class="usa-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">RQ Global Hawk</h2>
+                          <input type="button" id="hard-drone-more-1" class="hard-drone-hide"/>
+                          <label for="hard-drone-more-1" class="hard-drone-buttons span-4">Подробнее</label>
+                          <label for="hard-drone-1" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="hard-drone-amount-1" placeholder="Количество беспилотников" class="span-2 hard-drone-amount"/>
+                          <input type="button" id="hard-drone-close-1" class="hard-drone-cls"/>
+                          <label for="hard-drone-close-1" class="hard-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">22779</p>
+                            </article>
+                            <article class="span-20 common-chars speed-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">575</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">32</p>
+                            </article>
+                            <article class="span-20 common-chars detection-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Радиус обнаружения</h3>
+                              </header>
+                              <p class="span-7 chars-values">100</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                      <input type="checkbox" name="hard" id="hard-drone-2" class="hard-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-2">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 isr-icon country-icons">
+                                    <p onselectstart="return false;" title="isr" class="isr-icons span-20">
+                                      <svg class="isr-icon svg-blocks span-20">
+                                        <use xlink:href="#isr" class="isr-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">Hermes</h2>
+                          <input type="button" id="hard-drone-more-2" class="hard-drone-hide"/>
+                          <label for="hard-drone-more-2" class="hard-drone-buttons span-4">Подробнее</label>
+                          <label for="hard-drone-2" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="hard-drone-amount-2" placeholder="Количество беспилотников" class="span-2 hard-drone-amount"/>
+                          <input type="button" id="hard-drone-close-2" class="hard-drone-cls"/>
+                          <label for="hard-drone-close-2" class="hard-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">4000</p>
+                            </article>
+                            <article class="span-20 common-chars speed-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">222</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">36</p>
+                            </article>
+                            <article class="span-20 common-chars detection-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Радиус обнаружения</h3>
+                              </header>
+                              <p class="span-7 chars-values">50</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                      <input type="checkbox" name="hard" id="hard-drone-3" class="hard-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-3">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 rus-icon country-icons">
+                                    <p onselectstart="return false;" title="rus" class="rus-icons span-20">
+                                      <svg class="rus-icon svg-blocks span-20">
+                                        <use xlink:href="#rus" class="rus-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">Альтиус-М</h2>
+                          <input type="button" id="hard-drone-more-3" class="hard-drone-hide"/>
+                          <label for="hard-drone-more-3" class="hard-drone-buttons span-4">Подробнее</label>
+                          <label for="hard-drone-3" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="hard-drone-amount-3" placeholder="Количество беспилотников" class="span-2 hard-drone-amount"/>
+                          <input type="button" id="hard-drone-close-3" class="hard-drone-cls"/>
+                          <label for="hard-drone-close-3" class="hard-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">10000</p>
+                            </article>
+                            <article class="span-20 common-chars speed-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">300</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">48</p>
+                            </article>
+                            <article class="span-20 common-chars detection-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Радиус обнаружения</h3>
+                              </header>
+                              <p class="span-7 chars-values">80</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                    </article>
+                    <article class="span-20 row middle-drones">
+                      <header class="span-20 md-header">
+                        <h1>Средние</h1>
+                      </header>
+                      <input type="checkbox" name="middle" id="middle-drone-1" class="middle-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-1">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 usa-icon country-icons">
+                                    <p onselectstart="return false;" title="usa" class="usa-icons span-20">
+                                      <svg class="usa-icon svg-blocks span-20">
+                                        <use xlink:href="#usa" class="usa-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">GA ALTUS</h2>
+                          <input type="button" id="middle-drone-more-1" class="middle-drone-hide"/>
+                          <label for="middle-drone-more-1" class="middle-drone-buttons span-4">Подробнее</label>
+                          <label for="middle-drone-1" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="middle-drone-amount-1" placeholder="Количество беспилотников" class="span-2 middle-drone-amount"/>
+                          <input type="button" id="middle-drone-close-1" class="middle-drone-cls"/>
+                          <label for="middle-drone-close-1" class="middle-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">735</p>
+                            </article>
+                            <article class="span-20 common-chars speed-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">130</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">24</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                      <input type="checkbox" name="middle" id="middle-drone-2" class="middle-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-2">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 isr-icon country-icons">
+                                    <p onselectstart="return false;" title="isr" class="isr-icons span-20">
+                                      <svg class="isr-icon svg-blocks span-20">
+                                        <use xlink:href="#isr" class="isr-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">Harpy</h2>
+                          <input type="button" id="middle-drone-more-2" class="middle-drone-hide"/>
+                          <label for="middle-drone-more-2" class="middle-drone-buttons span-4">Подробнее</label>
+                          <label for="middle-drone-2" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="middle-drone-amount-2" placeholder="Количество беспилотников" class="span-2 middle-drone-amount"/>
+                          <input type="button" id="middle-drone-close-2" class="middle-drone-cls"/>
+                          <label for="middle-drone-close-2" class="middle-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">400</p>
+                            </article>
+                            <article class="span-20 common-chars speed-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">250</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">3</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                      <input type="checkbox" name="middle" id="middle-drone-3" class="middle-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-3">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 rus-icon country-icons">
+                                    <p onselectstart="return false;" title="rus" class="rus-icons span-20">
+                                      <svg class="rus-icon svg-blocks span-20">
+                                        <use xlink:href="#rus" class="rus-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">Дозор-85</h2>
+                          <input type="button" id="middle-drone-more-3" class="middle-drone-hide"/>
+                          <label for="middle-drone-more-3" class="middle-drone-buttons span-4">Подробнее</label>
+                          <label for="middle-drone-3" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="middle-drone-amount-3" placeholder="Количество беспилотников" class="span-2 middle-drone-amount"/>
+                          <input type="button" id="middle-drone-close-3" class="middle-drone-cls"/>
+                          <label for="middle-drone-close-3" class="middle-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">900</p>
+                            </article>
+                            <article class="span-20 common-chars speed-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">150</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">8</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                    </article>
+                    <article class="span-20 row light-drones">
+                      <header class="span-20 lt-header">
+                        <h1>Малые</h1>
+                      </header>
+                      <input type="checkbox" name="light" id="light-drone-1" class="light-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-1">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 usa-icon country-icons">
+                                    <p onselectstart="return false;" title="usa" class="usa-icons span-20">
+                                      <svg class="usa-icon svg-blocks span-20">
+                                        <use xlink:href="#usa" class="usa-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">RQ-11 Raven</h2>
+                          <input type="button" id="light-drone-more-1" class="light-drone-hide"/>
+                          <label for="light-drone-more-1" class="light-drone-buttons span-4">Подробнее</label>
+                          <label for="light-drone-1" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="light-drone-amount-1" placeholder="Количество беспилотников" class="span-2 light-drone-amount"/>
+                          <input type="button" id="light-drone-close-1" class="light-drone-cls"/>
+                          <label for="light-drone-close-1" class="light-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">10</p>
+                            </article>
+                            <article class="span-20 common-chars speed-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">95</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-1">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">1</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                      <input type="checkbox" name="light" id="light-drone-2" class="light-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-2">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 isr-icon country-icons">
+                                    <p onselectstart="return false;" title="isr" class="isr-icons span-20">
+                                      <svg class="isr-icon svg-blocks span-20">
+                                        <use xlink:href="#isr" class="isr-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">MicroB</h2>
+                          <input type="button" id="light-drone-more-2" class="light-drone-hide"/>
+                          <label for="light-drone-more-2" class="light-drone-buttons span-4">Подробнее</label>
+                          <label for="light-drone-2" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="light-drone-amount-2" placeholder="Количество беспилотников" class="span-2 light-drone-amount"/>
+                          <input type="button" id="light-drone-close-2" class="light-drone-cls"/>
+                          <label for="light-drone-close-2" class="light-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">10</p>
+                            </article>
+                            <article class="span-20 common-chars speed-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">85</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-2">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">1</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                      <input type="checkbox" name="light" id="light-drone-3" class="light-drone-checks"/>
+                      <article class="span-20 sub-drones sdr-3">
+                        <header class="span-20 sub-headers">
+                          <div class="span-1 offset-1 rus-icon country-icons">
+                                    <p onselectstart="return false;" title="rus" class="rus-icons span-20">
+                                      <svg class="rus-icon svg-blocks span-20">
+                                        <use xlink:href="#rus" class="rus-in-use"></use>
+                                      </svg>
+                                    </p>
+                          </div>
+                          <h2 class="drone-name span-8">Типчак</h2>
+                          <input type="button" id="light-drone-more-3" class="light-drone-hide"/>
+                          <label for="light-drone-more-3" class="light-drone-buttons span-4">Подробнее</label>
+                          <label for="light-drone-3" class="span-4 drones-names">Выбрать</label>
+                          <input type="text" id="light-drone-amount-3" placeholder="Количество беспилотников" class="span-2 light-drone-amount"/>
+                          <input type="button" id="light-drone-close-3" class="light-drone-cls"/>
+                          <label for="light-drone-close-3" class="light-drone-close-buttons span-4">⨯</label>
+                        </header>
+                        <article class="span-14 offset-3 chars">
+                          <header class="span-20 chars-header">
+                            <h2>Технические характеристики</h2>
+                          </header>
+                          <div class="chars-group span-16 offset-2">
+                            <article class="span-20 common-chars range-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Дальность, км</h3>
+                              </header>
+                              <p class="span-7 chars-values">40</p>
+                            </article>
+                            <article class="span-20 common-chars speed-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Скорость, км/ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">198</p>
+                            </article>
+                            <article class="span-20 common-chars endurance-3">
+                              <header class="span-13 common-chars-title">
+                                <h3>Продолжительность полёта, ч</h3>
+                              </header>
+                              <p class="span-7 chars-values">2</p>
+                            </article>
+                          </div>
+                        </article>
+                      </article>
+                    </article>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script src="js/all.js"></script>
+  </body>
+</html>

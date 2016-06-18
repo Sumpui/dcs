@@ -584,9 +584,11 @@ article[hidden="true"] {
   background: #336f94;
 }
 #simulate,
-#switch {
+#switch,
+#to-defence {
   cursor: pointer;
   dispaly: block;
+  border-radius: 3px;
   background: none;
   border: none;
   height: 36px;
@@ -594,16 +596,19 @@ article[hidden="true"] {
   font-weight: 600;
 }
 #simulate:hover,
-#switch:hover {
+#switch:hover,
+#to-defence:hover {
   box-shadow: 0px 1px 7px 0px rgba(49,74,74,0.4);
 }
 #simulate:active,
-#switch:active {
+#switch:active,
+#to-defence:active {
   margin-top: 3px;
   box-shadow: 0px 1px 3px 0px transparent;
 }
 #simulate:focus,
-#switch:focus {
+#switch:focus,
+#to-defence:focus {
   outline: none;
 }
 #simulate {
@@ -613,6 +618,10 @@ article[hidden="true"] {
 #switch {
   background: #90ee90;
   color: #10634c;
+}
+#to-defence {
+  background: #414a4c;
+  color: #9aceeb;
 }
 /*=====  End of Simulate  ======*/
 /*==============================

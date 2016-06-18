@@ -174,7 +174,7 @@
       amount: '.dotes-amount',
     },
     options: {
-      divisions: 30
+      divisions: 50
     }
   });
 

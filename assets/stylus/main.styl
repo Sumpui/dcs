@@ -33,6 +33,7 @@ outer-space = #414a4c rgba(65, 74, 76, .1)
 
 brill-blue = #336f94 #1f445b
 mint = #4988a0 rgba(73,136,160, .1)
+bright-cerulian = #1dacd6 rgba(29,172,214, .2)
 
 corn-flower = rgba(154, 206, 235, .3) rgba(154,206,235, 1)
 
@@ -42,7 +43,7 @@ blue-black = #070707 rgba(7, 7, 7, .4)
 
 
 red-purple = #23001e
-
+carmine = #ff0040 rgba(255, 0, 64, .3)
 /*=====  End of Colors  ======*/
 
 /*==========================================
@@ -614,9 +615,10 @@ article[hidden="true"]
 #simulate
   background brill-blue[0]
 
-#simulate, #switch
+#simulate, #switch, #to-defence
   cursor pointer
   dispaly block
+  border-radius 3px
   nostyle()
   height baseline*2
   shd(0, 0px, 1px, 3px, 0px, dark-slate-gray[1])
@@ -640,7 +642,9 @@ article[hidden="true"]
   // &:hover
   //   shd(0, 0px, 1px, 3px, 0px, red-purple[0])
 
-
+#to-defence
+  background outer-space[0]
+  color corn-flower[1]
 /*=====  End of Simulate  ======*/
 
 /*==============================

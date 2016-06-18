@@ -57,7 +57,7 @@ function Planes(){
      */
     
     drawCircle(polygon, drone.base.x, drone.base.y, r, startAngle, endAngle, 0, color, 2);
-    drawText(polygon, 'white', '9px serif', allDrones);
+    drawText(polygon, 'white', '9px serif', allDrones.length, [allDrones[0].base.x, allDrones[0].base.x]);
     drawCircle(polygon, drone.base.x, drone.base.y, r + 6, startAngle, endAngle, color, 0, 2);
 
 
@@ -507,7 +507,7 @@ function Planes(){
              *
              */
             
-            humane.log('Моделирование завершено за ' + options[3] + ' минут');
+            humane.log('Моделирование завершено за ' + options[3] + ' минуты');
             console.log('Simulating has been completed.');
             console.log(activeDrones.all);
             activeDrones.time.taskRun = options[3];

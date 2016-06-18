@@ -8161,8 +8161,7 @@ function iHide(place, txt) {
         height: "100%",
         width: "100%",
         top: 0,
-        left: 0,
-        borderTop: "3px solid #90ee90"
+        left: 0
     });
     css(snow, {
         position: "absolute",
@@ -8231,12 +8230,12 @@ function drawCircle(can, x, y, r, s, e, sc, fc, lw, tx) {
     }
 }
 
-function drawText(p, c, f, t) {
+function drawText(p, c, f, t, prop) {
     p.beginPath();
     p.fillStyle = c;
     p.font = f;
     var width = p.measureText(t.length).width, height = p.measureText("w").width;
-    p.fillText(t.length, t[0].base.x - width / 2, t[0].base.y + height / 2);
+    p.fillText(t, prop[0] - width / 2, prop[1] + height / 2);
 }
 
 function random(a, b) {
@@ -8804,75 +8803,8 @@ MapInteraction.prototype.canvas.setBase = function(sample) {
     };
 };
 
-MapInteraction.prototype.canvas.createPolygons = function(sample) {
-    var mainPolygon = get("#polygon"), control = get("#controls"), controlParent = control.parentNode, each = Array.prototype.forEach, dotesAmount = parseInt(get(".dotes-amount")[0].innerText), trajectoryAmount = parseInt(get(".trajectory-amount")[0].innerText), areaAmount = parseInt(get(".area-amount")[0].innerText), amount = [ {
-        dotes: dotesAmount
-    }, {
-        trajectory: trajectoryAmount
-    }, {
-        area: areaAmount
-    } ], canvases = [], groups = [], max = -Infinity, inds = 5;
-    amount.forEach(function(x, i, a) {
-        for (var e in x) {
-            if (x.hasOwnProperty(e)) {
-                if (x[e] >= max) {
-                    max = x[e];
-                }
-            }
-        }
-    });
-    amount.forEach(function(x, i, a) {
-        for (var p in x) {
-            if (x.hasOwnProperty(p)) {
-                var arr = [];
-                for (var j = 0; j <= x[p] - 1; j++) {
-                    var polygon = document.createElement("canvas");
-                    polygon.width = mainPolygon.width;
-                    polygon.height = mainPolygon.height;
-                    polygon.id = j + 1 + p.slice(0, 1).toUpperCase();
-                    polygon.className = p + "-polygon";
-                    css(polygon, {
-                        zIndex: inds += 1
-                    });
-                    arr.push(polygon);
-                }
-                groups.push(p);
-                canvases.push(arr);
-            }
-        }
-    });
-    groups.forEach(function(x, i, a) {
-        var existed = get("." + x + "-polygons"), elements = get("." + x + "-polygon");
-        console.log(x);
-        if (existed.length) {
-            if (amount[i][x] <= elements.length) {
-                existed[0].remove();
-                var group = document.createElement("div");
-                group.className = x + "-polygons common-polygons";
-                for (var t in canvases) {
-                    if (canvases.hasOwnProperty(t)) {
-                        if (t === x) {
-                            var can = canvases[t];
-                            group.appendChild(can);
-                        }
-                    }
-                }
-                controlParent.insertBefore(group, control);
-            } else {}
-        }
-    });
-    canvases.forEach(function(x, i, a) {
-        var group = document.createElement("div");
-        group.className = groups[i] + "-polygons common-polygons";
-        x.forEach(function(y, j, b) {
-            group.appendChild(y);
-        });
-        controlParent.insertBefore(group, control);
-    });
-};
-
 MapInteraction.prototype.canvas.setDotes = function(sample) {
-    var mainPolygon = get("#polygon"), polygon = sample.canvasMap.getContext("2d"), counter = count(1);
+    var polygon = sample.canvasMap.getContext("2d"), counter = count(1);
     sample.dotes.button.onclick = function() {
         var amount = parseInt(sample.dotes.amount.innerText), dotesLen = sample.dotesCoordinates.length, r = sample.dotes.radius, d = r * 2 * 2;
         if (amount <= dotesLen - 1) {
@@ -9055,6 +8987,71 @@ MapInteraction.prototype.canvas.setTrajectory = function(sample) {
     }
 };
 
+MapInteraction.prototype.canvas.setAirDefence = function(sample) {
+    var polygon = sample.canvasMap.getContext("2d"), counter = count(1);
+    sample.airDefence.button.onclick = function() {
+        var amount = parseInt(sample.airDefence.amount.innerText), defencesLen = sample.defenceCoordinates.length, r = sample.airDefence.radius, d = r * 2 * 2;
+        if (amount <= defencesLen) {
+            var coords = sample.defenceCoordinates;
+            for (var i = 0; i <= coords.length - 1; i++) {
+                polygon.clearRect(coords[i].x - d * 2 * 2, coords[i].y - d * 2 * 2.65, d * 2 * 2 * 5, d * 2 * 2 * 2);
+            }
+            counter = count(1);
+            coords.length = 0;
+            sample.airDefence.coordinates.length = 0;
+        }
+        var snowball = get(".snow"), defenceAmount = sample.airDefence.amount.innerText, cenColor = "rgba(68, 110, 199, .3)", rColor = "rgba(68, 110, 199, 1)", ending = "";
+        defenceAmount > 1 ? ending = " установок ПВО!" : ending = " установку ПВО!";
+        if (!snowball.length) {
+            iHide(sample.panel, "Кликните на карту и определите " + amount + ending);
+        }
+        sample.canvasMap.onmousemove = function(e) {
+            this.onclick = function() {
+                var len = sample.defenceCoordinates.length;
+                var offset = sample.canvasMap.getBoundingClientRect(), x0 = e.clientX - offset.left, y0 = e.clientY - offset.top, startAngle = 0, endAngle = 2 * Math.PI, val = counter();
+                drawCircle(polygon, x0, y0, r + 20, startAngle, endAngle, 0, cenColor, 2, 0);
+                drawCircle(polygon, x0, y0, r - 6, startAngle, endAngle, 0, rColor, 2, 0);
+                drawText(polygon, rColor, "9px Tahoma", val.toString() + "Def", [ x0 + 5, y0 + 9 ]);
+                MapInteraction.prototype.defenceCoordinates.push({
+                    name: val + "Def",
+                    x: x0,
+                    y: y0
+                });
+                sample.airDefence.coordinates.push({
+                    name: val + "Def",
+                    x: x0,
+                    y: y0,
+                    radius: {
+                        pixels: r + 15,
+                        kilometers: (r + 15) / sample.kInP
+                    }
+                });
+                if (len + 1 === amount) {
+                    var closeSnow = get(".snow-close-it")[0], par = get(".snow-paragraph")[0];
+                    css(closeSnow, {
+                        opacity: 0
+                    });
+                    css(par, {
+                        opacity: 0
+                    });
+                    closeSnow.className = closeSnow.className + " confirm-base";
+                    replaceInSleep(closeSnow, "Подтвердить", 300);
+                    replaceInSleep(par, "Задание целей произошло успешно!", 300);
+                    css(closeSnow, {
+                        top: "20%"
+                    });
+                    awake(closeSnow);
+                    awake(par);
+                    sample.canvasMap.onmousemove = null;
+                    sample.canvasMap.onclick = null;
+                    humane.log("Вы установили все ПВО.");
+                    console.log(sample.airDefence.coordinates);
+                }
+            };
+        };
+    };
+};
+
 MapInteraction.prototype.computeDistance = function(kind) {
     var map = new MapInteraction();
     MapInteraction.prototype.kInP = 2.84210526315789;
@@ -9142,6 +9139,7 @@ MapInteraction.prototype.canvas.initialize = function(sp) {
     this.setBase(sp);
     this.setDotes(sp);
     this.setTrajectory(sp);
+    this.setAirDefence(sp);
     return this;
 };
 
@@ -9150,6 +9148,8 @@ MapInteraction.prototype.baseBalloon = [];
 MapInteraction.prototype.baseCoordinates = [];
 
 MapInteraction.prototype.dotesCoordinates = [];
+
+MapInteraction.prototype.defenceCoordinates = [];
 
 MapInteraction.prototype.areaCoordinates = [];
 
@@ -9279,7 +9279,14 @@ MapInteraction.prototype.distances = {};
                 yH: get(".lat-area-headers")[0]
             },
             amount: get(".area-amount")[0],
-            button: get("#set-area")
+            button: get("#set-area"),
+            radius: 1.2
+        },
+        airDefence: {
+            coordinates: [],
+            radius: 10,
+            amount: get(".defence-amount")[0],
+            button: get("#to-defence")
         }
     });
     var cv = mapData.canvas;
@@ -9290,10 +9297,10 @@ MapInteraction.prototype.distances = {};
             var canvas = get("#polygon"), static = get("#static-map");
             sleep(canvas, static);
             css(canvas, {
-                zIndex: 200
+                zIndex: 4
             });
             css(static, {
-                zIndex: 4,
+                zIndex: 3,
                 background: "rgba(255, 255, 255, .4)"
             });
             awake(canvas, static);
@@ -9312,7 +9319,7 @@ MapInteraction.prototype.distances = {};
                 });
                 css(static, {
                     zIndex: 0,
-                    background: "rgba(255, 255, 255, .4)"
+                    background: "rgba(255, 255, 255, 0)"
                 });
                 awake(canvas, static);
                 this.value = "Переключиться на холст";
@@ -9352,7 +9359,7 @@ function Planes() {
             polygon.clearRect(drone.base.x - (d + r), drone.base.y - (d + r), d * 2.5, d * 2.5);
         }
         drawCircle(polygon, drone.base.x, drone.base.y, r, startAngle, endAngle, 0, color, 2);
-        drawText(polygon, "white", "9px serif", allDrones);
+        drawText(polygon, "white", "9px serif", allDrones.length, [ allDrones[0].base.x, allDrones[0].base.x ]);
         drawCircle(polygon, drone.base.x, drone.base.y, r + 6, startAngle, endAngle, color, 0, 2);
         var planesPolygon = get(".actions"), each = Array.prototype.forEach;
         if (planesPolygon.length) {
@@ -9533,7 +9540,7 @@ function Planes() {
                     });
                     console.log("" + hours + ":" + minutes + ":" + seconds, "" + d.name + "-" + d.iAm + " has completed task for " + countedDate);
                     if (cmp === currentAmount) {
-                        humane.log("Моделирование завершено за " + options[3] + " минут");
+                        humane.log("Моделирование завершено за " + options[3] + " минуты");
                         console.log("Simulating has been completed.");
                         console.log(activeDrones.all);
                         activeDrones.time.taskRun = options[3];
@@ -9751,7 +9758,7 @@ function Planes() {
             amount: ".dotes-amount"
         },
         options: {
-            divisions: 30
+            divisions: 50
         }
     });
     dotes.create();
