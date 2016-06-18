@@ -531,7 +531,7 @@ MapInteraction.prototype.canvas.setDotes = function(sample) {
      */
     var snowball = get('.snow')
       , dotesAmount = sample.dotes.amount.innerText
-      , color = 'rgba(255,64,64, .6)'
+      , color = 'rgba(255,64,64, 1)'
       , ending = '';
 
     dotesAmount > 1 ? ending = ' точечных целей!': ending = ' точечную цель!';
