@@ -91,7 +91,8 @@
 
           }, 300);
         } else{
-          this.placeholder = 'Количество БПЛА.';
+          // this.placeholder = 'Количество БПЛА.';
+          this.placeholder = 'БПЛА осталось: ' + (maxValue - allValues);
         }
 
         /**

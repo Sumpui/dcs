@@ -8420,7 +8420,7 @@ function getDistance(start, end) {
                         time += 300;
                     }, 300);
                 } else {
-                    this.placeholder = "Количество БПЛА.";
+                    this.placeholder = "БПЛА осталось: " + (maxValue - allValues);
                 }
                 if (currentValue === maxValue) {
                     var c = counting();
