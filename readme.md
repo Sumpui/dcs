@@ -47,31 +47,30 @@ To understand that the system works, I've created the simplest drone communicati
 You need to follow next steps to test the system:
 
 * Set ammount of dotes, trajectories, like it shown here
+
 ![The screenshot](https://image.ibb.co/mio7fa/1_Step.png)
-**Figure 1.**
 
 * Set amount of drones and air defence the same slide moving.
 
 * Choose the algorithm by clicking on its name.
 
 ![The screenshot](https://image.ibb.co/fg4PRF/2_Step.png)
-**Figure 2.**
 
 * Switch on canvas layer by clicking the button 'Переключиться на холст'.
+
 ![The screenshot](http://image.prntscr.com/image/f9de6d1b443946c7b7b0c61147164c7f.png)
-**Figure 3.**
 
 * Add base location and dotes, trajectories, ~~areas~~ of observation on canvas map.
+
 ![The screenshot](http://image.prntscr.com/image/e3a93bab813049c0947c47c9ce4e364f.png)
-**Figure 4.**
 
 * Choose your set of drones.
+
 ![The screenshot](http://image.prntscr.com/image/de479b49fcf74ae5b509d3ec6df5ea62.png)
-**Figure 5.**
 
 * Click on the button 'Моделировать' to start testing algorithm.
+
 ![The screenshot](http://image.prntscr.com/image/eb849ac0895a403ebc7054d2b6236e3b.png)
-**Figure6.**
 
 ## Built With
 
