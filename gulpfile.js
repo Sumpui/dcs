@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     connect = require('gulp-connect'),
-    svgSprite = require('gulp-svg-sprites'),
+    svgSprite = require('gulp-svg-symbols'),
     svgmin = require('gulp-svgmin'),
     svg2png = require('gulp-svg2png');
 
@@ -17,7 +17,7 @@ gulp.task('connect', function(){
     })
   })
 
-gulp.task('jade', function(){
+gulp.task('jade', ['svg-sprites'], function(){
   return gulp.src('./assets/jade/*.jade')
       .pipe(jade({pretty: true}))
       .pipe(gulp.dest('public'))
@@ -59,13 +59,10 @@ gulp.task('clean', ['concat', 'compress'], function(){
             .pipe(clean());
 });
 
-gulp.task('svg-sprites', ['clean-svg', 'jade'], function(){
+gulp.task('svg-sprites', function(){
   return gulp.src('assets/graphics/icons/svg/*.svg')
             .pipe(svgmin())
-            .pipe(svgSprite({
-              preview: false,
-              mode: 'symbols'
-            }))
+            .pipe(svgSprite())
             .pipe(gulp.dest('assets/jade/icons/sprite'))
 });
 
